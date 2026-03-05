@@ -1,0 +1,10 @@
+{
+  "name": "catalist-deliverables",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static deliverable pages for Catalist Group clients and partners",
+  "scripts": {
+    "dev": "npx serve public -l 3001",
+    "build": "echo 'Static site — no build step required'"
+  }
+}

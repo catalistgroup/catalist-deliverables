@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catalist Group — Purchase Order for Jus30Dayz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-display: 'DM Serif Display', Georgia, serif;
+    --blue-deep: #0a1628;
+    --blue-hero: #1a3af5;
+    --blue-mid: #2548f7;
+    --blue-light: #4d6bfa;
+    --blue-glow: rgba(26, 58, 245, 0.12);
+    --white: #ffffff;
+    --off-white: #f7f8fc;
+    --surface: #ffffff;
+    --border: rgba(0, 0, 0, 0.06);
+    --border-bright: rgba(0, 0, 0, 0.12);
+    --text: #0f172a;
+    --text-dim: #64748b;
+    --text-light: #94a3b8;
+    --green: #059669;
+    --green-dim: rgba(5, 150, 105, 0.08);
+    --amber: #d97706;
+    --amber-dim: rgba(217, 119, 6, 0.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --off-white: #0d1117;
+      --surface: #161b22;
+      --border: rgba(255, 255, 255, 0.06);
+      --border-bright: rgba(255, 255, 255, 0.12);
+      --text: #e2e8f0;
+      --text-dim: #94a3b8;
+      --text-light: #64748b;
+      --green: #34d399;
+      --green-dim: rgba(52, 211, 153, 0.1);
+      --amber: #fbbf24;
+      --amber-dim: rgba(251, 191, 36, 0.1);
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--off-white); font-family: var(--font-body); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .hero { background: linear-gradient(135deg, var(--blue-deep) 0%, #0d1f5c 40%, var(--blue-hero) 100%); color: var(--white); padding: 48px 40px 44px; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -60%; right: -20%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(77, 107, 250, 0.2) 0%, transparent 70%); pointer-events: none; }
+  .hero-inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+  .hero-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; }
+  .logo-area { display: flex; align-items: center; gap: 14px; }
+  .logo-mark { width: 44px; height: 44px; }
+  .logo-text { font-weight: 800; font-size: 20px; letter-spacing: -0.02em; color: var(--white); }
+  .logo-sub { font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.5); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
+  .po-badge { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 10px 18px; text-align: right; }
+  .po-badge-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 2px; }
+  .po-badge-num { font-size: 16px; font-weight: 700; color: var(--white); }
+  .hero-title { font-family: var(--font-display); font-size: 36px; font-weight: 400; line-height: 1.2; margin-bottom: 6px; letter-spacing: -0.01em; }
+  .hero-title em { font-style: italic; color: var(--blue-light); }
+  .hero-subtitle { font-size: 15px; color: rgba(255,255,255,0.6); font-weight: 400; max-width: 480px; }
+  .client-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--border); border-radius: 12px; overflow: hidden; margin: -24px 40px 0; position: relative; z-index: 2; box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04); }
+  .client-cell { background: var(--surface); padding: 20px 24px; }
+  .client-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-light); margin-bottom: 4px; }
+  .client-value { font-size: 15px; font-weight: 600; color: var(--text); }
+  .client-value-sub { font-size: 12px; color: var(--text-dim); font-weight: 400; margin-top: 1px; }
+  .content { max-width: 980px; margin: 0 auto; padding: 48px 40px 40px; }
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 36px; }
+  .kpi-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; animation: fadeUp 0.5s ease both; }
+  .kpi-card:nth-child(1) { animation-delay: 0.05s; }
+  .kpi-card:nth-child(2) { animation-delay: 0.1s; }
+  .kpi-card:nth-child(3) { animation-delay: 0.15s; }
+  .kpi-card:nth-child(4) { animation-delay: 0.2s; }
+  .kpi-label { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-light); margin-bottom: 6px; }
+  .kpi-value { font-size: 26px; font-weight: 800; color: var(--text); letter-spacing: -0.02em; line-height: 1; }
+  .kpi-value--green { color: var(--green); }
+  .kpi-value--blue { color: var(--blue-hero); }
+  .kpi-note { font-size: 11px; color: var(--text-dim); margin-top: 4px; }
+  .section-title { font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .section-title::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--blue-hero); flex-shrink: 0; }
+  .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.03); margin-bottom: 24px; }
+  .table-scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  thead th { background: var(--off-white); padding: 12px 16px; text-align: left; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-dim); border-bottom: 1px solid var(--border); white-space: nowrap; position: sticky; top: 0; z-index: 1; }
+  thead th:last-child, thead th:nth-child(4), thead th:nth-child(5), thead th:nth-child(6) { text-align: right; }
+  tbody td { padding: 14px 16px; border-bottom: 1px solid var(--border); vertical-align: top; animation: fadeUp 0.4s ease both; animation-delay: calc(0.25s + var(--i, 0) * 0.04s); }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:nth-child(even) td { background: rgba(0,0,0,0.015); }
+  @media (prefers-color-scheme: dark) { tbody tr:nth-child(even) td { background: rgba(255,255,255,0.02); } }
+  tbody tr:hover td { background: var(--blue-glow); }
+  td:last-child, td:nth-child(4), td:nth-child(5), td:nth-child(6) { text-align: right; font-variant-numeric: tabular-nums; }
+  .product-name { font-weight: 600; color: var(--text); line-height: 1.35; max-width: 280px; }
+  .product-brand { font-size: 11px; color: var(--text-dim); font-weight: 500; margin-top: 2px; }
+  .margin-badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px; background: var(--green-dim); color: var(--green); }
+  .margin-badge--amber { background: var(--amber-dim); color: var(--amber); }
+  .category-tag { font-size: 11px; font-weight: 500; color: var(--text-light); background: var(--off-white); padding: 2px 8px; border-radius: 4px; white-space: nowrap; }
+  .total-row { display: flex; justify-content: flex-end; gap: 40px; padding: 20px 24px; background: linear-gradient(135deg, var(--blue-deep) 0%, #0d1f5c 100%); border-radius: 10px; color: var(--white); margin-bottom: 32px; animation: fadeUp 0.5s ease both; animation-delay: 0.55s; }
+  .total-item { text-align: right; }
+  .total-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 2px; }
+  .total-value { font-size: 22px; font-weight: 800; letter-spacing: -0.01em; }
+  .total-value--big { font-size: 28px; }
+  .cta-section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px; animation: fadeUp 0.5s ease both; animation-delay: 0.6s; }
+  .cta-text h3 { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .cta-text p { font-size: 13px; color: var(--text-dim); max-width: 420px; }
+  .cta-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--blue-hero); color: var(--white); padding: 12px 28px; border-radius: 8px; font-family: var(--font-body); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap; transition: background 0.15s ease, transform 0.15s ease; box-shadow: 0 2px 8px rgba(26,58,245,0.25); }
+  .cta-btn:hover { background: var(--blue-mid); transform: translateY(-1px); }
+  .cta-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+  .footer { max-width: 980px; margin: 0 auto; padding: 24px 40px 40px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--text-light); }
+  .footer a { color: var(--blue-hero); text-decoration: none; }
+  .notes { margin-top: 24px; padding: 20px 24px; background: var(--off-white); border: 1px solid var(--border); border-radius: 10px; animation: fadeUp 0.5s ease both; animation-delay: 0.65s; }
+  .notes-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-dim); margin-bottom: 8px; }
+  .notes ul { list-style: none; padding: 0; }
+  .notes li { font-size: 13px; color: var(--text-dim); line-height: 1.6; padding-left: 16px; position: relative; margin-bottom: 4px; }
+  .notes li::before { content: ''; position: absolute; left: 0; top: 9px; width: 4px; height: 4px; border-radius: 50%; background: var(--blue-light); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+  @media (max-width: 768px) { .hero { padding: 32px 24px 36px; } .hero-title { font-size: 26px; } .client-bar { grid-template-columns: 1fr; margin: -20px 24px 0; } .content { padding: 36px 24px 32px; } .kpi-row { grid-template-columns: 1fr 1fr; } .total-row { flex-direction: column; gap: 12px; align-items: flex-end; } .cta-section { flex-direction: column; text-align: center; } .cta-text p { max-width: 100%; } .footer { flex-direction: column; gap: 8px; text-align: center; } .hero-top { flex-direction: column; gap: 16px; } .po-badge { text-align: left; } }
+  @media print { body { background: white; } .hero { -webkit-print-color-adjust: exact; print-color-adjust: exact; } .total-row { -webkit-print-color-adjust: exact; print-color-adjust: exact; } .cta-btn { background: var(--blue-hero) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; } * { animation: none !important; } }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-top">
+      <div class="logo-area">
+        <svg class="logo-mark" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22 4C12.06 4 4 12.06 4 22s8.06 18 18 18 18-8.06 18-18S31.94 4 22 4zm-4.5 26.5c-3.58 0-6.5-2.92-6.5-6.5s2.92-6.5 6.5-6.5c1.62 0 3.1.6 4.24 1.58L19.4 21.4a2.5 2.5 0 1 0 0 3.18l2.34 2.34A6.47 6.47 0 0 1 17.5 30.5zm9 0a6.47 6.47 0 0 1-4.24-1.58l2.34-2.34a2.5 2.5 0 1 0 0-3.18l-2.34-2.34A6.47 6.47 0 0 1 26.5 17.5c3.58 0 6.5 2.92 6.5 6.5s-2.92 6.5-6.5 6.5z" fill="white"/>
+        </svg>
+        <div>
+          <div class="logo-text">Catalist Group</div>
+          <div class="logo-sub">B2B Wholesale</div>
+        </div>
+      </div>
+      <div class="po-badge">
+        <div class="po-badge-label">Curated Recommendation</div>
+        <div class="po-badge-num">March 4, 2026</div>
+      </div>
+    </div>
+    <h1 class="hero-title">Your <em>Starter</em> Product Selection</h1>
+    <p class="hero-subtitle">Hand-picked products optimized for new sellers — strong margins, proven demand, and ungated categories.</p>
+  </div>
+</header>
+<div class="client-bar">
+  <div class="client-cell">
+    <div class="client-label">Prepared For</div>
+    <div class="client-value">Daniel Taylor</div>
+    <div class="client-value-sub">Jus30Dayz</div>
+  </div>
+  <div class="client-cell">
+    <div class="client-label">Contact</div>
+    <div class="client-value">jus30days.business@gmail.com</div>
+    <div class="client-value-sub">(713) 454-2744</div>
+  </div>
+  <div class="client-cell">
+    <div class="client-label">Budget</div>
+    <div class="client-value">Under $6,000</div>
+    <div class="client-value-sub">First order — open category</div>
+  </div>
+</div>
+<main class="content">
+  <div class="kpi-row">
+    <div class="kpi-card">
+      <div class="kpi-label">Total Investment</div>
+      <div class="kpi-value kpi-value--blue">$4,198</div>
+      <div class="kpi-note">Under budget by $1,802</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Products</div>
+      <div class="kpi-value">8 SKUs</div>
+      <div class="kpi-note">672 total units</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Avg Margin</div>
+      <div class="kpi-value kpi-value--green">~41%</div>
+      <div class="kpi-note">Range: 25% – 58%</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Categories</div>
+      <div class="kpi-value">4</div>
+      <div class="kpi-note">Diversified mix</div>
+    </div>
+  </div>
+  <div class="section-title">Recommended Products</div>
+  <div class="table-wrap">
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 36%;">Product</th>
+            <th>Category</th>
+            <th>Margin</th>
+            <th>Unit Price</th>
+            <th>Qty</th>
+            <th>Line Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="--i: 0;">
+            <td><div class="product-name">Swing Bottle 8.5 oz — Airtight Glass</div><div class="product-brand">Bormioli Rocco</div></td>
+            <td><span class="category-tag">Home &amp; Kitchen</span></td>
+            <td><span class="margin-badge">36.8%</span></td>
+            <td>$2.84</td>
+            <td>84</td>
+            <td><strong>$238.56</strong></td>
+          </tr>
+          <tr style="--i: 1;">
+            <td><div class="product-name">Fido Square Jar 17.5 oz — Airtight Storage</div><div class="product-brand">Bormioli Rocco</div></td>
+            <td><span class="category-tag">Home &amp; Kitchen</span></td>
+            <td><span class="margin-badge">36.6%</span></td>
+            <td>$4.52</td>
+            <td>84</td>
+            <td><strong>$379.68</strong></td>
+          </tr>
+          <tr style="--i: 2;">
+            <td><div class="product-name">Organic Planting Soil — Acid Loving Plants (20 Qt)</div><div class="product-brand">Coast of Maine</div></td>
+            <td><span class="category-tag">Patio &amp; Garden</span></td>
+            <td><span class="margin-badge">53.4%</span></td>
+            <td>$6.57</td>
+            <td>84</td>
+            <td><strong>$551.88</strong></td>
+          </tr>
+          <tr style="--i: 3;">
+            <td><div class="product-name">2 Gallon Drink Dispenser for Fridge — BPA Free</div><div class="product-brand">Arrow Home Products</div></td>
+            <td><span class="category-tag">Home &amp; Kitchen</span></td>
+            <td><span class="margin-badge">58.2%</span></td>
+            <td>$10.24</td>
+            <td>84</td>
+            <td><strong>$860.16</strong></td>
+          </tr>
+          <tr style="--i: 4;">
+            <td><div class="product-name">Insulated Hot &amp; Cold Food Delivery Bags (20"x19")</div><div class="product-brand">Superio</div></td>
+            <td><span class="category-tag">Industrial</span></td>
+            <td><span class="margin-badge">49.6%</span></td>
+            <td>$3.78</td>
+            <td>84</td>
+            <td><strong>$317.52</strong></td>
+          </tr>
+          <tr style="--i: 5;">
+            <td><div class="product-name">Candy &amp; Deep Fry Ruler Thermometer — TCG400</div><div class="product-brand">CDN</div></td>
+            <td><span class="category-tag">Home &amp; Kitchen</span></td>
+            <td><span class="margin-badge">35.7%</span></td>
+            <td>$7.88</td>
+            <td>84</td>
+            <td><strong>$661.92</strong></td>
+          </tr>
+          <tr style="--i: 6;">
+            <td><div class="product-name">Hermetic Seal Glass Pitcher 67.75 oz — Teal Lid</div><div class="product-brand">Bormioli Rocco</div></td>
+            <td><span class="category-tag">Home &amp; Kitchen</span></td>
+            <td><span class="margin-badge">32.9%</span></td>
+            <td>$9.56</td>
+            <td>84</td>
+            <td><strong>$802.88</strong></td>
+          </tr>
+          <tr style="--i: 7;">
+            <td><div class="product-name">Bug Wash Windshield Washer Fluid — 1 Gallon</div><div class="product-brand">Prestone</div></td>
+            <td><span class="category-tag">Automotive</span></td>
+            <td><span class="margin-badge margin-badge--amber">25.1%</span></td>
+            <td>$4.59</td>
+            <td>84</td>
+            <td><strong>$385.56</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="total-row">
+    <div class="total-item">
+      <div class="total-label">Total Units</div>
+      <div class="total-value">672</div>
+    </div>
+    <div class="total-item">
+      <div class="total-label">Total SKUs</div>
+      <div class="total-value">8</div>
+    </div>
+    <div class="total-item">
+      <div class="total-label">Order Total</div>
+      <div class="total-value total-value--big">$4,198.16</div>
+    </div>
+  </div>
+  <div class="cta-section">
+    <div class="cta-text">
+      <h3>Ready to place your order?</h3>
+      <p>Log in to the Catalist portal to review products, adjust quantities, and submit your purchase order.</p>
+    </div>
+    <a href="https://b2b.catalistgroup.co" class="cta-btn" target="_blank">
+      Open Portal
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3l5 5-5 5"/></svg>
+    </a>
+  </div>
+  <div class="notes">
+    <div class="notes-title">Important Notes</div>
+    <ul>
+      <li>All products selected are in ungated categories — no brand approval required for new seller accounts</li>
+      <li>Minimum order quantity (MOQ) is 84 units per SKU across all items</li>
+      <li>Margins shown are estimated based on current buy box prices and may vary with market conditions</li>
+      <li>Prep &amp; pack fees may apply depending on fulfillment requirements — contact us for details</li>
+      <li>Prices are valid for 7 days from the date of this recommendation</li>
+    </ul>
+  </div>
+</main>
+<footer class="footer">
+  <div>Catalist Group — 287 Park Avenue South, New York, NY 10010</div>
+  <div><a href="https://catalistgroup.co">catalistgroup.co</a> &nbsp;|&nbsp; <a href="https://b2b.catalistgroup.co">b2b.catalistgroup.co</a></div>
+</footer>
+</body>
+</html>
