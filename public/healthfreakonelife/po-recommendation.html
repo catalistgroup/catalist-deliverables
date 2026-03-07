@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catalist Group — PO Recommendation for Health Freak One Life</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-primary: 'DM Sans', system-ui, -apple-system, sans-serif;
+      --font-accent: 'Instrument Serif', Georgia, serif;
+      --font-mono: 'JetBrains Mono', Consolas, monospace;
+      --primary: #0066FF;
+      --primary-hover: #0052CC;
+      --blue-900: #1e3a8a;
+      --blue-600: #2563eb;
+      --blue-500: #3b82f6;
+      --bg: #FFFFFF;
+      --bg-alt: #FAFBFC;
+      --bg-muted: #F3F4F6;
+      --fg: #111827;
+      --muted: #6B7280;
+      --muted-fg: #9CA3AF;
+      --border: #E5E7EB;
+      --border-strong: #D1D5DB;
+      --radius: 0.75rem;
+      --radius-lg: 1rem;
+      --radius-xl: 1.5rem;
+      --radius-2xl: 2rem;
+      --radius-full: 9999px;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-primary);
+      color: var(--fg);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .accent {
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeScale { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    @keyframes float1 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-30px, 20px); } }
+    @keyframes float2 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(20px, -30px); } }
+    .anim { animation: fadeUp 0.5s ease-out both; animation-delay: calc(var(--i, 0) * 0.04s); }
+    .anim-s { animation: fadeScale 0.4s ease-out both; animation-delay: calc(var(--i, 0) * 0.04s); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-delay: 0ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
+      position: relative;
+      overflow: hidden;
+      padding: 0;
+    }
+    .hero-orb1 {
+      position: absolute;
+      top: -200px; right: -100px;
+      width: 600px; height: 600px;
+      background: rgba(11, 36, 251, 0.2);
+      border-radius: 50%;
+      filter: blur(100px);
+      animation: float1 20s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .hero-orb2 {
+      position: absolute;
+      bottom: -100px; left: -50px;
+      width: 400px; height: 400px;
+      background: rgba(0, 102, 255, 0.15);
+      border-radius: 50%;
+      filter: blur(100px);
+      animation: float2 25s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .hero-fade {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 120px;
+      background: linear-gradient(to top, #fff, transparent);
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 40px 80px;
+    }
+    .hero-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 48px;
+    }
+    .hero-logo img {
+      height: 32px;
+      opacity: 0.9;
+    }
+    .hero-prepared {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+      font-family: var(--font-mono);
+      letter-spacing: 0.5px;
+    }
+    .hero-content { max-width: 800px; }
+    .hero h1 {
+      font-size: 64px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -2px;
+      line-height: 1.05;
+      margin-bottom: 12px;
+    }
+    .hero-sub {
+      font-size: 18px;
+      color: rgba(255,255,255,0.65);
+      font-weight: 400;
+      line-height: 1.5;
+      margin-bottom: 40px;
+      max-width: 600px;
+    }
+    .hero-kpis {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .hero-kpi {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      backdrop-filter: blur(12px);
+    }
+    .hero-kpi__val {
+      font-size: 48px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+      letter-spacing: -1.5px;
+      font-variant-numeric: tabular-nums;
+    }
+    .hero-kpi__label {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+      margin-top: 6px;
+    }
+
+    /* CONTENT */
+    .content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* CLIENT INFO BAR */
+    .client-bar {
+      display: flex;
+      gap: 40px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 24px 32px;
+      margin: -32px 0 40px;
+      position: relative;
+      z-index: 2;
+    }
+    .client-bar__item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .client-bar__label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+    }
+    .client-bar__value {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--fg);
+    }
+
+    /* BRAND SECTION */
+    .brand-section {
+      margin-bottom: 40px;
+    }
+    .brand-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--border);
+    }
+    .brand-name {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--fg);
+      letter-spacing: -0.5px;
+    }
+    .brand-category {
+      font-size: 12px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      color: var(--primary);
+      background: rgba(0, 102, 255, 0.08);
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      letter-spacing: 0.3px;
+    }
+    .brand-subtotal {
+      font-size: 13px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      color: var(--muted);
+      margin-left: auto;
+    }
+
+    /* PRODUCT TABLE */
+    .product-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .product-table thead th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    .product-table thead th:nth-child(n+5) {
+      text-align: right;
+    }
+    .product-table tbody td {
+      padding: 12px 12px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    .product-table tbody td:nth-child(n+5) {
+      text-align: right;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .product-table tbody tr:hover {
+      background: var(--bg-alt);
+    }
+    .td-sku {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .td-name {
+      font-weight: 500;
+      color: var(--fg);
+      max-width: 300px;
+    }
+
+    /* BADGES */
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: var(--radius-full);
+      font-size: 11px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      white-space: nowrap;
+    }
+    .badge-green {
+      background: #ECFDF5;
+      color: #065F46;
+    }
+    .badge-yellow {
+      background: #FFFBEB;
+      color: #92400E;
+    }
+    .badge-gray {
+      background: var(--bg-muted);
+      color: var(--muted);
+    }
+    .badge-blue {
+      background: #EFF6FF;
+      color: #1E40AF;
+    }
+    .badge-sales {
+      font-size: 10px;
+      padding: 2px 7px;
+    }
+
+    /* TOTAL ROW */
+    .total-row {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
+      border-radius: var(--radius-lg);
+      margin-top: 32px;
+      padding: 24px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #fff;
+    }
+    .total-row__label {
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .total-row__info {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    .total-row__item {
+      text-align: right;
+    }
+    .total-row__item-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.55);
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .total-row__item-val {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* NOTES */
+    .notes {
+      margin: 48px 0;
+      padding: 32px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+    }
+    .notes h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--fg);
+    }
+    .notes ul {
+      list-style: none;
+      padding: 0;
+    }
+    .notes li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 10px;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .notes li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--primary);
+    }
+
+    /* CTA */
+    .cta {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
+      border-radius: var(--radius-2xl);
+      padding: 56px 48px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+      margin: 48px 0;
+    }
+    .cta h2 { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; }
+    .cta p { color: rgba(255,255,255,0.7); font-size: 16px; margin-bottom: 24px; }
+    .cta-btn {
+      display: inline-block;
+      background: #fff;
+      color: var(--primary);
+      padding: 14px 36px;
+      border-radius: var(--radius-full);
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      padding: 32px 40px;
+      font-size: 13px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      margin-top: 24px;
+    }
+    .footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .footer a:hover { text-decoration: underline; }
+    .footer div + div { margin-top: 4px; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 36px; letter-spacing: -1px; }
+      .hero-inner { padding: 24px 20px 60px; }
+      .hero-kpis { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .hero-kpi__val { font-size: 32px; }
+      .hero-sub { font-size: 15px; }
+      .content { padding: 0 20px; }
+      .client-bar { flex-direction: column; gap: 16px; padding: 20px; }
+      .product-table { font-size: 12px; display: block; overflow-x: auto; }
+      .brand-header { flex-wrap: wrap; }
+      .brand-subtotal { margin-left: 0; }
+      .total-row { flex-direction: column; gap: 16px; text-align: center; padding: 20px; }
+      .total-row__info { flex-direction: column; gap: 12px; }
+      .total-row__item { text-align: center; }
+      .total-row__item-val { font-size: 24px; }
+      .cta { padding: 36px 24px; }
+      .cta h2 { font-size: 24px; }
+      .notes { padding: 20px; }
+    }
+
+    /* PRINT */
+    @media print {
+      body { background: white; }
+      .hero, .cta, .total-row { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      * { animation: none !important; }
+      .product-table tbody tr:hover { background: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-orb1"></div>
+  <div class="hero-orb2"></div>
+  <div class="hero-fade"></div>
+  <div class="hero-inner">
+    <nav class="hero-nav">
+      <div class="hero-logo">
+        <img src="data:image/png;base64,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" alt="Catalist Group">
+      </div>
+      <span class="hero-prepared">Prepared March 2026</span>
+    </nav>
+    <div class="hero-content">
+      <h1 class="anim" style="--i:0">Recommended <span class="accent">Purchase Order</span></h1>
+      <p class="hero-sub anim" style="--i:2">A curated selection of high-margin health, wellness, and organic products handpicked for Health Freak One Life.</p>
+      <div class="hero-kpis">
+        <div class="hero-kpi anim-s" style="--i:4">
+          <div class="hero-kpi__val">$18,057</div>
+          <div class="hero-kpi__label">Total Investment</div>
+        </div>
+        <div class="hero-kpi anim-s" style="--i:5">
+          <div class="hero-kpi__val">30</div>
+          <div class="hero-kpi__label">SKUs</div>
+        </div>
+        <div class="hero-kpi anim-s" style="--i:6">
+          <div class="hero-kpi__val">43%</div>
+          <div class="hero-kpi__label">Avg Margin</div>
+        </div>
+        <div class="hero-kpi anim-s" style="--i:7">
+          <div class="hero-kpi__val">3</div>
+          <div class="hero-kpi__label">Categories</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CLIENT INFO BAR -->
+<div class="content">
+  <div class="client-bar anim" style="--i:9">
+    <div class="client-bar__item">
+      <span class="client-bar__label">Prepared For</span>
+      <span class="client-bar__value">Ian Webster</span>
+    </div>
+    <div class="client-bar__item">
+      <span class="client-bar__label">Company</span>
+      <span class="client-bar__value">Health Freak One Life LLC</span>
+    </div>
+    <div class="client-bar__item">
+      <span class="client-bar__label">Contact</span>
+      <span class="client-bar__value">sales@healthfreakonelife.com</span>
+    </div>
+    <div class="client-bar__item">
+      <span class="client-bar__label">Seller Profile</span>
+      <span class="client-bar__value">5+ Years &middot; $100K+/mo Spend</span>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT TABLES -->
+<div class="content">
+
+  <!-- Sovereign Silver -->
+  <div class="brand-section anim" style="--i:11">
+    <div class="brand-header">
+      <span class="brand-name">Sovereign Silver</span>
+      <span class="brand-category">Vitamins &amp; Supplements</span>
+      <span class="brand-subtotal">Subtotal: $4,260.61</span>
+    </div>
+    <table class="product-table">
+      <thead>
+        <tr>
+          <th>SKU</th>
+          <th>Product</th>
+          <th>Margin</th>
+          <th>Sales</th>
+          <th>Unit Price</th>
+          <th>Qty</th>
+          <th>Line Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-sku">B006I7DKJ2</td>
+          <td class="td-name">Sovereign Silver Immune Support Dropper Top, 8 oz</td>
+          <td><span class="badge badge-green">44.5%</span></td>
+          <td><span class="badge badge-gray badge-sales">No data</span></td>
+          <td>$17.20</td>
+          <td>59</td>
+          <td>$1,014.80</td>
+        </tr>
+        <tr>
+          <td class="td-sku">B00OTZK0Z2</td>
+          <td class="td-name">Sovereign Silver Immune Support, 32 oz Twist Top</td>
+          <td><span class="badge badge-yellow">10.7%</span></td>
+          <td><span class="badge badge-blue badge-sales">1K+/mo</span></td>
+          <td>$41.06</td>
+          <td>21</td>
+          <td>$862.26</td>
+        </tr>
+        <tr>
+          <td class="td-sku">B08RS4FQ1T</td>
+          <td class="td-name">Sovereign Silver Immune Support, 64 oz Twist Top</td>
+          <td><span class="badge badge-yellow">10.6%</span></td>
+          <td><span class="badge badge-blue badge-sales">200+/mo</span></td>
+          <td>$78.11</td>
+          <td>13</td>
+          <td>$1,015.43</td>
+        </tr>
+        <tr>
+          <td class="td-sku">B077HMB8R7</td>
+          <td class="td-name">Sovereign Silver Bio-Active Hydrosol, 16 oz Value</td>
+          <td><span class="badge badge-gray">7.0%</span></td>
+          <td><span class="badge badge-blue badge-sales">700+/mo</span></td>
+          <td>$26.31</td>
+          <td>26</td>
+          <td>$684.06</td>
+        </tr>
+        <tr>
+          <td class="td-sku">B00GEF1DXI</td>
+          <td class="td-name">Sovereign Silver Immune Support, 16 oz Twist Top</td>
+          <td><span class="badge badge-gray">6.1%</span></td>
+          <td><span class="badge badge-blue badge-sales">3K+/mo</span></td>
+          <td>$26.31</td>
+          <td>26</td>
+          <td>$684.06</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- HealthSmart -->
+  <div class="brand-section anim" style="--i:13">
+    <div class="brand-header">
+      <span class="brand-name">HealthSmart</span>
+      <span class="brand-category">Health &amp; Wellness</span>
+      <span class="brand-subtotal">Subtotal: $3,399.89</span>
+    </div>
+    <table class="product-table">
+      <thead>
+        <tr>
+          <th>SKU</th>
+          <th>Product</th>
+          <th>Margin</th>
+          <th>Sales</th>
+          <th>Unit Price</th>
+          <th>Qty</th>
+          <th>Line Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-sku">B000CR1DNY</td>
+          <td class="td-name">HealthSmart Retractable Ice Tip Adjustable Cane</td>
+          <td><span class="badge badge-green">62.4%</span></td>
+          <td><span class="badge badge-gray badge-sales">No data</span></td>
+          <td>$12.75</td>
+          <td>54</td>
+          <td>$688.50</td>
+        </tr>
+        <tr>
+          <td class="td-sku">B008SI91QK</td>
+          <td class="td-name">Mabis Caliber Aneroid Sphygmomanometer, Adult</td>
+          <td><span class="badge badge-green">54.9%</span></td>
+          <td><span class="badge badge-gray badge-sales">No data</span></td>
+          <td>$29.60</td>
+          <td>24</td>
+          <td>$710.40</td>
+        </tr>
+        <tr>
+          <td class="td-sku">B000WNJGZK</td>
+          <td class="td-name">Zippered Plastic Mattress Protector, Hospital</td>
+          <td><span class="badge badge-green">54.3%</span></td>
+          <td><span class="badge badge-gray badge-sales">No data</span></td>
+          <td>$9.85</td>
+          <td>75</td>
+          <td>$738.75</td>
+        </tr>
+        <tr>
+          <td class="td-sku">B00ZY6O33K</td>
+          <td class="td-name">HealthSmart Lumbar Support Pillow, Black</td>
+          <td><span class="badge badge-green">46.6%</span></td>
+          <td><span class="badge badge-gray badge-sales">No data</span></td>
+          <td>$6.65</td>
+          <td>84</td>
+          <td>$558.60</td>
+        </tr>
+        <tr>
+          <td class="td-sku">B008SIAT8Y</td>
+          <td class="td-name">Self-Taking Home Blood Pressure Kit, Large Adult</td>
+          <td><span class="badge badge-green">39.9%</span></td>
+          <td><span class="badge badge-gray badge-sales">No data</span></td>
+          <td>$25.13</td>
+          <td>28</td>
+          <td>$703.64</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- MABIS -->
+  <div class="brand-section anim" style="--i:15">
+    <div class="brand-header">
+      <span class="brand-name">MABIS</span>
+      <span class="brand-category">Health &amp; Wellness</span>
+      <span class="brand-subtotal">Subtotal: $3,224.67</span>
+    </div>
+    <table class="product-table">
+      <thead>
+        <tr>
+          <th>SKU</th>
+          <th>Product</th>
+          <th>Margin</th>
+          <th>Sales</th>
+          <th>Unit Price</th>
+          <th>Qty</th>
+          <th>Line Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-sku">B009YMF802</td>
+          <td class="td-name">MABIS Heel Protector with One Strap</td>
+          <td><span class="badge badge-green">65.5%</span></td>
+          <td><span class="badge badge-gray badge-sales">No data</span></td>
+          <td>$8.52</td>
+          <td>84</td>
+          <td>$715.68</td>
+        </tr>
+        <tr>
+          <td class="td-sku">B01LB2S7NW</td>
+          <td class="td-name">MABIS Retractable Tape Measure, Blue</td>
+          <td><span class="badge badge-green">52.8%</span></td>
+          <td><span class="badge badge-gray badge-sales">No data</span></td>
+          <td>$2.54</td>
+          <td>84</td>
+          <td>$213.36</td>
+        </tr>
+        <tr>
+          <td class="td-sku">B003DLPJVI</td>
+          <td class="td-name">DMI Sloping Seat Mate Coccyx Cushion</td>
+          <td><span class="badge badge-green">39.6%</span></td>
+          <td><span class="badge badge-gray badge-sales">No data</span></td>
+          <td>$18.27</td>
+          <td>50</td>
+          <td>$913.50</td>
+        </tr>
+        <tr>
+          <td class="td-sku">B001E6M08E</td>
+          <td class="td-name">MABIS Disposable Blood Pressure Cuffs, 5ct</td>
+          <td><span class="badge badge-green">36.0%</span></td>
+          <td><span class="badge badge-gray badge-sales">No data</span></td>
+          <td>$25.67</td>
+          <td>27</td>
+          <td>$693.09</td>
+        </tr>
+        <tr>
+          <td class="td-sku">B00W5TCOH6</td>
+          <td class="td-name">Deluxe Off-Set Adjustable Cane, Bronze</td>
+          <td><span class="badge badge-green">34.7%</span></td>
+          <td><span class="badge badge-gray badge-sales">No data</span></td>
+          <td>$12.76</td>
+          <td>54</td>
+          <td>$689.04</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- DMI -->
+  <div class="brand-section anim" style="--i:17">
+    <div class="brand-header">
+      <span class="brand-name">DMI</span>
+      <span class="brand-category">Health &amp; Wellness</span>
+      <span class="brand-subtotal">Subtotal: $3,969.97</span>
+    </div>
+    <table class="product-table">
+      <thead>
+        <tr>
+          <th>SKU</th>
+          <th>Product</th>
+          <th>Margin</th>
+          <th>Sales</th>
+          <th>Unit Price</th>
+          <th>Qty</th>
+          <th>Line Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-sku">B000BO9VZ0</td>
+          <td class="td-name">DMI Adjustable Folding Walkers, Blue, 2ct</td>
+          <td><span class="badge badge-green">60.0%</span></td>
+          <td><span class="badge badge-gray badge-sales">No data</span></td>
+          <td>$45.32</td>
+          <td>20</td>
+          <td>$906.40</td>
+        </tr>
+        <tr>
+          <td class="td-sku">B013TLMVV2</td>
+          <td class="td-name">DMI Relax-a-Bac Moist Heating Pad, Lavender</td>
+          <td><span class="badge badge-green">48.0%</span></td>
+          <td><span class="badge badge-gray badge-sales">No data</span></td>
+          <td>$14.37</td>
+          <td>50</td>
+          <td>$718.50</td>
+        </tr>
+        <tr>
+          <td class="td-sku">B001ANOX2M</td>
+          <td class="td-name">DMI Neck Roll, 5x19</td>
+          <td><span class="badge badge-green">33.5%</span></td>
+          <td><span class="badge badge-gray badge-sales">No data</span></td>
+          <td>$8.23</td>
+          <td>84</td>
+          <td>$691.32</td>
+        </tr>
+        <tr>
+          <td class="td-sku">B000HLWFWI</td>
+          <td class="td-name">DMI Hospital Gown with Back Ties, Blue</td>
+          <td><span class="badge badge-green">30.1%</span></td>
+          <td><span class="badge badge-gray badge-sales">No data</span></td>
+          <td>$9.77</td>
+          <td>75</td>
+          <td>$732.75</td>
+        </tr>
+        <tr>
+          <td class="td-sku">B000G015XK</td>
+          <td class="td-name">DMI Convoluted Foam Ring Donut Pillow, Navy</td>
+          <td><span class="badge badge-green">27.8%</span></td>
+          <td><span class="badge badge-gray badge-sales">No data</span></td>
+          <td>$12.28</td>
+          <td>75</td>
+          <td>$921.00</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Starwest Botanicals -->
+  <div class="brand-section anim" style="--i:19">
+    <div class="brand-header">
+      <span class="brand-name">Starwest Botanicals</span>
+      <span class="brand-category">Organic &amp; Natural Foods</span>
+      <span class="brand-subtotal">Subtotal: $1,774.08</span>
+    </div>
+    <table class="product-table">
+      <thead>
+        <tr>
+          <th>SKU</th>
+          <th>Product</th>
+          <th>Margin</th>
+          <th>Sales</th>
+          <th>Unit Price</th>
+          <th>Qty</th>
+          <th>Line Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-sku">B001ECTYCI</td>
+          <td class="td-name">Bergamot Essential Oil, 10ml</td>
+          <td><span class="badge badge-green">66.5%</span></td>
+          <td><span class="badge badge-gray badge-sales">No data</span></td>
+          <td>$3.61</td>
+          <td>84</td>
+          <td>$303.24</td>
+        </tr>
+        <tr>
+          <td class="td-sku">B002HNDWSA</td>
+          <td class="td-name">Cedarwood Atlas Essential Oil, 10ml</td>
+          <td><span class="badge badge-green">65.9%</span></td>
+          <td><span class="badge badge-gray badge-sales">No data</span></td>
+          <td>$2.86</td>
+          <td>84</td>
+          <td>$240.24</td>
+        </tr>
+        <tr>
+          <td class="td-sku">B00O9FOKOO</td>
+          <td class="td-name">Black Pepper Essential Oil, 10ml</td>
+          <td><span class="badge badge-green">65.7%</span></td>
+          <td><span class="badge badge-gray badge-sales">No data</span></td>
+          <td>$3.58</td>
+          <td>84</td>
+          <td>$300.72</td>
+        </tr>
+        <tr>
+          <td class="td-sku">B01MR47OCS</td>
+          <td class="td-name">Organic Ginger Essential Oil, 10ml</td>
+          <td><span class="badge badge-green">62.4%</span></td>
+          <td><span class="badge badge-gray badge-sales">No data</span></td>
+          <td>$5.40</td>
+          <td>84</td>
+          <td>$453.60</td>
+        </tr>
+        <tr>
+          <td class="td-sku">B005P0EQNC</td>
+          <td class="td-name">Clary Sage Essential Oil, 10ml</td>
+          <td><span class="badge badge-green">61.9%</span></td>
+          <td><span class="badge badge-gray badge-sales">No data</span></td>
+          <td>$5.67</td>
+          <td>84</td>
+          <td>$476.28</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Handy Pantry -->
+  <div class="brand-section anim" style="--i:21">
+    <div class="brand-header">
+      <span class="brand-name">Handy Pantry</span>
+      <span class="brand-category">Organic &amp; Natural Foods</span>
+      <span class="brand-subtotal">Subtotal: $1,428.00</span>
+    </div>
+    <table class="product-table">
+      <thead>
+        <tr>
+          <th>SKU</th>
+          <th>Product</th>
+          <th>Margin</th>
+          <th>Sales</th>
+          <th>Unit Price</th>
+          <th>Qty</th>
+          <th>Line Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-sku">B00B2QBKBY</td>
+          <td class="td-name">Organic Protein Powerhouse Sprouting Blend, 8 oz</td>
+          <td><span class="badge badge-green">63.0%</span></td>
+          <td><span class="badge badge-gray badge-sales">No data</span></td>
+          <td>$3.21</td>
+          <td>84</td>
+          <td>$269.64</td>
+        </tr>
+        <tr>
+          <td class="td-sku">B000NSI75O</td>
+          <td class="td-name">Organic Sunflower Sprouting Seeds, 8 oz</td>
+          <td><span class="badge badge-green">49.1%</span></td>
+          <td><span class="badge badge-gray badge-sales">No data</span></td>
+          <td>$3.81</td>
+          <td>84</td>
+          <td>$320.04</td>
+        </tr>
+        <tr>
+          <td class="td-sku">B0010XPQDW</td>
+          <td class="td-name">Organic Wheatgrass Seeds, 1 lb</td>
+          <td><span class="badge badge-green">41.1%</span></td>
+          <td><span class="badge badge-gray badge-sales">No data</span></td>
+          <td>$2.99</td>
+          <td>84</td>
+          <td>$251.16</td>
+        </tr>
+        <tr>
+          <td class="td-sku">B0FCSJVF25</td>
+          <td class="td-name">Organic Brown Mustard Sprouting Seeds, 8 oz</td>
+          <td><span class="badge badge-green">27.4%</span></td>
+          <td><span class="badge badge-gray badge-sales">No data</span></td>
+          <td>$3.95</td>
+          <td>84</td>
+          <td>$331.80</td>
+        </tr>
+        <tr>
+          <td class="td-sku">B000N9CNLM</td>
+          <td class="td-name">Organic Fenugreek Sprouting Seeds, 4 oz</td>
+          <td><span class="badge badge-green">23.2%</span></td>
+          <td><span class="badge badge-gray badge-sales">No data</span></td>
+          <td>$3.04</td>
+          <td>84</td>
+          <td>$255.36</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- TOTAL ROW -->
+  <div class="total-row anim" style="--i:23">
+    <div class="total-row__label">Recommended PO Total</div>
+    <div class="total-row__info">
+      <div class="total-row__item">
+        <div class="total-row__item-label">SKUs</div>
+        <div class="total-row__item-val">30</div>
+      </div>
+      <div class="total-row__item">
+        <div class="total-row__item-label">Brands</div>
+        <div class="total-row__item-val">6</div>
+      </div>
+      <div class="total-row__item">
+        <div class="total-row__item-label">Avg Margin</div>
+        <div class="total-row__item-val">43%</div>
+      </div>
+      <div class="total-row__item">
+        <div class="total-row__item-label">Total</div>
+        <div class="total-row__item-val">$18,057.22</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTES -->
+  <div class="notes anim" style="--i:25">
+    <h3>Notes &amp; Terms</h3>
+    <ul>
+      <li>Prices shown are wholesale unit costs from Catalist Group. All prices are subject to availability and may change.</li>
+      <li>Quantities shown are minimum order quantities (MOQs) per SKU. Orders below MOQ are not eligible for these prices.</li>
+      <li>Sovereign Silver products have strong sales velocity — the 16 oz and 32 oz sizes are high-volume movers ideal for inventory rotation.</li>
+      <li>HealthSmart, MABIS, and DMI offer a complementary health &amp; wellness range with strong margins averaging 30-65%.</li>
+      <li>Starwest Botanicals essential oils and Handy Pantry organic seeds carry exceptional margins (40-66%) with low per-unit cost.</li>
+      <li>Some brands may require ungating before listing. Use the Catalist ungating tool at <a href="https://b2b.catalistgroup.co/ungating" style="color:var(--primary)">b2b.catalistgroup.co/ungating</a> to check eligibility and get approved.</li>
+      <li>Place your order through the Catalist B2B Portal at <a href="https://b2b.catalistgroup.co" style="color:var(--primary)">b2b.catalistgroup.co</a> for real-time inventory and checkout.</li>
+    </ul>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta anim" style="--i:27">
+    <div class="hero-orb1" style="width:300px;height:300px;top:-100px;right:-50px;"></div>
+    <div class="hero-orb2" style="width:250px;height:250px;bottom:-80px;left:-30px;"></div>
+    <h2>Ready to Get Started?</h2>
+    <p>Browse our full catalog, check ungating status, and place orders through the Catalist B2B Portal.</p>
+    <a href="https://b2b.catalistgroup.co" class="cta-btn">Visit b2b.catalistgroup.co</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div>Catalist Group &mdash; 287 Park Avenue South, New York, NY 10010</div>
+  <div><a href="https://catalistgroup.co">catalistgroup.co</a> &nbsp;|&nbsp; <a href="https://b2b.catalistgroup.co">b2b.catalistgroup.co</a></div>
+</footer>
+
+</body>
+</html>
