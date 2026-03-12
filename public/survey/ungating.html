@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ungating Intelligence Survey | Catalist Group</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-primary: #0066FF;
+      --color-primary-foreground: #FFFFFF;
+      --color-dark: #0A0A0A;
+      --color-background: #FFFFFF;
+      --color-background-alt: #FAFBFC;
+      --color-background-muted: #F3F4F6;
+      --color-foreground: #111827;
+      --color-muted: #6B7280;
+      --color-muted-foreground: #9CA3AF;
+      --color-border: #E5E7EB;
+      --color-success: #10B981;
+      --color-error: #EF4444;
+      --radius: 0.75rem;
+      --radius-lg: 1rem;
+      --radius-xl: 1.5rem;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+      --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.1);
+      --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+      color: var(--color-foreground);
+      background: var(--color-background);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+    }
+
+    .accent {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-style: italic;
+    }
+
+    /* ===== Progress Bar ===== */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: var(--color-primary);
+      z-index: 1000;
+      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 0%;
+    }
+
+    /* ===== Loading State ===== */
+    #loading-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      gap: 1.5rem;
+    }
+
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 3px solid var(--color-border);
+      border-top-color: var(--color-primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      color: var(--color-muted);
+      font-size: 0.9375rem;
+    }
+
+    /* ===== Error State ===== */
+    #error-screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 2rem;
+      gap: 1rem;
+    }
+
+    .error-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #FEF2F2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+    }
+
+    .error-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--color-foreground);
+    }
+
+    .error-message {
+      color: var(--color-muted);
+      max-width: 400px;
+      font-size: 0.9375rem;
+    }
+
+    /* ===== Survey Container ===== */
+    #survey-container {
+      display: none;
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    /* ===== Section Headers ===== */
+    .section-header {
+      margin-bottom: 2rem;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--color-foreground);
+      line-height: 1.3;
+    }
+
+    @media (min-width: 768px) {
+      .section-title { font-size: 1.75rem; }
+    }
+
+    .section-subtitle {
+      font-size: 0.9375rem;
+      color: var(--color-muted);
+      margin-top: 0.5rem;
+    }
+
+    /* ===== Question Card ===== */
+    .question-card {
+      background: var(--color-background);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      transition: box-shadow 0.2s ease;
+    }
+
+    .question-card:hover {
+      box-shadow: var(--shadow);
+    }
+
+    .question-text {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--color-foreground);
+      margin-bottom: 1rem;
+    }
+
+    /* ===== Radio Options ===== */
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      min-height: 44px;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .radio-option:hover {
+      border-color: var(--color-primary);
+      background: rgba(0, 102, 255, 0.03);
+    }
+
+    .radio-option.selected {
+      border-color: var(--color-primary);
+      background: rgba(0, 102, 255, 0.06);
+    }
+
+    .radio-option input[type="radio"] {
+      display: none;
+    }
+
+    .radio-circle {
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+
+    .radio-option.selected .radio-circle {
+      border-color: var(--color-primary);
+    }
+
+    .radio-circle::after {
+      content: '';
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      transform: scale(0);
+      transition: transform 0.15s ease;
+    }
+
+    .radio-option.selected .radio-circle::after {
+      transform: scale(1);
+    }
+
+    .radio-label {
+      font-size: 0.9375rem;
+      color: var(--color-foreground);
+    }
+
+    /* ===== Checkbox Options ===== */
+    .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .checkbox-option {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.625rem 1rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      min-height: 44px;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .checkbox-option:hover {
+      border-color: var(--color-primary);
+      background: rgba(0, 102, 255, 0.03);
+    }
+
+    .checkbox-option.selected {
+      border-color: var(--color-primary);
+      background: rgba(0, 102, 255, 0.06);
+    }
+
+    .checkbox-option input[type="checkbox"] {
+      display: none;
+    }
+
+    .checkbox-box {
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
+      border-radius: 4px;
+      border: 2px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+
+    .checkbox-option.selected .checkbox-box {
+      border-color: var(--color-primary);
+      background: var(--color-primary);
+    }
+
+    .checkbox-box svg {
+      width: 12px;
+      height: 12px;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+    }
+
+    .checkbox-option.selected .checkbox-box svg {
+      opacity: 1;
+    }
+
+    .checkbox-label {
+      font-size: 0.875rem;
+      color: var(--color-foreground);
+      flex: 1;
+    }
+
+    .checkbox-sublabel {
+      font-size: 0.75rem;
+      color: var(--color-muted);
+    }
+
+    /* ===== Brand Card (Section 2) ===== */
+    .brand-card {
+      background: var(--color-background);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .brand-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+
+    .brand-name {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--color-foreground);
+    }
+
+    .brand-date {
+      font-size: 0.8125rem;
+      color: var(--color-muted);
+    }
+
+    .brand-counter {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--color-muted);
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    /* Follow-up questions that slide in */
+    .follow-up {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--color-border);
+      animation: slideUp 0.25s ease;
+    }
+
+    .follow-up-label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--color-foreground);
+      margin-bottom: 0.75rem;
+    }
+
+    /* ===== Text Area ===== */
+    .textarea-wrapper {
+      position: relative;
+    }
+
+    .textarea-wrapper textarea {
+      width: 100%;
+      min-height: 100px;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 0.9375rem;
+      color: var(--color-foreground);
+      resize: vertical;
+      transition: border-color 0.15s ease;
+      line-height: 1.5;
+    }
+
+    .textarea-wrapper textarea:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
+    }
+
+    .char-counter {
+      position: absolute;
+      bottom: 0.5rem;
+      right: 0.75rem;
+      font-size: 0.75rem;
+      color: var(--color-muted-foreground);
+    }
+
+    .char-counter.near-limit {
+      color: var(--color-error);
+    }
+
+    /* ===== Navigation Buttons ===== */
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2rem;
+      gap: 1rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      min-height: 44px;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--color-primary);
+      color: var(--color-primary-foreground);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--color-muted);
+      border: 1px solid var(--color-border);
+    }
+
+    .btn-lift {
+      transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+    }
+
+    .btn-lift:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-lift:active {
+      transform: translateY(0);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none !important;
+      box-shadow: none !important;
+    }
+
+    .btn-arrow {
+      font-size: 1.125rem;
+      line-height: 1;
+    }
+
+    /* ===== Completion Screen ===== */
+    #completion-screen {
+      display: none;
+      min-height: 100vh;
+    }
+
+    .completion-hero {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
+      position: relative;
+      overflow: hidden;
+      padding: 4rem 1.5rem 3rem;
+      text-align: center;
+      color: white;
+    }
+
+    .completion-hero .orb {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .completion-hero .orb-1 {
+      width: 600px;
+      height: 600px;
+      background: rgba(11, 36, 251, 0.2);
+      top: -200px;
+      right: -200px;
+      filter: blur(100px);
+      animation: float1 20s ease-in-out infinite;
+    }
+
+    .completion-hero .orb-2 {
+      width: 400px;
+      height: 400px;
+      background: rgba(0, 102, 255, 0.15);
+      bottom: -150px;
+      left: -150px;
+      filter: blur(100px);
+      animation: float2 25s ease-in-out infinite;
+    }
+
+    @keyframes float1 {
+      0%, 100% { transform: translate(0, 0); }
+      33% { transform: translate(-30px, 20px); }
+      66% { transform: translate(20px, -15px); }
+    }
+
+    @keyframes float2 {
+      0%, 100% { transform: translate(0, 0); }
+      33% { transform: translate(20px, -25px); }
+      66% { transform: translate(-15px, 15px); }
+    }
+
+    .completion-hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    .completion-logo {
+      width: 48px;
+      height: auto;
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
+    }
+
+    .completion-title {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+
+    @media (min-width: 768px) {
+      .completion-title { font-size: 2.5rem; }
+    }
+
+    .completion-subtitle {
+      font-size: 1rem;
+      opacity: 0.85;
+      line-height: 1.5;
+    }
+
+    .recommendations {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    .recommendations-title {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--color-foreground);
+      margin-bottom: 1rem;
+    }
+
+    .rec-card {
+      background: var(--color-background);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: box-shadow 0.2s ease;
+    }
+
+    .rec-card:hover {
+      box-shadow: var(--shadow);
+    }
+
+    .rec-brand-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-foreground);
+    }
+
+    .rec-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.25rem 0.75rem;
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--color-success);
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .rec-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-success);
+    }
+
+    .completion-cta {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      background: var(--color-primary);
+      color: white;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: var(--radius);
+      text-decoration: none;
+      min-height: 48px;
+    }
+
+    /* ===== Sections ===== */
+    .survey-section {
+      display: none;
+    }
+
+    .survey-section.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* ===== Submitting overlay ===== */
+    #submitting-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.9);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    #submitting-overlay.active {
+      display: flex;
+    }
+
+    .submitting-text {
+      color: var(--color-muted);
+      font-size: 0.9375rem;
+      font-weight: 500;
+    }
+
+    /* ===== Toast ===== */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--color-dark);
+      color: white;
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius);
+      font-size: 0.875rem;
+      font-weight: 500;
+      z-index: 1001;
+      opacity: 0;
+      transition: all 0.3s ease;
+      max-width: 90vw;
+      text-align: center;
+    }
+
+    .toast.visible {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    .toast.error {
+      background: var(--color-error);
+    }
+
+    /* ===== Reduced Motion ===== */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      #progress-bar { transition: none; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ===== Mobile Adjustments ===== */
+    @media (max-width: 374px) {
+      #survey-container { padding: 1.5rem 1rem 3rem; }
+      .question-card { padding: 1.25rem; }
+      .brand-card { padding: 1.25rem; }
+      .section-title { font-size: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Progress Bar -->
+  <div id="progress-bar"></div>
+
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="spinner"></div>
+    <p class="loading-text">Loading your survey...</p>
+  </div>
+
+  <!-- Error Screen -->
+  <div id="error-screen">
+    <div class="error-icon">!</div>
+    <h2 class="error-title" id="error-title">Something went wrong</h2>
+    <p class="error-message" id="error-message">We couldn't load your survey. Please try again or contact support.</p>
+  </div>
+
+  <!-- Survey Container -->
+  <div id="survey-container">
+
+    <!-- Section 1: Your Amazon Profile -->
+    <div class="survey-section" id="section-profile">
+      <div class="section-header">
+        <p class="section-label">Section 1 of 3</p>
+        <h1 class="section-title">Tell us about your <span class="accent">selling</span> experience</h1>
+        <p class="section-subtitle">This helps us tailor our recommendations to your business.</p>
+      </div>
+      <div id="profile-questions"></div>
+      <div class="nav-buttons">
+        <div></div>
+        <button class="btn btn-primary btn-lift" id="btn-profile-next" onclick="nextFromProfile()">
+          Continue <span class="btn-arrow">&rarr;</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Section 2: Ungating Results -->
+    <div class="survey-section" id="section-results">
+      <div class="section-header">
+        <p class="section-label" id="results-section-label">Section 2 of 3</p>
+        <h1 class="section-title">How did your <span class="accent">ungating</span> go?</h1>
+        <p class="section-subtitle">Let us know what happened with each brand.</p>
+      </div>
+
+      <!-- Bulk escape hatch -->
+      <div id="escape-hatch" class="question-card" style="display:none;">
+        <p class="question-text">Quick check: did you skip any of these? Check the ones you never submitted.</p>
+        <div class="checkbox-group" id="escape-checkboxes"></div>
+        <div class="nav-buttons">
+          <button class="btn btn-secondary btn-lift" id="btn-escape-back" onclick="backFromEscape()">
+            <span class="btn-arrow">&larr;</span> Back
+          </button>
+          <button class="btn btn-primary btn-lift" id="btn-escape-next" onclick="nextFromEscape()">
+            Continue <span class="btn-arrow">&rarr;</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Brand card stack -->
+      <div id="brand-cards"></div>
+    </div>
+
+    <!-- Section 3: How You Submit -->
+    <div class="survey-section" id="section-submit-habits">
+      <div class="section-header">
+        <p class="section-label" id="habits-section-label">Section 3 of 3</p>
+        <h1 class="section-title">Your <span class="accent">approach</span> to ungating</h1>
+        <p class="section-subtitle">A few quick questions about how you work.</p>
+      </div>
+
+      <div class="question-card">
+        <p class="question-text">When you get denied, what usually works best?</p>
+        <div class="radio-group" id="denial-strategy-options"></div>
+      </div>
+
+      <div class="question-card">
+        <p class="question-text">Have you ever been auto-ungated without submitting an invoice?</p>
+        <div class="radio-group" id="auto-ungated-options"></div>
+      </div>
+
+      <div class="question-card">
+        <p class="question-text">What would make the ungating process easier? <span style="color:var(--color-muted);font-weight:400;">(optional)</span></p>
+        <div class="textarea-wrapper">
+          <textarea id="freetext-input" maxlength="280" placeholder="Anything you'd like to share..." oninput="updateCharCounter()"></textarea>
+          <span class="char-counter" id="char-counter">0 / 280</span>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="btn btn-secondary btn-lift" id="btn-habits-back" onclick="backFromHabits()">
+          <span class="btn-arrow">&larr;</span> Back
+        </button>
+        <button class="btn btn-primary btn-lift" id="btn-submit" onclick="submitSurvey()">
+          Submit <span class="btn-arrow">&rarr;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Submitting Overlay -->
+  <div id="submitting-overlay">
+    <div class="spinner"></div>
+    <p class="submitting-text">Submitting your responses...</p>
+  </div>
+
+  <!-- Completion Screen -->
+  <div id="completion-screen">
+    <div class="completion-hero">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="completion-hero-content">
+        <img src="data:image/png;base64,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" class="completion-logo" alt="Catalist">
+        <h1 class="completion-title">Thank you, <span class="accent" id="completion-name">there</span>!</h1>
+        <p class="completion-subtitle">Your responses help us build a better ungating experience for everyone.</p>
+      </div>
+    </div>
+    <div class="recommendations" id="recommendations-section" style="display:none;">
+      <h2 class="recommendations-title">Brands you might want to try next</h2>
+      <div id="rec-cards"></div>
+      <div class="completion-cta">
+        <a href="https://b2b.catalistgroup.co/ungating" class="btn-cta btn-lift">
+          Ready to try? Download invoices <span class="btn-arrow">&rarr;</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ===== State =====
+    const SURVEY_LOAD_URL = 'https://koaadlgilqwdhgfphekm.supabase.co/functions/v1/survey-load';
+    const SURVEY_SUBMIT_URL = 'https://koaadlgilqwdhgfphekm.supabase.co/functions/v1/survey-submit';
+
+    let surveyData = null;
+    let token = null;
+    let responses = {
+      profile: {},
+      ghost_skipped: [],
+      brand_results: {},
+      habits: {}
+    };
+
+    // Section tracking
+    let hasProfileSection = false;
+    let hasResultsSection = false;
+    let activeBrands = [];
+    let currentBrandIndex = 0;
+
+    const STORAGE_KEY = 'catalist_ungating_survey';
+
+    // ===== Init =====
+    document.addEventListener('DOMContentLoaded', init);
+
+    function init() {
+      const params = new URLSearchParams(window.location.search);
+      token = params.get('t');
+
+      if (!token) {
+        showError('Missing survey link', 'It looks like this link is incomplete. Please use the link from your email.');
+        return;
+      }
+
+      // Restore saved responses
+      tryRestore();
+
+      // Load survey data
+      loadSurvey();
+    }
+
+    function tryRestore() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY + '_' + token);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (parsed && parsed.responses) {
+            responses = { ...responses, ...parsed.responses };
+          }
+        }
+      } catch (e) { /* ignore */ }
+    }
+
+    function saveProgress() {
+      try {
+        localStorage.setItem(STORAGE_KEY + '_' + token, JSON.stringify({
+          responses: responses,
+          timestamp: Date.now()
+        }));
+      } catch (e) { /* ignore */ }
+    }
+
+    async function loadSurvey() {
+      try {
+        const res = await fetch(SURVEY_LOAD_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          const errMap = {
+            'invalid_token': ['Invalid survey link', 'This survey link is not valid. Please check your email for the correct link.'],
+            'expired': ['Survey expired', 'This survey link has expired. Please contact us for a new one.'],
+            'already_completed': ['Already completed', 'You\'ve already completed this survey. Thank you for your feedback!']
+          };
+          const errInfo = errMap[data.error] || ['Something went wrong', data.message || 'We couldn\'t load your survey. Please try again later.'];
+          showError(errInfo[0], errInfo[1]);
+          return;
+        }
+
+        surveyData = data;
+        buildSurvey();
+      } catch (err) {
+        showError('Connection error', 'We couldn\'t reach our servers. Please check your connection and try again.');
+      }
+    }
+
+    function showError(title, message) {
+      document.getElementById('loading-screen').style.display = 'none';
+      const errScreen = document.getElementById('error-screen');
+      errScreen.style.display = 'flex';
+      document.getElementById('error-title').textContent = title;
+      document.getElementById('error-message').textContent = message;
+    }
+
+    // ===== Build Survey =====
+    function buildSurvey() {
+      document.getElementById('loading-screen').style.display = 'none';
+      document.getElementById('survey-container').style.display = 'block';
+
+      const profileGaps = surveyData.profile_gaps || [];
+      const ghostRequests = surveyData.ghost_requests || [];
+
+      hasProfileSection = profileGaps.length > 0;
+      hasResultsSection = ghostRequests.length > 0;
+
+      // Update section labels
+      updateSectionLabels();
+
+      // Build Section 1
+      if (hasProfileSection) {
+        buildProfileSection(profileGaps);
+      }
+
+      // Build Section 2
+      if (hasResultsSection) {
+        buildResultsSection(ghostRequests);
+      }
+
+      // Build Section 3
+      buildHabitsSection();
+
+      // Show first section
+      showFirstSection();
+      updateProgress();
+    }
+
+    function updateSectionLabels() {
+      const totalSections = 1 + (hasProfileSection ? 1 : 0) + (hasResultsSection ? 1 : 0);
+      let sectionNum = 0;
+
+      if (hasProfileSection) {
+        sectionNum++;
+        document.querySelector('#section-profile .section-label').textContent = 'Section ' + sectionNum + ' of ' + totalSections;
+      }
+      if (hasResultsSection) {
+        sectionNum++;
+        document.getElementById('results-section-label').textContent = 'Section ' + sectionNum + ' of ' + totalSections;
+      }
+      sectionNum++;
+      document.getElementById('habits-section-label').textContent = 'Section ' + sectionNum + ' of ' + totalSections;
+    }
+
+    // ===== Profile Section =====
+    const PROFILE_QUESTIONS = {
+      marketplace_tenure: {
+        text: 'How long have you been selling on Amazon?',
+        options: ['Less than 6 months', '6-12 months', '1-2 years', '2-3 years', '3-5 years', '5+ years']
+      },
+      annual_marketplace_sales: {
+        text: 'What are your approximate annual sales on Amazon?',
+        options: ['Under $100K', '$100K-$250K', '$250K-$500K', '$500K-$1M', '$1M-$2M', '$2M+']
+      },
+      total_orders_fulfilled: {
+        text: 'Approximately how many total orders have you fulfilled?',
+        options: ['Under 100', '100-500', '500-2,000', '2,000-10,000', '10,000+']
+      },
+      fulfillment_method: {
+        text: 'Do you sell via FBA, FBM, or both?',
+        options: ['FBA', 'FBM', 'Both']
+      }
+    };
+
+    function buildProfileSection(gaps) {
+      const container = document.getElementById('profile-questions');
+      container.innerHTML = '';
+
+      gaps.forEach(field => {
+        const q = PROFILE_QUESTIONS[field];
+        if (!q) return;
+
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        card.innerHTML = '<p class="question-text">' + escapeHtml(q.text) + '</p>' +
+          '<div class="radio-group" id="profile-' + field + '">' +
+          q.options.map(opt => {
+            const selected = responses.profile[field] === opt ? ' selected' : '';
+            return '<label class="radio-option' + selected + '" onclick="selectRadio(this, \'profile\', \'' + field + '\', \'' + escapeAttr(opt) + '\')">' +
+              '<input type="radio" name="profile-' + field + '" value="' + escapeAttr(opt) + '"' + (selected ? ' checked' : '') + '>' +
+              '<span class="radio-circle"></span>' +
+              '<span class="radio-label">' + escapeHtml(opt) + '</span>' +
+              '</label>';
+          }).join('') +
+          '</div>';
+
+        container.appendChild(card);
+      });
+    }
+
+    // ===== Results Section =====
+    function buildResultsSection(ghosts) {
+      // Escape hatch
+      const escapeContainer = document.getElementById('escape-checkboxes');
+      escapeContainer.innerHTML = '';
+
+      ghosts.forEach((gr, idx) => {
+        const dateStr = formatDate(gr.invoice_date || gr.created_at);
+        const isSkipped = responses.ghost_skipped.includes(gr.id);
+        const label = gr.brand_name + ' &middot; Invoice downloaded ' + dateStr;
+
+        const opt = document.createElement('label');
+        opt.className = 'checkbox-option' + (isSkipped ? ' selected' : '');
+        opt.setAttribute('data-id', gr.id);
+        opt.innerHTML = '<input type="checkbox"' + (isSkipped ? ' checked' : '') + '>' +
+          '<span class="checkbox-box"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>' +
+          '<span class="checkbox-label">' + label + '</span>';
+
+        opt.addEventListener('click', function(e) {
+          e.preventDefault();
+          const cb = this.querySelector('input');
+          cb.checked = !cb.checked;
+          this.classList.toggle('selected', cb.checked);
+          const gid = this.getAttribute('data-id');
+          if (cb.checked) {
+            if (!responses.ghost_skipped.includes(gid)) responses.ghost_skipped.push(gid);
+          } else {
+            responses.ghost_skipped = responses.ghost_skipped.filter(x => x !== gid);
+          }
+          saveProgress();
+        });
+
+        escapeContainer.appendChild(opt);
+      });
+
+      document.getElementById('escape-hatch').style.display = 'block';
+    }
+
+    function buildBrandCards() {
+      const ghosts = surveyData.ghost_requests || [];
+      activeBrands = ghosts.filter(gr => !responses.ghost_skipped.includes(gr.id));
+
+      if (activeBrands.length === 0) {
+        // Skip straight to habits
+        goToHabits();
+        return;
+      }
+
+      currentBrandIndex = 0;
+
+      // Find first unanswered brand
+      for (let i = 0; i < activeBrands.length; i++) {
+        if (!responses.brand_results[activeBrands[i].id]) {
+          currentBrandIndex = i;
+          break;
+        }
+        if (i === activeBrands.length - 1) {
+          currentBrandIndex = activeBrands.length; // all done
+        }
+      }
+
+      if (currentBrandIndex >= activeBrands.length) {
+        goToHabits();
+        return;
+      }
+
+      renderBrandCard();
+    }
+
+    function renderBrandCard() {
+      const container = document.getElementById('brand-cards');
+      container.innerHTML = '';
+
+      if (currentBrandIndex >= activeBrands.length) {
+        goToHabits();
+        return;
+      }
+
+      const brand = activeBrands[currentBrandIndex];
+      const dateStr = formatDate(brand.invoice_date || brand.created_at);
+      const existing = responses.brand_results[brand.id] || {};
+
+      const card = document.createElement('div');
+      card.className = 'brand-card';
+      card.id = 'brand-card-' + brand.id;
+
+      let html = '<div class="brand-card-header">' +
+        '<div><div class="brand-name">' + escapeHtml(brand.brand_name) + '</div>' +
+        '<div class="brand-date">Invoice downloaded ' + dateStr + '</div></div>' +
+        '</div>';
+
+      // What happened?
+      html += '<p class="question-text">What happened with ' + escapeHtml(brand.brand_name) + '?</p>';
+      html += '<div class="radio-group" id="outcome-' + brand.id + '">';
+
+      ['Approved', 'Denied', 'Still waiting'].forEach(opt => {
+        const sel = existing.outcome === opt ? ' selected' : '';
+        html += '<label class="radio-option' + sel + '" onclick="selectBrandOutcome(this, \'' + brand.id + '\', \'' + opt + '\')">' +
+          '<input type="radio" name="outcome-' + brand.id + '" value="' + opt + '"' + (sel ? ' checked' : '') + '>' +
+          '<span class="radio-circle"></span>' +
+          '<span class="radio-label">' + opt + '</span>' +
+          '</label>';
+      });
+      html += '</div>';
+
+      // Follow-ups (if outcome already selected)
+      if (existing.outcome === 'Approved') {
+        html += buildSubmissionMethodFollowUp(brand.id, existing);
+      } else if (existing.outcome === 'Denied') {
+        html += buildDeniedFollowUps(brand.id, existing);
+      }
+
+      // Counter
+      html += '<div class="brand-counter">' + (currentBrandIndex + 1) + ' of ' + activeBrands.length + ' brands</div>';
+
+      // Nav
+      html += '<div class="nav-buttons">';
+      if (currentBrandIndex > 0) {
+        html += '<button class="btn btn-secondary btn-lift" onclick="prevBrand()"><span class="btn-arrow">&larr;</span> Back</button>';
+      } else {
+        html += '<button class="btn btn-secondary btn-lift" onclick="backToEscape()"><span class="btn-arrow">&larr;</span> Back</button>';
+      }
+      html += '<button class="btn btn-primary btn-lift" id="btn-brand-next" onclick="nextBrand()">Next <span class="btn-arrow">&rarr;</span></button>';
+      html += '</div>';
+
+      card.innerHTML = html;
+      container.appendChild(card);
+
+      updateProgress();
+    }
+
+    const SUBMISSION_METHODS = ['Seller Central', 'Opened a support case', 'Called support', 'Chat'];
+    const DENIAL_REASONS = ['Invoice not accepted', 'Need more documentation', 'Account doesn\'t qualify', 'Brand requires authorization letter', 'Don\'t remember', 'Other'];
+    const NEXT_STEPS = ['Opened a new case', 'Escalated the same case', 'Tried a different product', 'Waited and tried later', 'Gave up'];
+
+    function buildSubmissionMethodFollowUp(brandId, existing) {
+      let html = '<div class="follow-up">';
+      html += '<p class="follow-up-label">How did you submit?</p>';
+      html += '<div class="radio-group">';
+      SUBMISSION_METHODS.forEach(opt => {
+        const sel = existing.submission_method === opt ? ' selected' : '';
+        html += '<label class="radio-option' + sel + '" onclick="selectBrandField(this, \'' + brandId + '\', \'submission_method\', \'' + escapeAttr(opt) + '\')">' +
+          '<input type="radio" name="method-' + brandId + '" value="' + escapeAttr(opt) + '"' + (sel ? ' checked' : '') + '>' +
+          '<span class="radio-circle"></span>' +
+          '<span class="radio-label">' + escapeHtml(opt) + '</span>' +
+          '</label>';
+      });
+      html += '</div></div>';
+      return html;
+    }
+
+    function buildDeniedFollowUps(brandId, existing) {
+      let html = '';
+
+      // How did you submit?
+      html += '<div class="follow-up">';
+      html += '<p class="follow-up-label">How did you submit?</p>';
+      html += '<div class="radio-group">';
+      SUBMISSION_METHODS.forEach(opt => {
+        const sel = existing.submission_method === opt ? ' selected' : '';
+        html += '<label class="radio-option' + sel + '" onclick="selectBrandField(this, \'' + brandId + '\', \'submission_method\', \'' + escapeAttr(opt) + '\')">' +
+          '<input type="radio" name="method-' + brandId + '" value="' + escapeAttr(opt) + '"' + (sel ? ' checked' : '') + '>' +
+          '<span class="radio-circle"></span>' +
+          '<span class="radio-label">' + escapeHtml(opt) + '</span>' +
+          '</label>';
+      });
+      html += '</div></div>';
+
+      // What reason?
+      html += '<div class="follow-up">';
+      html += '<p class="follow-up-label">What reason did Amazon give?</p>';
+      html += '<div class="radio-group">';
+      DENIAL_REASONS.forEach(opt => {
+        const sel = existing.denial_reason === opt ? ' selected' : '';
+        html += '<label class="radio-option' + sel + '" onclick="selectBrandField(this, \'' + brandId + '\', \'denial_reason\', \'' + escapeAttr(opt) + '\')">' +
+          '<input type="radio" name="reason-' + brandId + '" value="' + escapeAttr(opt) + '"' + (sel ? ' checked' : '') + '>' +
+          '<span class="radio-circle"></span>' +
+          '<span class="radio-label">' + escapeHtml(opt) + '</span>' +
+          '</label>';
+      });
+      html += '</div></div>';
+
+      // What did you do next?
+      html += '<div class="follow-up">';
+      html += '<p class="follow-up-label">What did you do next?</p>';
+      html += '<div class="radio-group">';
+      NEXT_STEPS.forEach(opt => {
+        const sel = existing.next_step === opt ? ' selected' : '';
+        html += '<label class="radio-option' + sel + '" onclick="selectBrandField(this, \'' + brandId + '\', \'next_step\', \'' + escapeAttr(opt) + '\')">' +
+          '<input type="radio" name="nextstep-' + brandId + '" value="' + escapeAttr(opt) + '"' + (sel ? ' checked' : '') + '>' +
+          '<span class="radio-circle"></span>' +
+          '<span class="radio-label">' + escapeHtml(opt) + '</span>' +
+          '</label>';
+      });
+      html += '</div></div>';
+
+      return html;
+    }
+
+    // ===== Habits Section =====
+    function buildHabitsSection() {
+      const denialOpts = ['Opening a new case', 'Escalating', 'Calling support', 'Never gotten approved after denial', 'Haven\'t been denied'];
+      const autoOpts = ['Yes', 'No', 'Not sure'];
+
+      const denialContainer = document.getElementById('denial-strategy-options');
+      denialContainer.innerHTML = '';
+      denialOpts.forEach(opt => {
+        const sel = responses.habits.denial_strategy === opt ? ' selected' : '';
+        denialContainer.innerHTML += '<label class="radio-option' + sel + '" onclick="selectRadio(this, \'habits\', \'denial_strategy\', \'' + escapeAttr(opt) + '\')">' +
+          '<input type="radio" name="denial-strategy" value="' + escapeAttr(opt) + '"' + (sel ? ' checked' : '') + '>' +
+          '<span class="radio-circle"></span>' +
+          '<span class="radio-label">' + escapeHtml(opt) + '</span>' +
+          '</label>';
+      });
+
+      const autoContainer = document.getElementById('auto-ungated-options');
+      autoContainer.innerHTML = '';
+      autoOpts.forEach(opt => {
+        const sel = responses.habits.auto_ungated === opt ? ' selected' : '';
+        autoContainer.innerHTML += '<label class="radio-option' + sel + '" onclick="selectRadio(this, \'habits\', \'auto_ungated\', \'' + escapeAttr(opt) + '\')">' +
+          '<input type="radio" name="auto-ungated" value="' + escapeAttr(opt) + '"' + (sel ? ' checked' : '') + '>' +
+          '<span class="radio-circle"></span>' +
+          '<span class="radio-label">' + escapeHtml(opt) + '</span>' +
+          '</label>';
+      });
+
+      // Restore free text
+      if (responses.habits.free_text) {
+        document.getElementById('freetext-input').value = responses.habits.free_text;
+        updateCharCounter();
+      }
+    }
+
+    // ===== Selection Handlers =====
+    function selectRadio(el, section, field, value) {
+      // Deselect siblings
+      const group = el.parentElement;
+      group.querySelectorAll('.radio-option').forEach(opt => opt.classList.remove('selected'));
+      el.classList.add('selected');
+      el.querySelector('input').checked = true;
+
+      responses[section][field] = value;
+      saveProgress();
+    }
+
+    function selectBrandOutcome(el, brandId, outcome) {
+      const group = el.parentElement;
+      group.querySelectorAll('.radio-option').forEach(opt => opt.classList.remove('selected'));
+      el.classList.add('selected');
+      el.querySelector('input').checked = true;
+
+      if (!responses.brand_results[brandId]) responses.brand_results[brandId] = {};
+      responses.brand_results[brandId].outcome = outcome;
+
+      // Clear follow-up fields when outcome changes
+      delete responses.brand_results[brandId].submission_method;
+      delete responses.brand_results[brandId].denial_reason;
+      delete responses.brand_results[brandId].next_step;
+
+      saveProgress();
+
+      // Re-render to show/hide follow-ups
+      renderBrandCard();
+    }
+
+    function selectBrandField(el, brandId, field, value) {
+      const group = el.parentElement;
+      group.querySelectorAll('.radio-option').forEach(opt => opt.classList.remove('selected'));
+      el.classList.add('selected');
+      el.querySelector('input').checked = true;
+
+      if (!responses.brand_results[brandId]) responses.brand_results[brandId] = {};
+      responses.brand_results[brandId][field] = value;
+      saveProgress();
+    }
+
+    function updateCharCounter() {
+      const textarea = document.getElementById('freetext-input');
+      const counter = document.getElementById('char-counter');
+      const len = textarea.value.length;
+      counter.textContent = len + ' / 280';
+      counter.classList.toggle('near-limit', len > 250);
+      responses.habits.free_text = textarea.value;
+      saveProgress();
+    }
+
+    // ===== Navigation =====
+    function showFirstSection() {
+      if (hasProfileSection) {
+        showSection('section-profile');
+      } else if (hasResultsSection) {
+        showSection('section-results');
+      } else {
+        showSection('section-submit-habits');
+      }
+    }
+
+    function showSection(id) {
+      document.querySelectorAll('.survey-section').forEach(s => s.classList.remove('active'));
+      const section = document.getElementById(id);
+      if (section) {
+        section.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function nextFromProfile() {
+      saveProgress();
+      if (hasResultsSection) {
+        showSection('section-results');
+      } else {
+        showSection('section-submit-habits');
+      }
+      updateProgress();
+    }
+
+    function backFromEscape() {
+      if (hasProfileSection) {
+        showSection('section-profile');
+      }
+      updateProgress();
+    }
+
+    function nextFromEscape() {
+      saveProgress();
+
+      // Hide escape hatch, show brand cards
+      document.getElementById('escape-hatch').style.display = 'none';
+      buildBrandCards();
+    }
+
+    function backToEscape() {
+      document.getElementById('brand-cards').innerHTML = '';
+      document.getElementById('escape-hatch').style.display = 'block';
+      updateProgress();
+    }
+
+    function prevBrand() {
+      if (currentBrandIndex > 0) {
+        currentBrandIndex--;
+        renderBrandCard();
+      }
+    }
+
+    function nextBrand() {
+      const brand = activeBrands[currentBrandIndex];
+      const result = responses.brand_results[brand.id];
+
+      if (!result || !result.outcome) {
+        showToast('Please select what happened with this brand.');
+        return;
+      }
+
+      currentBrandIndex++;
+      saveProgress();
+
+      if (currentBrandIndex >= activeBrands.length) {
+        goToHabits();
+      } else {
+        renderBrandCard();
+      }
+    }
+
+    function goToHabits() {
+      document.getElementById('brand-cards').innerHTML = '';
+      document.getElementById('escape-hatch').style.display = 'none';
+      showSection('section-submit-habits');
+      updateProgress();
+    }
+
+    function backFromHabits() {
+      if (hasResultsSection) {
+        const ghosts = surveyData.ghost_requests || [];
+        activeBrands = ghosts.filter(gr => !responses.ghost_skipped.includes(gr.id));
+
+        if (activeBrands.length > 0) {
+          showSection('section-results');
+          document.getElementById('escape-hatch').style.display = 'none';
+          currentBrandIndex = activeBrands.length - 1;
+          renderBrandCard();
+        } else {
+          showSection('section-results');
+          document.getElementById('escape-hatch').style.display = 'block';
+        }
+      } else if (hasProfileSection) {
+        showSection('section-profile');
+      }
+      updateProgress();
+    }
+
+    // ===== Progress Bar =====
+    function updateProgress() {
+      let pct = 0;
+      const activeSection = document.querySelector('.survey-section.active');
+      if (!activeSection) return;
+
+      const id = activeSection.id;
+
+      if (id === 'section-profile') {
+        // 0-40%
+        const profileGaps = surveyData.profile_gaps || [];
+        const answered = profileGaps.filter(f => responses.profile[f]).length;
+        pct = profileGaps.length > 0 ? (answered / profileGaps.length) * 40 : 0;
+      } else if (id === 'section-results') {
+        // 40-85%
+        const base = hasProfileSection ? 40 : 0;
+        const range = hasProfileSection ? 45 : 85;
+
+        if (document.getElementById('escape-hatch').style.display !== 'none') {
+          pct = base;
+        } else if (activeBrands.length > 0) {
+          pct = base + (currentBrandIndex / activeBrands.length) * range;
+        } else {
+          pct = base + range;
+        }
+      } else if (id === 'section-submit-habits') {
+        // 85-100%
+        const base = (hasProfileSection ? 40 : 0) + (hasResultsSection ? 45 : 0);
+        const range = 100 - base;
+        const fields = ['denial_strategy', 'auto_ungated'];
+        const answered = fields.filter(f => responses.habits[f]).length;
+        pct = base + (answered / (fields.length + 1)) * range; // +1 for optional text
+        if (responses.habits.free_text) pct = base + range;
+      }
+
+      pct = Math.min(Math.max(pct, 2), 100);
+      document.getElementById('progress-bar').style.width = pct + '%';
+    }
+
+    // ===== Submit =====
+    async function submitSurvey() {
+      const btn = document.getElementById('btn-submit');
+      btn.disabled = true;
+
+      const overlay = document.getElementById('submitting-overlay');
+      overlay.classList.add('active');
+
+      const payload = {
+        token: token,
+        responses: responses
+      };
+
+      let success = false;
+      let submitResponse = null;
+
+      for (let attempt = 0; attempt < 2; attempt++) {
+        try {
+          const res = await fetch(SURVEY_SUBMIT_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          submitResponse = await res.json();
+
+          if (res.ok) {
+            success = true;
+            break;
+          }
+        } catch (err) {
+          if (attempt === 0) {
+            showToast('Network issue, retrying...');
+            await sleep(3000);
+          }
+        }
+      }
+
+      overlay.classList.remove('active');
+
+      if (!success) {
+        btn.disabled = false;
+        showToast('We couldn\'t submit your responses. Please try again.', true);
+        return;
+      }
+
+      // Clear saved progress
+      try { localStorage.removeItem(STORAGE_KEY + '_' + token); } catch (e) { /* ignore */ }
+
+      // Show completion
+      showCompletion(submitResponse);
+    }
+
+    function showCompletion(data) {
+      document.getElementById('survey-container').style.display = 'none';
+      document.getElementById('progress-bar').style.width = '100%';
+
+      const name = surveyData.user_name || surveyData.first_name || 'there';
+      document.getElementById('completion-name').textContent = name;
+
+      // Recommendations
+      const recs = (data && data.recommendations) || [];
+      if (recs.length > 0) {
+        const recCards = document.getElementById('rec-cards');
+        recCards.innerHTML = '';
+        recs.forEach(rec => {
+          const card = document.createElement('div');
+          card.className = 'rec-card';
+          card.innerHTML = '<span class="rec-brand-name">' + escapeHtml(rec.brand_name || rec.name || 'Brand') + '</span>' +
+            '<span class="rec-badge"><span class="rec-badge-dot"></span>90%+ approval rate</span>';
+          recCards.appendChild(card);
+        });
+        document.getElementById('recommendations-section').style.display = 'block';
+      }
+
+      document.getElementById('completion-screen').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ===== Toast =====
+    function showToast(msg, isError) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.toggle('error', !!isError);
+      toast.classList.add('visible');
+      setTimeout(() => toast.classList.remove('visible'), 3500);
+    }
+
+    // ===== Utilities =====
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function escapeAttr(str) {
+      if (!str) return '';
+      return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    }
+
+    function formatDate(dateStr) {
+      if (!dateStr) return '';
+      try {
+        const d = new Date(dateStr);
+        return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      } catch (e) {
+        return dateStr;
+      }
+    }
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+  </script>
+</body>
+</html>
