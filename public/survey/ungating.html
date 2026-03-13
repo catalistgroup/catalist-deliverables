@@ -540,6 +540,20 @@
       margin-bottom: 0.75rem;
     }
 
+    .question-hint {
+      font-size: 0.8125rem;
+      font-weight: 400;
+      color: var(--color-muted);
+      margin-top: -0.375rem;
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+    }
+
+    .follow-up .question-hint {
+      margin-top: -0.5rem;
+      margin-bottom: 0.625rem;
+    }
+
     /* ===== Text Area ===== */
     .textarea-wrapper {
       position: relative;
@@ -1066,7 +1080,8 @@
 
         <!-- Bulk escape hatch -->
         <div id="escape-hatch" class="question-card" style="display:none;">
-          <p class="question-text">Quick check: did you skip any of these? Check the ones you never submitted.</p>
+          <p class="question-text">Quick check: did you skip any of these?</p>
+          <p class="question-hint" style="margin-top: 0.25rem;">If you downloaded an invoice but never actually submitted it to Amazon for ungating, check that brand below.</p>
           <div class="checkbox-group" id="escape-checkboxes"></div>
           <div class="nav-buttons">
             <button class="btn btn-secondary btn-lift" id="btn-escape-back" onclick="backFromEscape()">
@@ -1092,11 +1107,13 @@
 
         <div class="question-card">
           <p class="question-text">When you get denied, what usually works best?</p>
+          <p class="question-hint">Based on your overall experience across all brands, not just one.</p>
           <div class="radio-group" id="denial-strategy-options"></div>
         </div>
 
         <div class="question-card" id="habits-q2" style="display:none">
           <p class="question-text">Have you ever been auto-ungated without submitting an invoice?</p>
+          <p class="question-hint">Sometimes Amazon grants brand access on its own, without you applying.</p>
           <div class="radio-group" id="auto-ungated-options"></div>
         </div>
 
@@ -1516,6 +1533,7 @@
         // Q4a: What finally worked?
         html += '<div class="follow-up">';
         html += '<p class="follow-up-label">What finally worked?</p>';
+        html += '<p class="question-hint">The action that ultimately got you approved</p>';
         html += '<div class="radio-group">';
         [
           { label: 'Escalated my denial case', value: 'escalated_case' },
@@ -1542,6 +1560,7 @@
       // Q2b: How many times have you applied?
       html += '<div class="follow-up">';
       html += '<p class="follow-up-label">How many times have you applied?</p>';
+      html += '<p class="question-hint">Including your initial application</p>';
       html += '<div class="radio-group">';
       [
         { label: 'Once', value: 'once' },
@@ -1562,6 +1581,7 @@
         const retryMethods = existing.retry_methods || [];
         html += '<div class="follow-up">';
         html += '<p class="follow-up-label">What have you tried?</p>';
+        html += '<p class="question-hint">Select all that apply</p>';
         html += '<div class="radio-group">';
         [
           { label: 'Escalated my denial case', value: 'escalated_case' },
