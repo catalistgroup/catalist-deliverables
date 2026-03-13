@@ -1925,9 +1925,46 @@
       const overlay = document.getElementById('submitting-overlay');
       overlay.classList.add('active');
 
+      // Transform responses into edge function format
+      const profilePayload = {};
+      if (responses.profile.marketplace_tenure) profilePayload.tenure = responses.profile.marketplace_tenure;
+      if (responses.profile.annual_marketplace_sales) profilePayload.sales = responses.profile.annual_marketplace_sales;
+      if (responses.profile.total_orders_fulfilled) profilePayload.orders = responses.profile.total_orders_fulfilled;
+      if (responses.profile.fulfillment_method) profilePayload.fulfillment = responses.profile.fulfillment_method;
+
+      // Transform brand_results + ghost_skipped into outcomes array
+      const outcomesPayload = [];
+
+      // Ghost skipped brands → not_submitted
+      responses.ghost_skipped.forEach(function(requestId) {
+        outcomesPayload.push({ request_id: requestId, outcome: 'not_submitted' });
+      });
+
+      // Brand results
+      Object.keys(responses.brand_results).forEach(function(requestId) {
+        const r = responses.brand_results[requestId];
+        outcomesPayload.push({
+          request_id: requestId,
+          outcome: r.outcome === 'Still waiting' ? 'pending' : r.outcome.toLowerCase(),
+          first_try: r.first_try != null ? r.first_try : null,
+          approved_on_attempt: r.approved_on_attempt || null,
+          resolution_method: r.resolution_method || null,
+          attempt_count: r.attempt_count || null,
+          retry_methods: r.retry_methods || null,
+        });
+      });
+
+      const strategyPayload = {
+        best_strategy: responses.habits.denial_strategy || null,
+        auto_ungated: responses.habits.auto_ungated || null,
+        feedback: responses.habits.free_text || null,
+      };
+
       const payload = {
         token: token,
-        responses: responses
+        profile: profilePayload,
+        outcomes: outcomesPayload,
+        strategy: strategyPayload,
       };
 
       let success = false;
