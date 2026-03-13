@@ -1667,6 +1667,7 @@
     }
 
     function toggleBrandCheckbox(el, brandId, value) {
+      event.preventDefault();
       if (!responses.brand_results[brandId]) responses.brand_results[brandId] = {};
       if (!responses.brand_results[brandId].retry_methods) {
         responses.brand_results[brandId].retry_methods = [];
