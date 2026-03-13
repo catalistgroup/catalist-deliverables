@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PO Recommendation — Mei Reign LLC | Catalist Group</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-primary: 'DM Sans', system-ui, -apple-system, sans-serif;
+      --font-accent: 'Instrument Serif', Georgia, serif;
+      --font-mono: 'JetBrains Mono', Consolas, monospace;
+      --primary: #0066FF;
+      --primary-hover: #0052CC;
+      --blue-900: #1e3a8a;
+      --blue-600: #2563eb;
+      --blue-500: #3b82f6;
+      --bg: #FFFFFF;
+      --bg-alt: #FAFBFC;
+      --bg-muted: #F3F4F6;
+      --fg: #111827;
+      --muted: #6B7280;
+      --muted-fg: #9CA3AF;
+      --border: #E5E7EB;
+      --border-strong: #D1D5DB;
+      --radius: 0.75rem;
+      --radius-lg: 1rem;
+      --radius-xl: 1.5rem;
+      --radius-2xl: 2rem;
+      --radius-full: 9999px;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    }
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-primary);
+      color: var(--fg);
+      background: var(--bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeScale {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes float1 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-30px, 20px); }
+    }
+    @keyframes float2 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(20px, -30px); }
+    }
+    .anim {
+      animation: fadeUp 0.5s ease-out both;
+      animation-delay: calc(var(--i, 0) * 0.04s);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-delay: 0ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
+      position: relative;
+      overflow: hidden;
+      padding: 48px 24px 80px;
+    }
+    .hero-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .hero-orb-1 {
+      width: 500px;
+      height: 500px;
+      background: #60a5fa;
+      top: -120px;
+      right: -80px;
+      animation: float1 12s ease-in-out infinite;
+    }
+    .hero-orb-2 {
+      width: 400px;
+      height: 400px;
+      background: #818cf8;
+      bottom: -100px;
+      left: -60px;
+      animation: float2 14s ease-in-out infinite;
+    }
+    .hero-fade {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background: linear-gradient(to bottom, transparent, #ffffff);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 48px;
+    }
+    .hero-nav img {
+      height: 32px;
+      width: auto;
+    }
+    .hero-nav-date {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.02em;
+    }
+    .hero h1 {
+      font-size: 52px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+    .hero h1 .accent {
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-weight: 400;
+    }
+    .hero-subtitle {
+      font-size: 18px;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 40px;
+      font-weight: 400;
+    }
+    .hero-kpis {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .hero-kpi {
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      text-align: center;
+    }
+    .hero-kpi-value {
+      font-family: var(--font-mono);
+      font-size: 36px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.1;
+      margin-bottom: 6px;
+      font-variant-numeric: tabular-nums;
+    }
+    .hero-kpi-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.7);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* Content */
+    .content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Client Info Bar */
+    .client-bar {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px 28px;
+      margin-top: -40px;
+      margin-bottom: 40px;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 28px;
+      font-size: 14px;
+      color: var(--muted);
+      box-shadow: var(--shadow-md);
+    }
+    .client-bar strong {
+      color: var(--fg);
+      font-weight: 600;
+    }
+    .client-bar-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .client-bar-divider {
+      width: 1px;
+      height: 20px;
+      background: var(--border-strong);
+      align-self: center;
+    }
+
+    /* Table Section */
+    .table-section {
+      margin-top: 24px;
+      margin-bottom: 24px;
+    }
+    .table-section-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--fg);
+      letter-spacing: -0.01em;
+    }
+    .table-scroll {
+      overflow-x: auto;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+    .po-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      min-width: 900px;
+    }
+    .po-table thead th {
+      background: var(--bg-muted);
+      padding: 12px 14px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      border-bottom: 2px solid var(--border);
+      white-space: nowrap;
+    }
+    .po-table thead th:nth-child(n+4) {
+      text-align: right;
+    }
+    .po-table tbody td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    .po-table tbody td:nth-child(n+4) {
+      text-align: right;
+    }
+    .po-table tbody tr:hover td {
+      background: #f0f5ff;
+    }
+    .po-table tbody tr.row-alt td {
+      background: var(--bg-alt);
+    }
+    .po-table tbody tr.row-alt:hover td {
+      background: #f0f5ff;
+    }
+
+    /* Brand Header Row */
+    .brand-row td {
+      background: #eef2ff !important;
+      padding: 12px 14px !important;
+      border-bottom: 2px solid #c7d2fe !important;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--blue-900);
+    }
+    .brand-row:hover td {
+      background: #e0e7ff !important;
+    }
+    .brand-header-content {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .brand-name {
+      font-weight: 700;
+      font-size: 14.5px;
+    }
+    .brand-category {
+      font-weight: 400;
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+    .brand-subtotal {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--blue-900);
+    }
+
+    /* Ungating Badges */
+    .badge-ungate-t1 {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+      background: #dcfce7;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+      white-space: nowrap;
+    }
+    .badge-ungate-t2 {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+      background: #f3f4f6;
+      color: #6b7280;
+      border: 1px solid #e5e7eb;
+      white-space: nowrap;
+    }
+
+    /* ASIN cell */
+    .asin {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.01em;
+    }
+
+    /* Product name */
+    .product-name {
+      font-weight: 500;
+      color: var(--fg);
+      max-width: 300px;
+      line-height: 1.35;
+    }
+
+    /* Category label */
+    .category-label {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* Margin Badge */
+    .badge-margin-green {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+      background: #dcfce7;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+    }
+    .badge-margin-yellow {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+      background: #fef9c3;
+      color: #854d0e;
+      border: 1px solid #fde68a;
+    }
+    .badge-margin-gray {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+      background: #f3f4f6;
+      color: #6b7280;
+      border: 1px solid #e5e7eb;
+    }
+
+    /* Sales Badge */
+    .badge-sales-blue {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+      background: #dbeafe;
+      color: #1e40af;
+      border: 1px solid #bfdbfe;
+      white-space: nowrap;
+    }
+    .badge-sales-gray {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+      background: #f3f4f6;
+      color: #6b7280;
+      border: 1px solid #e5e7eb;
+      white-space: nowrap;
+    }
+
+    /* Money and Qty */
+    .cell-money {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--fg);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    .cell-qty {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--fg);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Grand Total Row */
+    .total-row td {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%) !important;
+      color: #ffffff !important;
+      padding: 16px 14px !important;
+      font-weight: 700;
+      border-bottom: none !important;
+    }
+    .total-row .cell-money {
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .total-label {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.02em;
+    }
+
+    /* Notes */
+    .notes {
+      margin: 40px 0;
+      padding: 24px 28px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+    .notes h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--fg);
+    }
+    .notes ul {
+      list-style: none;
+      padding: 0;
+    }
+    .notes li {
+      font-size: 13.5px;
+      color: var(--muted);
+      padding: 6px 0;
+      padding-left: 18px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .notes li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 14px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--border-strong);
+    }
+    .notes a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .notes a:hover {
+      text-decoration: underline;
+    }
+
+    /* CTA */
+    .cta {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
+      border-radius: 2rem;
+      padding: 56px 48px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+      margin: 48px 0;
+    }
+    .cta-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.15;
+      pointer-events: none;
+    }
+    .cta-orb-1 {
+      width: 300px;
+      height: 300px;
+      background: #a5b4fc;
+      top: -80px;
+      right: -40px;
+      animation: float1 10s ease-in-out infinite;
+    }
+    .cta-orb-2 {
+      width: 250px;
+      height: 250px;
+      background: #60a5fa;
+      bottom: -60px;
+      left: -30px;
+      animation: float2 12s ease-in-out infinite;
+    }
+    .cta-inner {
+      position: relative;
+      z-index: 1;
+    }
+    .cta h2 {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+    .cta p {
+      font-size: 17px;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 32px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-btn {
+      display: inline-block;
+      background: #ffffff;
+      color: var(--blue-900);
+      font-family: var(--font-primary);
+      font-size: 16px;
+      font-weight: 700;
+      padding: 14px 40px;
+      border-radius: var(--radius-full);
+      text-decoration: none;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    }
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+    .cta-contact {
+      margin-top: 20px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+    }
+    .cta-contact a {
+      color: rgba(255,255,255,0.95);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 40px 24px 48px;
+      border-top: 1px solid var(--border);
+      margin-top: 0;
+    }
+    .footer p {
+      font-size: 13px;
+      color: var(--muted-fg);
+      line-height: 1.8;
+    }
+    .footer a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Print */
+    @media print {
+      body { background: white; }
+      .hero, .cta { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      * { animation: none !important; }
+      .hero-fade { display: none; }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 36px; }
+      .hero-kpis { grid-template-columns: repeat(2, 1fr); }
+      .hero-kpi-value { font-size: 28px; }
+      .hero { padding: 32px 16px 60px; }
+      .client-bar { flex-direction: column; gap: 6px; }
+      .client-bar-divider { display: none; }
+      .cta { padding: 40px 24px; border-radius: var(--radius-xl); }
+      .cta h2 { font-size: 26px; }
+      .content { padding: 0 16px; }
+      .notes { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-fade"></div>
+    <div class="hero-inner">
+      <nav class="hero-nav anim" style="--i:0">
+        <img src="data:image/png;base64,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" alt="Catalist Group" style="height:32px;width:auto;">
+        <span class="hero-nav-date">Prepared March 2026</span>
+      </nav>
+      <h1 class="anim" style="--i:1">Purchase Order<br><span class="accent">Recommendation</span></h1>
+      <p class="hero-subtitle anim" style="--i:2">Curated product selection based on your stated interests</p>
+      <div class="hero-kpis">
+        <div class="hero-kpi anim" style="--i:3">
+          <div class="hero-kpi-value">$30,612</div>
+          <div class="hero-kpi-label">PO Total</div>
+        </div>
+        <div class="hero-kpi anim" style="--i:4">
+          <div class="hero-kpi-value">40</div>
+          <div class="hero-kpi-label">SKUs</div>
+        </div>
+        <div class="hero-kpi anim" style="--i:5">
+          <div class="hero-kpi-value">31.2%</div>
+          <div class="hero-kpi-label">Avg Margin</div>
+        </div>
+        <div class="hero-kpi anim" style="--i:6">
+          <div class="hero-kpi-value">8</div>
+          <div class="hero-kpi-label">Categories</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <div class="content">
+
+    <!-- Client Info Bar -->
+    <div class="client-bar anim" style="--i:7">
+      <div class="client-bar-item"><strong>Prepared For:</strong> Alex Mei, Mei Reign LLC</div>
+      <div class="client-bar-divider"></div>
+      <div class="client-bar-item"><strong>Contact:</strong> alex@meireign.com</div>
+      <div class="client-bar-divider"></div>
+      <div class="client-bar-item"><strong>Categories:</strong> Based on your stated preferences</div>
+    </div>
+
+    <!-- Product Table -->
+    <div class="table-section anim" style="--i:8">
+      <h2 class="table-section-title">Recommended Products</h2>
+      <div class="table-scroll">
+        <table class="po-table">
+          <thead>
+            <tr>
+              <th>SKU</th>
+              <th>Product</th>
+              <th>Category</th>
+              <th>Margin</th>
+              <th>Sales</th>
+              <th>Unit Price</th>
+              <th>Qty</th>
+              <th>Line Total</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <!-- ============================================ -->
+            <!-- BRAND 1: Luigi Bormioli - Glassware -->
+            <!-- ============================================ -->
+            <tr class="brand-row">
+              <td colspan="7">
+                <div class="brand-header-content">
+                  <span class="brand-name">Luigi Bormioli</span>
+                  <span class="badge-ungate-t1">Easy to ungate</span>
+                  <span class="brand-category">Glassware</span>
+                </div>
+              </td>
+              <td style="text-align:right"><span class="brand-subtotal">$4,266.56</span></td>
+            </tr>
+            <!-- 1. B0FG3XMRDF -->
+            <tr>
+              <td><span class="asin">B0FG3XMRDF</span></td>
+              <td><span class="product-name">Bormioli Rocco Bodega Swirl Rum Glasses - Set of 12, 7.25 Oz...</span></td>
+              <td><span class="category-label">Glassware</span></td>
+              <td><span class="badge-margin-green">29.65%</span></td>
+              <td><span class="badge-sales-gray">Est. ~5.6K/mo</span></td>
+              <td><span class="cell-money">$15.36</span></td>
+              <td><span class="cell-qty">66</span></td>
+              <td><span class="cell-money">$1,013.76</span></td>
+            </tr>
+            <!-- 2. B00GTV2AJI -->
+            <tr class="row-alt">
+              <td><span class="asin">B00GTV2AJI</span></td>
+              <td><span class="product-name">Bormioli Rocco Hermetic Seal Glass Pitcher With TEAL Lid...</span></td>
+              <td><span class="category-label">Glassware</span></td>
+              <td><span class="badge-margin-green">32.92%</span></td>
+              <td><span class="badge-sales-gray">Est. ~2.7K/mo</span></td>
+              <td><span class="cell-money">$7.60</span></td>
+              <td><span class="cell-qty">84</span></td>
+              <td><span class="cell-money">$638.40</span></td>
+            </tr>
+            <!-- 3. B097QCGPX9 -->
+            <tr>
+              <td><span class="asin">B097QCGPX9</span></td>
+              <td><span class="product-name">Bormioli Rocco America '20s 8.25 oz. Martini Glasses, Clear...</span></td>
+              <td><span class="category-label">Glassware</span></td>
+              <td><span class="badge-margin-green">35.49%</span></td>
+              <td><span class="badge-sales-gray">Est. ~1.3K/mo</span></td>
+              <td><span class="cell-money">$16.00</span></td>
+              <td><span class="cell-qty">50</span></td>
+              <td><span class="cell-money">$800.00</span></td>
+            </tr>
+            <!-- 4. B08YJSXCMF -->
+            <tr class="row-alt">
+              <td><span class="asin">B08YJSXCMF</span></td>
+              <td><span class="product-name">Bormioli Rocco America '20s 13.5 oz. Long Drink Glasses...</span></td>
+              <td><span class="category-label">Glassware</span></td>
+              <td><span class="badge-margin-green">29.67%</span></td>
+              <td><span class="badge-sales-gray">Est. ~1.3K/mo</span></td>
+              <td><span class="cell-money">$9.60</span></td>
+              <td><span class="cell-qty">84</span></td>
+              <td><span class="cell-money">$806.40</span></td>
+            </tr>
+            <!-- 5. B097QDM6WB -->
+            <tr>
+              <td><span class="asin">B097QDM6WB</span></td>
+              <td><span class="product-name">Bormioli Rocco America '20s 7.5 oz. Cocktail Coupe Glasses...</span></td>
+              <td><span class="category-label">Glassware</span></td>
+              <td><span class="badge-margin-green">28.43%</span></td>
+              <td><span class="badge-sales-gray">Est. ~1.3K/mo</span></td>
+              <td><span class="cell-money">$16.00</span></td>
+              <td><span class="cell-qty">63</span></td>
+              <td><span class="cell-money">$1,008.00</span></td>
+            </tr>
+
+            <!-- ============================================ -->
+            <!-- BRAND 2: Godinger - Dinnerware -->
+            <!-- ============================================ -->
+            <tr class="brand-row">
+              <td colspan="7">
+                <div class="brand-header-content">
+                  <span class="brand-name">Godinger</span>
+                  <span class="badge-ungate-t1">Easy to ungate</span>
+                  <span class="brand-category">Dinnerware</span>
+                </div>
+              </td>
+              <td style="text-align:right"><span class="brand-subtotal">$4,111.32</span></td>
+            </tr>
+            <!-- 1. B0CLPHQYH6 -->
+            <tr>
+              <td><span class="asin">B0CLPHQYH6</span></td>
+              <td><span class="product-name">Godinger Whiskey Decanter, Liquor Decanter Skull Decanter...</span></td>
+              <td><span class="category-label">Dinnerware</span></td>
+              <td><span class="badge-margin-green">55.11%</span></td>
+              <td><span class="badge-sales-gray">Est. ~728/mo</span></td>
+              <td><span class="cell-money">$15.00</span></td>
+              <td><span class="cell-qty">67</span></td>
+              <td><span class="cell-money">$1,005.00</span></td>
+            </tr>
+            <!-- 2. B0CLSG2W22 -->
+            <tr class="row-alt">
+              <td><span class="asin">B0CLSG2W22</span></td>
+              <td><span class="product-name">Godinger Gold Glass Hershey Kiss Candy Dish - A Sweet and...</span></td>
+              <td><span class="category-label">Dinnerware</span></td>
+              <td><span class="badge-margin-green">28.38%</span></td>
+              <td><span class="badge-sales-gray">Est. ~1.5K/mo</span></td>
+              <td><span class="cell-money">$5.00</span></td>
+              <td><span class="cell-qty">84</span></td>
+              <td><span class="cell-money">$420.00</span></td>
+            </tr>
+            <!-- 3. B0DN2B5BQ5 -->
+            <tr>
+              <td><span class="asin">B0DN2B5BQ5</span></td>
+              <td><span class="product-name">Godinger 6 in 1 Cake Stand and Serving Plate Platter with...</span></td>
+              <td><span class="category-label">Dinnerware</span></td>
+              <td><span class="badge-margin-green">42.70%</span></td>
+              <td><span class="badge-sales-gray">Est. ~582/mo</span></td>
+              <td><span class="cell-money">$10.00</span></td>
+              <td><span class="cell-qty">84</span></td>
+              <td><span class="cell-money">$840.00</span></td>
+            </tr>
+            <!-- 4. B09QRWPDY9 -->
+            <tr class="row-alt">
+              <td><span class="asin">B09QRWPDY9</span></td>
+              <td><span class="product-name">Godinger Cake Stand with Lid, Serving Plate Platter with...</span></td>
+              <td><span class="category-label">Dinnerware</span></td>
+              <td><span class="badge-margin-green">25.43%</span></td>
+              <td><span class="badge-sales-gray">Est. ~977/mo</span></td>
+              <td><span class="cell-money">$16.00</span></td>
+              <td><span class="cell-qty">63</span></td>
+              <td><span class="cell-money">$1,008.00</span></td>
+            </tr>
+            <!-- 5. B00015CM1Y -->
+            <tr>
+              <td><span class="asin">B00015CM1Y</span></td>
+              <td><span class="product-name">Godinger Shannon Pineapple Crystal Gravy Boat</span></td>
+              <td><span class="category-label">Dinnerware</span></td>
+              <td><span class="badge-margin-green">33.25%</span></td>
+              <td><span class="badge-sales-gray">Est. ~365/mo</span></td>
+              <td><span class="cell-money">$9.98</span></td>
+              <td><span class="cell-qty">84</span></td>
+              <td><span class="cell-money">$838.32</span></td>
+            </tr>
+
+            <!-- ============================================ -->
+            <!-- BRAND 3: Prepara - Kitchen Equipment -->
+            <!-- ============================================ -->
+            <tr class="brand-row">
+              <td colspan="7">
+                <div class="brand-header-content">
+                  <span class="brand-name">Prepara</span>
+                  <span class="badge-ungate-t1">Easy to ungate</span>
+                  <span class="brand-category">Kitchen Equipment</span>
+                </div>
+              </td>
+              <td style="text-align:right"><span class="brand-subtotal">$4,236.00</span></td>
+            </tr>
+            <!-- 1. B07G7RQL1J -->
+            <tr>
+              <td><span class="asin">B07G7RQL1J</span></td>
+              <td><span class="product-name">Prepara Multiple Taco Holder, Blue, Holds 3 Tacos</span></td>
+              <td><span class="category-label">Kitchen Equipment</span></td>
+              <td><span class="badge-margin-green">35.76%</span></td>
+              <td><span class="badge-sales-gray">Est. ~357/mo</span></td>
+              <td><span class="cell-money">$5.00</span></td>
+              <td><span class="cell-qty">84</span></td>
+              <td><span class="cell-money">$420.00</span></td>
+            </tr>
+            <!-- 2. B07PMYBRT2 -->
+            <tr class="row-alt">
+              <td><span class="asin">B07PMYBRT2</span></td>
+              <td><span class="product-name">Prepara Evak Fresh Saver, Medium-Tall Airless Canister with...</span></td>
+              <td><span class="category-label">Kitchen Equipment</span></td>
+              <td><span class="badge-margin-green">30.14%</span></td>
+              <td><span class="badge-sales-blue">300+/mo</span></td>
+              <td><span class="cell-money">$12.00</span></td>
+              <td><span class="cell-qty">75</span></td>
+              <td><span class="cell-money">$900.00</span></td>
+            </tr>
+            <!-- 3. B01CCGRJVC -->
+            <tr>
+              <td><span class="asin">B01CCGRJVC</span></td>
+              <td><span class="product-name">Prepara Simply Mist Olive Oil Sprayer, Chrome Band, White/Green</span></td>
+              <td><span class="category-label">Kitchen Equipment</span></td>
+              <td><span class="badge-margin-green">33.67%</span></td>
+              <td><span class="badge-sales-gray">Est. ~263/mo</span></td>
+              <td><span class="cell-money">$14.00</span></td>
+              <td><span class="cell-qty">72</span></td>
+              <td><span class="cell-money">$1,008.00</span></td>
+            </tr>
+            <!-- 4. B07Q7PQ1NK -->
+            <tr class="row-alt">
+              <td><span class="asin">B07Q7PQ1NK</span></td>
+              <td><span class="product-name">Prepara Evak Fresh Saver Plastic Food Storage, Large/Tall...</span></td>
+              <td><span class="category-label">Kitchen Equipment</span></td>
+              <td><span class="badge-margin-green">25.81%</span></td>
+              <td><span class="badge-sales-gray">Est. ~395/mo</span></td>
+              <td><span class="cell-money">$14.00</span></td>
+              <td><span class="cell-qty">72</span></td>
+              <td><span class="cell-money">$1,008.00</span></td>
+            </tr>
+            <!-- 5. B0CJZFQVQJ -->
+            <tr>
+              <td><span class="asin">B0CJZFQVQJ</span></td>
+              <td><span class="product-name">Prepara Day of The Dead 3-Section Tray, Black</span></td>
+              <td><span class="category-label">Kitchen Equipment</span></td>
+              <td><span class="badge-margin-green">34.08%</span></td>
+              <td><span class="badge-sales-gray">Est. ~123/mo</span></td>
+              <td><span class="cell-money">$12.00</span></td>
+              <td><span class="cell-qty">75</span></td>
+              <td><span class="cell-money">$900.00</span></td>
+            </tr>
+
+            <!-- ============================================ -->
+            <!-- BRAND 4: Dexter-Russell - Cutlery & Knives -->
+            <!-- ============================================ -->
+            <tr class="brand-row">
+              <td colspan="7">
+                <div class="brand-header-content">
+                  <span class="brand-name">Dexter-Russell</span>
+                  <span class="badge-ungate-t2">Likely easy to ungate</span>
+                  <span class="brand-category">Cutlery &amp; Knives</span>
+                </div>
+              </td>
+              <td style="text-align:right"><span class="brand-subtotal">$4,520.75</span></td>
+            </tr>
+            <!-- 1. B001EQELOU -->
+            <tr>
+              <td><span class="asin">B001EQELOU</span></td>
+              <td><span class="product-name">Dexter-Russell 2 3/4" Pizza Cutter | P3A-PCP | SANI-Safe...</span></td>
+              <td><span class="category-label">Cutlery &amp; Knives</span></td>
+              <td><span class="badge-margin-yellow">17.44%</span></td>
+              <td><span class="badge-sales-gray">Est. ~2.5K/mo</span></td>
+              <td><span class="cell-money">$16.00</span></td>
+              <td><span class="cell-qty">50</span></td>
+              <td><span class="cell-money">$800.00</span></td>
+            </tr>
+            <!-- 2. B008RBSKX8 -->
+            <tr class="row-alt">
+              <td><span class="asin">B008RBSKX8</span></td>
+              <td><span class="product-name">Dexter-Russell 5 1/4-Inch Sheep Skinning Knife</span></td>
+              <td><span class="category-label">Cutlery &amp; Knives</span></td>
+              <td><span class="badge-margin-green">27.90%</span></td>
+              <td><span class="badge-sales-gray">Est. ~275/mo</span></td>
+              <td><span class="cell-money">$12.47</span></td>
+              <td><span class="cell-qty">75</span></td>
+              <td><span class="cell-money">$935.25</span></td>
+            </tr>
+            <!-- 3. B07RDCHRVF -->
+            <tr>
+              <td><span class="asin">B07RDCHRVF</span></td>
+              <td><span class="product-name">Dexter 9" Scalloped Offset Slicer, Black Handle</span></td>
+              <td><span class="category-label">Cutlery &amp; Knives</span></td>
+              <td><span class="badge-margin-green">25.16%</span></td>
+              <td><span class="badge-sales-gray">Est. ~353/mo</span></td>
+              <td><span class="cell-money">$12.38</span></td>
+              <td><span class="cell-qty">75</span></td>
+              <td><span class="cell-money">$928.50</span></td>
+            </tr>
+            <!-- 4. B07STX39PF -->
+            <tr class="row-alt">
+              <td><span class="asin">B07STX39PF</span></td>
+              <td><span class="product-name">Dexter 9" Scalloped Offset Slicer, Green Handle</span></td>
+              <td><span class="category-label">Cutlery &amp; Knives</span></td>
+              <td><span class="badge-margin-green">24.68%</span></td>
+              <td><span class="badge-sales-gray">Est. ~353/mo</span></td>
+              <td><span class="cell-money">$12.38</span></td>
+              <td><span class="cell-qty">75</span></td>
+              <td><span class="cell-money">$928.50</span></td>
+            </tr>
+            <!-- 5. B07STX4664 -->
+            <tr>
+              <td><span class="asin">B07STX4664</span></td>
+              <td><span class="product-name">Dexter-Russell 9" Scalloped Offset Slicer with Red Handle...</span></td>
+              <td><span class="category-label">Cutlery &amp; Knives</span></td>
+              <td><span class="badge-margin-green">22.80%</span></td>
+              <td><span class="badge-sales-gray">Est. ~347/mo</span></td>
+              <td><span class="cell-money">$12.38</span></td>
+              <td><span class="cell-qty">75</span></td>
+              <td><span class="cell-money">$928.50</span></td>
+            </tr>
+
+            <!-- ============================================ -->
+            <!-- BRAND 5: McDavid - Fitness & Gym -->
+            <!-- ============================================ -->
+            <tr class="brand-row">
+              <td colspan="7">
+                <div class="brand-header-content">
+                  <span class="brand-name">McDavid</span>
+                  <span class="badge-ungate-t1">Easy to ungate</span>
+                  <span class="brand-category">Fitness &amp; Gym</span>
+                </div>
+              </td>
+              <td style="text-align:right"><span class="brand-subtotal">$4,889.70</span></td>
+            </tr>
+            <!-- 1. B0002CE20A -->
+            <tr>
+              <td><span class="asin">B0002CE20A</span></td>
+              <td><span class="product-name">McDavid Ankle Brace Ultralight for Sprained Ankle, Figure 8...</span></td>
+              <td><span class="category-label">Fitness &amp; Gym</span></td>
+              <td><span class="badge-margin-green">21.07%</span></td>
+              <td><span class="badge-sales-gray">Est. ~1.8K/mo</span></td>
+              <td><span class="cell-money">$21.15</span></td>
+              <td><span class="cell-qty">50</span></td>
+              <td><span class="cell-money">$1,057.50</span></td>
+            </tr>
+            <!-- 2. B00AABQG5W -->
+            <tr class="row-alt">
+              <td><span class="asin">B00AABQG5W</span></td>
+              <td><span class="product-name">Knee Compression Sleeves: McDavid Hex Knee Pads Compression...</span></td>
+              <td><span class="category-label">Fitness &amp; Gym</span></td>
+              <td><span class="badge-margin-green">20.09%</span></td>
+              <td><span class="badge-sales-gray">Est. ~2.7K/mo</span></td>
+              <td><span class="cell-money">$20.25</span></td>
+              <td><span class="cell-qty">50</span></td>
+              <td><span class="cell-money">$1,012.50</span></td>
+            </tr>
+            <!-- 3. B006G7P8TY -->
+            <tr>
+              <td><span class="asin">B006G7P8TY</span></td>
+              <td><span class="product-name">McDavid Moisture Wicking HEX Technology Knee Sleeves for...</span></td>
+              <td><span class="category-label">Fitness &amp; Gym</span></td>
+              <td><span class="badge-margin-green">25.71%</span></td>
+              <td><span class="badge-sales-gray">Est. ~510/mo</span></td>
+              <td><span class="cell-money">$15.75</span></td>
+              <td><span class="cell-qty">50</span></td>
+              <td><span class="cell-money">$787.50</span></td>
+            </tr>
+            <!-- 4. B000UVUC20 -->
+            <tr class="row-alt">
+              <td><span class="asin">B000UVUC20</span></td>
+              <td><span class="product-name">McDavid Knee Brace Support with Side Stays, Compression...</span></td>
+              <td><span class="category-label">Fitness &amp; Gym</span></td>
+              <td><span class="badge-margin-green">21.24%</span></td>
+              <td><span class="badge-sales-gray">Est. ~720/mo</span></td>
+              <td><span class="cell-money">$25.65</span></td>
+              <td><span class="cell-qty">38</span></td>
+              <td><span class="cell-money">$974.70</span></td>
+            </tr>
+            <!-- 5. B0002CE214 -->
+            <tr>
+              <td><span class="asin">B0002CE214</span></td>
+              <td><span class="product-name">McDavid Ankle Brace Ultralight for Sprained Ankle, Figure 8...</span></td>
+              <td><span class="category-label">Fitness &amp; Gym</span></td>
+              <td><span class="badge-margin-yellow">19.75%</span></td>
+              <td><span class="badge-sales-blue">600+/mo</span></td>
+              <td><span class="cell-money">$21.15</span></td>
+              <td><span class="cell-qty">50</span></td>
+              <td><span class="cell-money">$1,057.50</span></td>
+            </tr>
+
+            <!-- ============================================ -->
+            <!-- BRAND 6: Elite Hockey - Sports Equipment -->
+            <!-- ============================================ -->
+            <tr class="brand-row">
+              <td colspan="7">
+                <div class="brand-header-content">
+                  <span class="brand-name">Elite Hockey</span>
+                  <span class="badge-ungate-t1">Easy to ungate</span>
+                  <span class="brand-category">Sports Equipment</span>
+                </div>
+              </td>
+              <td style="text-align:right"><span class="brand-subtotal">$630.00</span></td>
+            </tr>
+            <!-- 1. B00272C606 -->
+            <tr>
+              <td><span class="asin">B00272C606</span></td>
+              <td><span class="product-name">Elite Hockey Prolace Waxed Hockey Skate Laces (one Pair)</span></td>
+              <td><span class="category-label">Sports Equipment</span></td>
+              <td><span class="badge-margin-green">28.43%</span></td>
+              <td><span class="badge-sales-gray">Est. ~4.0K/mo</span></td>
+              <td><span class="cell-money">$1.50</span></td>
+              <td><span class="cell-qty">84</span></td>
+              <td><span class="cell-money">$126.00</span></td>
+            </tr>
+            <!-- 2. B004R71CYU -->
+            <tr class="row-alt">
+              <td><span class="asin">B004R71CYU</span></td>
+              <td><span class="product-name">Elite Hockey Prolace Waxed Hockey Skate Laces (one Pair)</span></td>
+              <td><span class="category-label">Sports Equipment</span></td>
+              <td><span class="badge-margin-green">28.43%</span></td>
+              <td><span class="badge-sales-gray">Est. ~3.8K/mo</span></td>
+              <td><span class="cell-money">$1.50</span></td>
+              <td><span class="cell-qty">84</span></td>
+              <td><span class="cell-money">$126.00</span></td>
+            </tr>
+            <!-- 3. B004R6VACA -->
+            <tr>
+              <td><span class="asin">B004R6VACA</span></td>
+              <td><span class="product-name">Elite Hockey Prolace Waxed Hockey Skate Laces (one Pair)</span></td>
+              <td><span class="category-label">Sports Equipment</span></td>
+              <td><span class="badge-margin-green">28.43%</span></td>
+              <td><span class="badge-sales-gray">Est. ~3.8K/mo</span></td>
+              <td><span class="cell-money">$1.50</span></td>
+              <td><span class="cell-qty">84</span></td>
+              <td><span class="cell-money">$126.00</span></td>
+            </tr>
+            <!-- 4. B00V3HX6Z0 -->
+            <tr class="row-alt">
+              <td><span class="asin">B00V3HX6Z0</span></td>
+              <td><span class="product-name">Elite Hockey PRO-X7 Wide Molded Tip Cotton Hockey Skate Laces...</span></td>
+              <td><span class="category-label">Sports Equipment</span></td>
+              <td><span class="badge-margin-green">28.17%</span></td>
+              <td><span class="badge-sales-gray">Est. ~2.9K/mo</span></td>
+              <td><span class="cell-money">$1.50</span></td>
+              <td><span class="cell-qty">84</span></td>
+              <td><span class="cell-money">$126.00</span></td>
+            </tr>
+            <!-- 5. B00V3HWZUC -->
+            <tr>
+              <td><span class="asin">B00V3HWZUC</span></td>
+              <td><span class="product-name">Elite Hockey PRO-X7 Wide Molded Tip Cotton Hockey Skate Laces...</span></td>
+              <td><span class="category-label">Sports Equipment</span></td>
+              <td><span class="badge-margin-green">28.36%</span></td>
+              <td><span class="badge-sales-gray">Est. ~2.8K/mo</span></td>
+              <td><span class="cell-money">$1.50</span></td>
+              <td><span class="cell-qty">84</span></td>
+              <td><span class="cell-money">$126.00</span></td>
+            </tr>
+
+            <!-- ============================================ -->
+            <!-- BRAND 7: Huish Outdoors - Outdoor Recreation -->
+            <!-- ============================================ -->
+            <tr class="brand-row">
+              <td colspan="7">
+                <div class="brand-header-content">
+                  <span class="brand-name">Huish Outdoors</span>
+                  <span class="badge-ungate-t1">Easy to ungate</span>
+                  <span class="brand-category">Outdoor Recreation</span>
+                </div>
+              </td>
+              <td style="text-align:right"><span class="brand-subtotal">$4,358.75</span></td>
+            </tr>
+            <!-- 1. B07PBGJ191 -->
+            <tr>
+              <td><span class="asin">B07PBGJ191</span></td>
+              <td><span class="product-name">Oceanic Mini Shadow Scuba Mask</span></td>
+              <td><span class="category-label">Outdoor Recreation</span></td>
+              <td><span class="badge-margin-green">33.27%</span></td>
+              <td><span class="badge-sales-gray">Est. ~100/mo</span></td>
+              <td><span class="cell-money">$34.87</span></td>
+              <td><span class="cell-qty">25</span></td>
+              <td><span class="cell-money">$871.75</span></td>
+            </tr>
+            <!-- 2. B07P72BRJK -->
+            <tr class="row-alt">
+              <td><span class="asin">B07P72BRJK</span></td>
+              <td><span class="product-name">Oceanic Mini Shadow Scuba Mask</span></td>
+              <td><span class="category-label">Outdoor Recreation</span></td>
+              <td><span class="badge-margin-green">33.27%</span></td>
+              <td><span class="badge-sales-gray">Est. ~100/mo</span></td>
+              <td><span class="cell-money">$34.87</span></td>
+              <td><span class="cell-qty">25</span></td>
+              <td><span class="cell-money">$871.75</span></td>
+            </tr>
+            <!-- 3. B07P89Z5B7 -->
+            <tr>
+              <td><span class="asin">B07P89Z5B7</span></td>
+              <td><span class="product-name">Oceanic Mini Shadow Scuba Mask</span></td>
+              <td><span class="category-label">Outdoor Recreation</span></td>
+              <td><span class="badge-margin-green">33.27%</span></td>
+              <td><span class="badge-sales-gray">Est. ~100/mo</span></td>
+              <td><span class="cell-money">$34.87</span></td>
+              <td><span class="cell-qty">25</span></td>
+              <td><span class="cell-money">$871.75</span></td>
+            </tr>
+            <!-- 4. B07P9838H8 -->
+            <tr class="row-alt">
+              <td><span class="asin">B07P9838H8</span></td>
+              <td><span class="product-name">Oceanic Mini Shadow Scuba Mask</span></td>
+              <td><span class="category-label">Outdoor Recreation</span></td>
+              <td><span class="badge-margin-green">32.71%</span></td>
+              <td><span class="badge-sales-gray">Est. ~100/mo</span></td>
+              <td><span class="cell-money">$34.87</span></td>
+              <td><span class="cell-qty">25</span></td>
+              <td><span class="cell-money">$871.75</span></td>
+            </tr>
+            <!-- 5. B001N1D3WM -->
+            <tr>
+              <td><span class="asin">B001N1D3WM</span></td>
+              <td><span class="product-name">Oceanic Mini Shadow Scuba Mask</span></td>
+              <td><span class="category-label">Outdoor Recreation</span></td>
+              <td><span class="badge-margin-green">30.26%</span></td>
+              <td><span class="badge-sales-gray">Est. ~100/mo</span></td>
+              <td><span class="cell-money">$34.87</span></td>
+              <td><span class="cell-qty">25</span></td>
+              <td><span class="cell-money">$871.75</span></td>
+            </tr>
+
+            <!-- ============================================ -->
+            <!-- BRAND 8: Pactrade Marine - Marine & Boating -->
+            <!-- ============================================ -->
+            <tr class="brand-row">
+              <td colspan="7">
+                <div class="brand-header-content">
+                  <span class="brand-name">Pactrade Marine</span>
+                  <span class="badge-ungate-t2">Likely easy to ungate</span>
+                  <span class="brand-category">Marine &amp; Boating</span>
+                </div>
+              </td>
+              <td style="text-align:right"><span class="brand-subtotal">$3,598.56</span></td>
+            </tr>
+            <!-- 1. B07BWY72NR -->
+            <tr>
+              <td><span class="asin">B07BWY72NR</span></td>
+              <td><span class="product-name">Pactrade Marine Boat Tiller Handle Extension Ergonomic Grip...</span></td>
+              <td><span class="category-label">Marine &amp; Boating</span></td>
+              <td><span class="badge-margin-green">52.63%</span></td>
+              <td><span class="badge-sales-gray">Est. ~114/mo</span></td>
+              <td><span class="cell-money">$9.00</span></td>
+              <td><span class="cell-qty">84</span></td>
+              <td><span class="cell-money">$756.00</span></td>
+            </tr>
+            <!-- 2. B07BWXZN2J -->
+            <tr class="row-alt">
+              <td><span class="asin">B07BWXZN2J</span></td>
+              <td><span class="product-name">Pactrade Marine Boat Tiller Handle Extension Ergonomic Grip...</span></td>
+              <td><span class="category-label">Marine &amp; Boating</span></td>
+              <td><span class="badge-margin-green">47.74%</span></td>
+              <td><span class="badge-sales-gray">Est. ~114/mo</span></td>
+              <td><span class="cell-money">$8.04</span></td>
+              <td><span class="cell-qty">84</span></td>
+              <td><span class="cell-money">$675.36</span></td>
+            </tr>
+            <!-- 3. B074LGPMN4 -->
+            <tr>
+              <td><span class="asin">B074LGPMN4</span></td>
+              <td><span class="product-name">Pactrade Marine Boat Tiller Handle Extension Ergonomic Grip...</span></td>
+              <td><span class="category-label">Marine &amp; Boating</span></td>
+              <td><span class="badge-margin-green">47.10%</span></td>
+              <td><span class="badge-sales-gray">Est. ~114/mo</span></td>
+              <td><span class="cell-money">$9.72</span></td>
+              <td><span class="cell-qty">84</span></td>
+              <td><span class="cell-money">$816.48</span></td>
+            </tr>
+            <!-- 4. B074LF146L -->
+            <tr class="row-alt">
+              <td><span class="asin">B074LF146L</span></td>
+              <td><span class="product-name">Pactrade Marine Boat Tiller Handle Extension Ergonomic Grip...</span></td>
+              <td><span class="category-label">Marine &amp; Boating</span></td>
+              <td><span class="badge-margin-green">38.29%</span></td>
+              <td><span class="badge-sales-gray">Est. ~114/mo</span></td>
+              <td><span class="cell-money">$7.56</span></td>
+              <td><span class="cell-qty">84</span></td>
+              <td><span class="cell-money">$635.04</span></td>
+            </tr>
+            <!-- 5. B01M621SDB -->
+            <tr>
+              <td><span class="asin">B01M621SDB</span></td>
+              <td><span class="product-name">Pactrade Marine All-Round Boat Navigation Lights - 24-Inch...</span></td>
+              <td><span class="category-label">Marine &amp; Boating</span></td>
+              <td><span class="badge-margin-green">31.27%</span></td>
+              <td><span class="badge-sales-gray">Est. ~72/mo</span></td>
+              <td><span class="cell-money">$8.52</span></td>
+              <td><span class="cell-qty">84</span></td>
+              <td><span class="cell-money">$715.68</span></td>
+            </tr>
+
+            <!-- ============================================ -->
+            <!-- GRAND TOTAL ROW -->
+            <!-- ============================================ -->
+            <tr class="total-row">
+              <td colspan="7"><span class="total-label">Grand Total &mdash; 40 SKUs across 8 Categories</span></td>
+              <td style="text-align:right"><span class="cell-money">$30,611.64</span></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Notes -->
+    <div class="notes anim" style="--i:9">
+      <h3>Notes</h3>
+      <ul>
+        <li>All prices are wholesale cost per unit. Quantities shown are minimum order quantities (MOQ).</li>
+        <li>Ungating: Use the Catalist ungating tool at <a href="https://b2b.catalistgroup.co/ungating" target="_blank">b2b.catalistgroup.co/ungating</a> to get approved for restricted brands.</li>
+        <li>Margins shown are estimated based on current market conditions and may vary.</li>
+      </ul>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta anim" style="--i:10">
+      <div class="cta-orb cta-orb-1"></div>
+      <div class="cta-orb cta-orb-2"></div>
+      <div class="cta-inner">
+        <h2>Ready to Place Your Order?</h2>
+        <p>Visit the Catalist portal to submit your purchase order and get started selling.</p>
+        <a href="https://b2b.catalistgroup.co" class="cta-btn" target="_blank">Go to Portal</a>
+        <div class="cta-contact">
+          Questions? Reach us at <a href="mailto:hello@catalistgroup.co">hello@catalistgroup.co</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>
+      Catalist Group &mdash; 287 Park Avenue South, New York, NY 10010<br>
+      <a href="https://catalistgroup.co" target="_blank">catalistgroup.co</a> &nbsp;|&nbsp; <a href="https://b2b.catalistgroup.co" target="_blank">b2b.catalistgroup.co</a>
+    </p>
+  </footer>
+
+</body>
+</html>
