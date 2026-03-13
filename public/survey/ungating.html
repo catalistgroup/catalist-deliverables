@@ -856,6 +856,32 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    .slide-in {
+      animation: slideIn 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .question-card.compacted {
+      opacity: 0.6;
+      transition: opacity 0.2s ease;
+    }
+
+    .question-card.compacted .compact-answer {
+      display: block;
+    }
+
+    .compact-answer {
+      display: none;
+      font-size: 0.8125rem;
+      color: var(--color-success);
+      font-weight: 500;
+      margin-top: 0.5rem;
+    }
+
     /* ===== Submitting overlay ===== */
     #submitting-overlay {
       display: none;
@@ -1069,12 +1095,12 @@
           <div class="radio-group" id="denial-strategy-options"></div>
         </div>
 
-        <div class="question-card">
+        <div class="question-card" id="habits-q2" style="display:none">
           <p class="question-text">Have you ever been auto-ungated without submitting an invoice?</p>
           <div class="radio-group" id="auto-ungated-options"></div>
         </div>
 
-        <div class="question-card">
+        <div class="question-card" id="habits-q3" style="display:none">
           <p class="question-text">What would make the ungating process easier? <span style="color:var(--color-muted);font-weight:400;">(optional)</span></p>
           <div class="textarea-wrapper">
             <textarea id="freetext-input" maxlength="280" placeholder="Anything you'd like to share..." oninput="updateCharCounter()"></textarea>
@@ -1086,7 +1112,7 @@
           <button class="btn btn-secondary btn-lift" id="btn-habits-back" onclick="backFromHabits()">
             <span class="btn-arrow">&larr;</span> Back
           </button>
-          <button class="btn btn-primary btn-lift" id="btn-submit" onclick="submitSurvey()">
+          <button class="btn btn-primary btn-lift" id="btn-submit" onclick="submitSurvey()" style="display:none">
             Submit <span class="btn-arrow">&rarr;</span>
           </button>
         </div>
@@ -1587,6 +1613,14 @@
         document.getElementById('freetext-input').value = responses.habits.free_text;
         updateCharCounter();
       }
+
+      // Restore sequential reveals from saved state
+      if (responses.habits.denial_strategy) {
+        revealHabitsSequential('denial_strategy');
+      }
+      if (responses.habits.auto_ungated) {
+        revealHabitsSequential('auto_ungated');
+      }
     }
 
     // ===== Selection Handlers =====
@@ -1599,6 +1633,47 @@
 
       responses[section][field] = value;
       saveProgress();
+
+      // Sequential reveal for habits section
+      if (section === 'habits') {
+        revealHabitsSequential(field);
+      }
+    }
+
+    function revealHabitsSequential(field) {
+      if (field === 'denial_strategy') {
+        // Compact Q1, show Q2
+        compactQuestion('denial-strategy-options', responses.habits.denial_strategy);
+        showElement('habits-q2');
+      } else if (field === 'auto_ungated') {
+        // Compact Q2, show Q3 + submit
+        compactQuestion('auto-ungated-options', responses.habits.auto_ungated);
+        showElement('habits-q3');
+        showElement('btn-submit');
+      }
+    }
+
+    function compactQuestion(radioGroupId, selectedValue) {
+      const group = document.getElementById(radioGroupId);
+      const card = group.closest('.question-card');
+      card.classList.add('compacted');
+
+      // Add or update compact answer display
+      let answerEl = card.querySelector('.compact-answer');
+      if (!answerEl) {
+        answerEl = document.createElement('p');
+        answerEl.className = 'compact-answer';
+        card.appendChild(answerEl);
+      }
+      answerEl.textContent = selectedValue;
+    }
+
+    function showElement(id) {
+      const el = document.getElementById(id);
+      if (el && el.style.display === 'none') {
+        el.style.display = '';
+        el.classList.add('slide-in');
+      }
     }
 
     function selectBrandOutcome(el, brandId, outcome) {
