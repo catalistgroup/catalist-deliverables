@@ -12,24 +12,37 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --color-primary: #0066FF;
+      /* Catalist Brand */
+      --catalist-blue: #0B24FB;
+      --catalist-midnight: #03013F;
+      --catalist-navy: #020C7F;
+      --catalist-light-sky: #8ACFF8;
+
+      /* UI Colors */
+      --color-primary: #0B24FB;
       --color-primary-foreground: #FFFFFF;
-      --color-dark: #0A0A0A;
+      --color-dark: #18181B;
       --color-background: #FFFFFF;
       --color-background-alt: #FAFBFC;
-      --color-background-muted: #F3F4F6;
-      --color-foreground: #111827;
-      --color-muted: #6B7280;
-      --color-muted-foreground: #9CA3AF;
-      --color-border: #E5E7EB;
+      --color-background-muted: #F1F5F9;
+      --color-foreground: #18181B;
+      --color-muted: #64748B;
+      --color-muted-foreground: #94A3B8;
+      --color-border: #E2E8F0;
       --color-success: #10B981;
       --color-error: #EF4444;
+
+      /* Radii */
       --radius: 0.75rem;
       --radius-lg: 1rem;
-      --radius-xl: 1.5rem;
-      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-      --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.1);
-      --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1);
+      --radius-xl: 1.25rem;
+      --radius-2xl: 1.5rem;
+
+      /* Shadows */
+      --shadow-card: 0 25px 60px -12px rgba(3, 1, 63, 0.25);
+      --shadow-soft: 0 4px 6px -1px rgba(3, 1, 63, 0.06), 0 2px 4px -2px rgba(3, 1, 63, 0.08);
+      --shadow-medium: 0 10px 20px -4px rgba(3, 1, 63, 0.1), 0 4px 6px -4px rgba(3, 1, 63, 0.06);
+      --shadow-glow: 0 0 20px rgba(11, 36, 251, 0.15);
     }
 
     html { scroll-behavior: smooth; }
@@ -37,7 +50,7 @@
     body {
       font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
       color: var(--color-foreground);
-      background: var(--color-background);
+      background: var(--catalist-midnight);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -47,6 +60,56 @@
     .accent {
       font-family: 'Instrument Serif', Georgia, serif;
       font-style: italic;
+      color: var(--catalist-blue);
+    }
+
+    /* ===== Fixed Gradient Background ===== */
+    .bg-gradient {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #03013F 0%, #020C7F 50%, #0B24FB 100%);
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+    }
+
+    .orb-1 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(11, 36, 251, 0.3) 0%, transparent 70%);
+      top: -10%;
+      right: -5%;
+      animation: floatOrb 20s ease-in-out infinite;
+    }
+
+    .orb-2 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(0, 102, 255, 0.2) 0%, transparent 70%);
+      bottom: -15%;
+      left: -10%;
+      animation: floatOrb 25s ease-in-out infinite reverse;
+    }
+
+    .orb-3 {
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, rgba(138, 207, 248, 0.15) 0%, transparent 70%);
+      top: 40%;
+      left: 55%;
+      animation: floatOrb 30s ease-in-out infinite;
+    }
+
+    @keyframes floatOrb {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(-30px, 20px) scale(1.05); }
+      66% { transform: translate(20px, -15px) scale(0.95); }
     }
 
     /* ===== Progress Bar ===== */
@@ -54,11 +117,32 @@
       position: fixed;
       top: 0;
       left: 0;
-      height: 3px;
-      background: var(--color-primary);
+      height: 4px;
+      background: linear-gradient(90deg, var(--catalist-blue), var(--catalist-light-sky), var(--catalist-blue));
+      background-size: 200% 100%;
+      animation: shimmerBar 3s ease-in-out infinite;
       z-index: 1000;
       transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
       width: 0%;
+      box-shadow: 0 0 12px rgba(11, 36, 251, 0.4);
+    }
+
+    @keyframes shimmerBar {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* ===== Brand Wordmark ===== */
+    .brand-wordmark {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-style: italic;
+      font-size: 1.75rem;
+      color: white;
+      letter-spacing: -0.01em;
+      display: block;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      opacity: 0.95;
     }
 
     /* ===== Loading State ===== */
@@ -69,13 +153,15 @@
       justify-content: center;
       min-height: 100vh;
       gap: 1.5rem;
+      position: relative;
+      z-index: 1;
     }
 
     .spinner {
-      width: 48px;
-      height: 48px;
-      border: 3px solid var(--color-border);
-      border-top-color: var(--color-primary);
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(255, 255, 255, 0.2);
+      border-top-color: white;
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
     }
@@ -85,8 +171,9 @@
     }
 
     .loading-text {
-      color: var(--color-muted);
+      color: rgba(255, 255, 255, 0.7);
       font-size: 0.9375rem;
+      font-weight: 500;
     }
 
     /* ===== Error State ===== */
@@ -98,18 +185,35 @@
       min-height: 100vh;
       text-align: center;
       padding: 2rem;
+      gap: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .error-card {
+      background: white;
+      border-radius: var(--radius-2xl);
+      padding: 2.5rem 2rem;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       gap: 1rem;
     }
 
     .error-icon {
-      width: 64px;
-      height: 64px;
+      width: 56px;
+      height: 56px;
       border-radius: 50%;
       background: #FEF2F2;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.75rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-error);
     }
 
     .error-title {
@@ -120,37 +224,75 @@
 
     .error-message {
       color: var(--color-muted);
-      max-width: 400px;
+      max-width: 360px;
       font-size: 0.9375rem;
+      line-height: 1.5;
     }
 
     /* ===== Survey Container ===== */
     #survey-container {
       display: none;
-      max-width: 640px;
+      max-width: 680px;
       margin: 0 auto;
-      padding: 2rem 1.5rem 4rem;
+      padding: 2.5rem 1.5rem 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .survey-card {
+      background: white;
+      border-radius: var(--radius-2xl);
+      padding: 2rem;
+      box-shadow: var(--shadow-card);
+      animation: cardEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes cardEnter {
+      from { opacity: 0; transform: translateY(20px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @media (min-width: 640px) {
+      .survey-card { padding: 2.5rem; }
+      #survey-container { padding: 3rem 2rem 4rem; }
+    }
+
+    @media (min-width: 768px) {
+      .survey-card { padding: 3rem; }
     }
 
     /* ===== Section Headers ===== */
     .section-header {
-      margin-bottom: 2rem;
+      margin-bottom: 1.75rem;
     }
 
     .section-label {
-      font-size: 0.75rem;
+      font-size: 0.6875rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--color-primary);
-      margin-bottom: 0.5rem;
+      letter-spacing: 0.12em;
+      color: var(--catalist-blue);
+      margin-bottom: 0.625rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 2px;
+      background: var(--catalist-blue);
+      border-radius: 1px;
     }
 
     .section-title {
       font-size: 1.5rem;
       font-weight: 800;
       color: var(--color-foreground);
-      line-height: 1.3;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
     }
 
     @media (min-width: 768px) {
@@ -161,20 +303,22 @@
       font-size: 0.9375rem;
       color: var(--color-muted);
       margin-top: 0.5rem;
+      line-height: 1.5;
     }
 
     /* ===== Question Card ===== */
     .question-card {
-      background: var(--color-background);
+      background: var(--color-background-alt);
       border: 1px solid var(--color-border);
-      border-radius: var(--radius-lg);
+      border-radius: var(--radius-xl);
       padding: 1.5rem;
-      margin-bottom: 1.25rem;
-      transition: box-shadow 0.2s ease;
+      margin-bottom: 1rem;
+      transition: box-shadow 0.2s ease, border-color 0.2s ease;
     }
 
     .question-card:hover {
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow-soft);
+      border-color: rgba(11, 36, 251, 0.12);
     }
 
     .question-text {
@@ -182,6 +326,7 @@
       font-weight: 600;
       color: var(--color-foreground);
       margin-bottom: 1rem;
+      line-height: 1.4;
     }
 
     /* ===== Radio Options ===== */
@@ -196,23 +341,25 @@
       align-items: center;
       gap: 0.75rem;
       padding: 0.75rem 1rem;
-      border: 1px solid var(--color-border);
+      border: 1.5px solid var(--color-border);
       border-radius: var(--radius);
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       min-height: 44px;
       user-select: none;
       -webkit-user-select: none;
+      background: white;
     }
 
     .radio-option:hover {
-      border-color: var(--color-primary);
-      background: rgba(0, 102, 255, 0.03);
+      border-color: rgba(11, 36, 251, 0.35);
+      background: rgba(11, 36, 251, 0.02);
     }
 
     .radio-option.selected {
-      border-color: var(--color-primary);
-      background: rgba(0, 102, 255, 0.06);
+      border-color: var(--catalist-blue);
+      background: rgba(11, 36, 251, 0.06);
+      box-shadow: 0 0 0 3px rgba(11, 36, 251, 0.08);
     }
 
     .radio-option input[type="radio"] {
@@ -228,11 +375,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.15s ease;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .radio-option.selected .radio-circle {
-      border-color: var(--color-primary);
+      border-color: var(--catalist-blue);
     }
 
     .radio-circle::after {
@@ -240,9 +387,9 @@
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background: var(--color-primary);
+      background: var(--catalist-blue);
       transform: scale(0);
-      transition: transform 0.15s ease;
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .radio-option.selected .radio-circle::after {
@@ -252,6 +399,7 @@
     .radio-label {
       font-size: 0.9375rem;
       color: var(--color-foreground);
+      font-weight: 500;
     }
 
     /* ===== Checkbox Options ===== */
@@ -266,23 +414,25 @@
       align-items: center;
       gap: 0.75rem;
       padding: 0.625rem 1rem;
-      border: 1px solid var(--color-border);
+      border: 1.5px solid var(--color-border);
       border-radius: var(--radius);
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       min-height: 44px;
       user-select: none;
       -webkit-user-select: none;
+      background: white;
     }
 
     .checkbox-option:hover {
-      border-color: var(--color-primary);
-      background: rgba(0, 102, 255, 0.03);
+      border-color: rgba(11, 36, 251, 0.35);
+      background: rgba(11, 36, 251, 0.02);
     }
 
     .checkbox-option.selected {
-      border-color: var(--color-primary);
-      background: rgba(0, 102, 255, 0.06);
+      border-color: var(--catalist-blue);
+      background: rgba(11, 36, 251, 0.06);
+      box-shadow: 0 0 0 3px rgba(11, 36, 251, 0.08);
     }
 
     .checkbox-option input[type="checkbox"] {
@@ -293,24 +443,24 @@
       width: 20px;
       height: 20px;
       min-width: 20px;
-      border-radius: 4px;
+      border-radius: 6px;
       border: 2px solid var(--color-border);
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.15s ease;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .checkbox-option.selected .checkbox-box {
-      border-color: var(--color-primary);
-      background: var(--color-primary);
+      border-color: var(--catalist-blue);
+      background: var(--catalist-blue);
     }
 
     .checkbox-box svg {
       width: 12px;
       height: 12px;
       opacity: 0;
-      transition: opacity 0.15s ease;
+      transition: opacity 0.2s ease;
     }
 
     .checkbox-option.selected .checkbox-box svg {
@@ -321,6 +471,7 @@
       font-size: 0.875rem;
       color: var(--color-foreground);
       flex: 1;
+      font-weight: 500;
     }
 
     .checkbox-sublabel {
@@ -330,16 +481,16 @@
 
     /* ===== Brand Card (Section 2) ===== */
     .brand-card {
-      background: var(--color-background);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-lg);
+      background: white;
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-xl);
       padding: 1.5rem;
       margin-bottom: 1.25rem;
-      animation: slideUp 0.3s ease;
+      animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     @keyframes slideUp {
-      from { opacity: 0; transform: translateY(12px); }
+      from { opacity: 0; transform: translateY(16px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
@@ -348,12 +499,15 @@
       align-items: center;
       justify-content: space-between;
       margin-bottom: 1.25rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--color-border);
     }
 
     .brand-name {
       font-size: 1.125rem;
       font-weight: 700;
       color: var(--color-foreground);
+      letter-spacing: -0.01em;
     }
 
     .brand-date {
@@ -364,9 +518,11 @@
     .brand-counter {
       font-size: 0.8125rem;
       font-weight: 600;
-      color: var(--color-muted);
+      color: var(--catalist-blue);
       text-align: center;
-      margin-top: 1rem;
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--color-border);
     }
 
     /* Follow-up questions that slide in */
@@ -374,7 +530,7 @@
       margin-top: 1rem;
       padding-top: 1rem;
       border-top: 1px solid var(--color-border);
-      animation: slideUp 0.25s ease;
+      animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .follow-up-label {
@@ -392,21 +548,26 @@
     .textarea-wrapper textarea {
       width: 100%;
       min-height: 100px;
-      padding: 0.75rem 1rem;
-      border: 1px solid var(--color-border);
+      padding: 0.875rem 1rem;
+      border: 1.5px solid var(--color-border);
       border-radius: var(--radius);
       font-family: inherit;
       font-size: 0.9375rem;
       color: var(--color-foreground);
       resize: vertical;
-      transition: border-color 0.15s ease;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
       line-height: 1.5;
+      background: white;
     }
 
     .textarea-wrapper textarea:focus {
       outline: none;
-      border-color: var(--color-primary);
-      box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
+      border-color: var(--catalist-blue);
+      box-shadow: 0 0 0 3px rgba(11, 36, 251, 0.1);
+    }
+
+    .textarea-wrapper textarea::placeholder {
+      color: var(--color-muted-foreground);
     }
 
     .char-counter {
@@ -415,6 +576,7 @@
       right: 0.75rem;
       font-size: 0.75rem;
       color: var(--color-muted-foreground);
+      font-weight: 500;
     }
 
     .char-counter.near-limit {
@@ -436,34 +598,44 @@
       justify-content: center;
       gap: 0.5rem;
       padding: 0.75rem 1.5rem;
-      border-radius: var(--radius);
+      border-radius: var(--radius-xl);
       font-family: inherit;
       font-size: 0.9375rem;
       font-weight: 600;
       cursor: pointer;
       border: none;
-      min-height: 44px;
+      min-height: 48px;
       text-decoration: none;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .btn-primary {
-      background: var(--color-primary);
+      background: linear-gradient(135deg, var(--catalist-blue) 0%, var(--catalist-navy) 100%);
       color: var(--color-primary-foreground);
+      box-shadow: 0 4px 12px rgba(11, 36, 251, 0.25);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 6px 20px rgba(11, 36, 251, 0.35);
     }
 
     .btn-secondary {
-      background: transparent;
+      background: white;
       color: var(--color-muted);
-      border: 1px solid var(--color-border);
+      border: 1.5px solid var(--color-border);
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(11, 36, 251, 0.25);
+      color: var(--color-foreground);
     }
 
     .btn-lift {
-      transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+      transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .btn-lift:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
     .btn-lift:active {
@@ -471,7 +643,7 @@
     }
 
     .btn:disabled {
-      opacity: 0.5;
+      opacity: 0.4;
       cursor: not-allowed;
       transform: none !important;
       box-shadow: none !important;
@@ -480,59 +652,31 @@
     .btn-arrow {
       font-size: 1.125rem;
       line-height: 1;
+      transition: transform 0.2s ease;
+    }
+
+    .btn-primary:hover .btn-arrow {
+      transform: translateX(2px);
+    }
+
+    .btn-secondary:hover .btn-arrow {
+      transform: translateX(-2px);
     }
 
     /* ===== Completion Screen ===== */
     #completion-screen {
       display: none;
       min-height: 100vh;
+      position: relative;
+      z-index: 1;
     }
 
     .completion-hero {
-      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
       position: relative;
       overflow: hidden;
-      padding: 4rem 1.5rem 3rem;
+      padding: 5rem 1.5rem 3.5rem;
       text-align: center;
       color: white;
-    }
-
-    .completion-hero .orb {
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    .completion-hero .orb-1 {
-      width: 600px;
-      height: 600px;
-      background: rgba(11, 36, 251, 0.2);
-      top: -200px;
-      right: -200px;
-      filter: blur(100px);
-      animation: float1 20s ease-in-out infinite;
-    }
-
-    .completion-hero .orb-2 {
-      width: 400px;
-      height: 400px;
-      background: rgba(0, 102, 255, 0.15);
-      bottom: -150px;
-      left: -150px;
-      filter: blur(100px);
-      animation: float2 25s ease-in-out infinite;
-    }
-
-    @keyframes float1 {
-      0%, 100% { transform: translate(0, 0); }
-      33% { transform: translate(-30px, 20px); }
-      66% { transform: translate(20px, -15px); }
-    }
-
-    @keyframes float2 {
-      0%, 100% { transform: translate(0, 0); }
-      33% { transform: translate(20px, -25px); }
-      66% { transform: translate(-15px, 15px); }
     }
 
     .completion-hero-content {
@@ -540,13 +684,42 @@
       z-index: 1;
       max-width: 540px;
       margin: 0 auto;
+      animation: cardEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .completion-logo {
-      width: 48px;
-      height: auto;
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-style: italic;
+      font-size: 1.5rem;
+      color: white;
+      opacity: 0.85;
+      display: block;
+      text-align: center;
       margin-bottom: 1.5rem;
-      opacity: 0.9;
+    }
+
+    .completion-check {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(16, 185, 129, 0.2);
+      border: 2px solid rgba(16, 185, 129, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      animation: checkPop 0.5s 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    @keyframes checkPop {
+      from { transform: scale(0); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .completion-check svg {
+      width: 28px;
+      height: 28px;
+      color: #10B981;
     }
 
     .completion-title {
@@ -554,6 +727,7 @@
       font-weight: 800;
       margin-bottom: 0.75rem;
       line-height: 1.2;
+      letter-spacing: -0.02em;
     }
 
     @media (min-width: 768px) {
@@ -562,14 +736,27 @@
 
     .completion-subtitle {
       font-size: 1rem;
-      opacity: 0.85;
-      line-height: 1.5;
+      opacity: 0.8;
+      line-height: 1.6;
+    }
+
+    .completion-subtitle strong {
+      color: #6EE7B7;
+      font-weight: 700;
     }
 
     .recommendations {
       max-width: 640px;
       margin: 0 auto;
-      padding: 2rem 1.5rem 4rem;
+      padding: 0 1.5rem 4rem;
+    }
+
+    .recommendations-card-wrapper {
+      background: white;
+      border-radius: var(--radius-2xl);
+      padding: 2rem;
+      box-shadow: var(--shadow-card);
+      animation: cardEnter 0.5s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
 
     .recommendations-title {
@@ -577,26 +764,28 @@
       font-weight: 700;
       color: var(--color-foreground);
       margin-bottom: 1rem;
+      letter-spacing: -0.01em;
     }
 
     .rec-card {
-      background: var(--color-background);
+      background: var(--color-background-alt);
       border: 1px solid var(--color-border);
       border-radius: var(--radius-lg);
-      padding: 1.25rem 1.5rem;
-      margin-bottom: 0.75rem;
+      padding: 1rem 1.25rem;
+      margin-bottom: 0.625rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      transition: box-shadow 0.2s ease;
+      transition: all 0.2s ease;
     }
 
     .rec-card:hover {
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow-soft);
+      border-color: rgba(11, 36, 251, 0.12);
     }
 
     .rec-brand-name {
-      font-size: 1rem;
+      font-size: 0.9375rem;
       font-weight: 700;
       color: var(--color-foreground);
     }
@@ -619,25 +808,37 @@
       height: 6px;
       border-radius: 50%;
       background: var(--color-success);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
     }
 
     .completion-cta {
       text-align: center;
-      margin-top: 2rem;
+      margin-top: 1.5rem;
     }
 
     .btn-cta {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 1rem 2rem;
-      background: var(--color-primary);
+      padding: 0.875rem 2rem;
+      background: linear-gradient(135deg, var(--catalist-blue) 0%, var(--catalist-navy) 100%);
       color: white;
-      font-size: 1rem;
+      font-size: 0.9375rem;
       font-weight: 700;
-      border-radius: var(--radius);
+      border-radius: var(--radius-xl);
       text-decoration: none;
       min-height: 48px;
+      box-shadow: 0 4px 12px rgba(11, 36, 251, 0.25);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-cta:hover {
+      box-shadow: 0 6px 20px rgba(11, 36, 251, 0.35);
     }
 
     /* ===== Sections ===== */
@@ -647,12 +848,12 @@
 
     .survey-section.active {
       display: block;
-      animation: fadeIn 0.3s ease;
+      animation: fadeIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* ===== Submitting overlay ===== */
@@ -660,7 +861,9 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(3, 1, 63, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       z-index: 999;
       flex-direction: column;
       align-items: center;
@@ -673,7 +876,7 @@
     }
 
     .submitting-text {
-      color: var(--color-muted);
+      color: rgba(255, 255, 255, 0.8);
       font-size: 0.9375rem;
       font-weight: 500;
     }
@@ -684,17 +887,18 @@
       bottom: 2rem;
       left: 50%;
       transform: translateX(-50%) translateY(100px);
-      background: var(--color-dark);
+      background: var(--catalist-midnight);
       color: white;
       padding: 0.75rem 1.25rem;
-      border-radius: var(--radius);
+      border-radius: var(--radius-xl);
       font-size: 0.875rem;
       font-weight: 500;
       z-index: 1001;
       opacity: 0;
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       max-width: 90vw;
       text-align: center;
+      box-shadow: 0 10px 25px rgba(3, 1, 63, 0.3);
     }
 
     .toast.visible {
@@ -704,6 +908,33 @@
 
     .toast.error {
       background: var(--color-error);
+    }
+
+    /* ===== Step Indicator Dots ===== */
+    .step-dots {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .step-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.25);
+      transition: all 0.3s ease;
+    }
+
+    .step-dot.active {
+      width: 24px;
+      border-radius: 4px;
+      background: white;
+    }
+
+    .step-dot.completed {
+      background: rgba(255, 255, 255, 0.7);
     }
 
     /* ===== Reduced Motion ===== */
@@ -719,111 +950,149 @@
 
     /* ===== Mobile Adjustments ===== */
     @media (max-width: 374px) {
-      #survey-container { padding: 1.5rem 1rem 3rem; }
+      #survey-container { padding: 2rem 0.75rem 3rem; }
+      .survey-card { padding: 1.5rem 1.25rem; }
       .question-card { padding: 1.25rem; }
       .brand-card { padding: 1.25rem; }
       .section-title { font-size: 1.25rem; }
     }
+
+    @media (max-width: 640px) {
+      .brand-wordmark { font-size: 1.5rem; margin-bottom: 1rem; }
+      .completion-hero { padding: 3.5rem 1.25rem 2.5rem; }
+      .orb-1 { width: 300px; height: 300px; }
+      .orb-2 { width: 350px; height: 350px; }
+      .orb-3 { width: 200px; height: 200px; }
+    }
+
+    /* ===== Selection Highlight Animation ===== */
+    @keyframes selectRipple {
+      from { box-shadow: 0 0 0 0 rgba(11, 36, 251, 0.2); }
+      to { box-shadow: 0 0 0 3px rgba(11, 36, 251, 0.08); }
+    }
+
+    .radio-option.selected,
+    .checkbox-option.selected {
+      animation: selectRipple 0.3s ease forwards;
+    }
   </style>
 </head>
 <body>
+
+  <!-- Fixed Gradient Background -->
+  <div class="bg-gradient">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
 
   <!-- Progress Bar -->
   <div id="progress-bar"></div>
 
   <!-- Loading Screen -->
   <div id="loading-screen">
+    <span class="brand-wordmark">Catalist</span>
     <div class="spinner"></div>
     <p class="loading-text">Loading your survey...</p>
   </div>
 
   <!-- Error Screen -->
   <div id="error-screen">
-    <div class="error-icon">!</div>
-    <h2 class="error-title" id="error-title">Something went wrong</h2>
-    <p class="error-message" id="error-message">We couldn't load your survey. Please try again or contact support.</p>
+    <div class="error-card">
+      <div class="error-icon">!</div>
+      <h2 class="error-title" id="error-title">Something went wrong</h2>
+      <p class="error-message" id="error-message">We couldn't load your survey. Please try again or contact support.</p>
+    </div>
   </div>
 
   <!-- Survey Container -->
   <div id="survey-container">
 
-    <!-- Section 1: Your Amazon Profile -->
-    <div class="survey-section" id="section-profile">
-      <div class="section-header">
-        <p class="section-label">Section 1 of 3</p>
-        <h1 class="section-title">Tell us about your <span class="accent">selling</span> experience</h1>
-        <p class="section-subtitle">This helps us tailor our recommendations to your business.</p>
-      </div>
-      <div id="profile-questions"></div>
-      <div class="nav-buttons">
-        <div></div>
-        <button class="btn btn-primary btn-lift" id="btn-profile-next" onclick="nextFromProfile()">
-          Continue <span class="btn-arrow">&rarr;</span>
-        </button>
-      </div>
-    </div>
+    <!-- Brand wordmark on gradient -->
+    <span class="brand-wordmark">Catalist</span>
 
-    <!-- Section 2: Ungating Results -->
-    <div class="survey-section" id="section-results">
-      <div class="section-header">
-        <p class="section-label" id="results-section-label">Section 2 of 3</p>
-        <h1 class="section-title">How did your <span class="accent">ungating</span> go?</h1>
-        <p class="section-subtitle">Let us know what happened with each brand.</p>
-      </div>
+    <!-- Survey Card -->
+    <div class="survey-card">
 
-      <!-- Bulk escape hatch -->
-      <div id="escape-hatch" class="question-card" style="display:none;">
-        <p class="question-text">Quick check: did you skip any of these? Check the ones you never submitted.</p>
-        <div class="checkbox-group" id="escape-checkboxes"></div>
+      <!-- Section 1: Your Amazon Profile -->
+      <div class="survey-section" id="section-profile">
+        <div class="section-header">
+          <p class="section-label">Section 1 of 3</p>
+          <h1 class="section-title">Tell us about your <span class="accent">selling</span> experience</h1>
+          <p class="section-subtitle">This helps us tailor our recommendations to your business.</p>
+        </div>
+        <div id="profile-questions"></div>
         <div class="nav-buttons">
-          <button class="btn btn-secondary btn-lift" id="btn-escape-back" onclick="backFromEscape()">
-            <span class="btn-arrow">&larr;</span> Back
-          </button>
-          <button class="btn btn-primary btn-lift" id="btn-escape-next" onclick="nextFromEscape()">
+          <div></div>
+          <button class="btn btn-primary btn-lift" id="btn-profile-next" onclick="nextFromProfile()">
             Continue <span class="btn-arrow">&rarr;</span>
           </button>
         </div>
       </div>
 
-      <!-- Brand card stack -->
-      <div id="brand-cards"></div>
-    </div>
+      <!-- Section 2: Ungating Results -->
+      <div class="survey-section" id="section-results">
+        <div class="section-header">
+          <p class="section-label" id="results-section-label">Section 2 of 3</p>
+          <h1 class="section-title">How did your <span class="accent">ungating</span> go?</h1>
+          <p class="section-subtitle">Let us know what happened with each brand.</p>
+        </div>
 
-    <!-- Section 3: How You Submit -->
-    <div class="survey-section" id="section-submit-habits">
-      <div class="section-header">
-        <p class="section-label" id="habits-section-label">Section 3 of 3</p>
-        <h1 class="section-title">Your <span class="accent">approach</span> to ungating</h1>
-        <p class="section-subtitle">A few quick questions about how you work.</p>
+        <!-- Bulk escape hatch -->
+        <div id="escape-hatch" class="question-card" style="display:none;">
+          <p class="question-text">Quick check: did you skip any of these? Check the ones you never submitted.</p>
+          <div class="checkbox-group" id="escape-checkboxes"></div>
+          <div class="nav-buttons">
+            <button class="btn btn-secondary btn-lift" id="btn-escape-back" onclick="backFromEscape()">
+              <span class="btn-arrow">&larr;</span> Back
+            </button>
+            <button class="btn btn-primary btn-lift" id="btn-escape-next" onclick="nextFromEscape()">
+              Continue <span class="btn-arrow">&rarr;</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Brand card stack -->
+        <div id="brand-cards"></div>
       </div>
 
-      <div class="question-card">
-        <p class="question-text">When you get denied, what usually works best?</p>
-        <div class="radio-group" id="denial-strategy-options"></div>
-      </div>
+      <!-- Section 3: How You Submit -->
+      <div class="survey-section" id="section-submit-habits">
+        <div class="section-header">
+          <p class="section-label" id="habits-section-label">Section 3 of 3</p>
+          <h1 class="section-title">Your <span class="accent">approach</span> to ungating</h1>
+          <p class="section-subtitle">A few quick questions about how you work.</p>
+        </div>
 
-      <div class="question-card">
-        <p class="question-text">Have you ever been auto-ungated without submitting an invoice?</p>
-        <div class="radio-group" id="auto-ungated-options"></div>
-      </div>
+        <div class="question-card">
+          <p class="question-text">When you get denied, what usually works best?</p>
+          <div class="radio-group" id="denial-strategy-options"></div>
+        </div>
 
-      <div class="question-card">
-        <p class="question-text">What would make the ungating process easier? <span style="color:var(--color-muted);font-weight:400;">(optional)</span></p>
-        <div class="textarea-wrapper">
-          <textarea id="freetext-input" maxlength="280" placeholder="Anything you'd like to share..." oninput="updateCharCounter()"></textarea>
-          <span class="char-counter" id="char-counter">0 / 280</span>
+        <div class="question-card">
+          <p class="question-text">Have you ever been auto-ungated without submitting an invoice?</p>
+          <div class="radio-group" id="auto-ungated-options"></div>
+        </div>
+
+        <div class="question-card">
+          <p class="question-text">What would make the ungating process easier? <span style="color:var(--color-muted);font-weight:400;">(optional)</span></p>
+          <div class="textarea-wrapper">
+            <textarea id="freetext-input" maxlength="280" placeholder="Anything you'd like to share..." oninput="updateCharCounter()"></textarea>
+            <span class="char-counter" id="char-counter">0 / 280</span>
+          </div>
+        </div>
+
+        <div class="nav-buttons">
+          <button class="btn btn-secondary btn-lift" id="btn-habits-back" onclick="backFromHabits()">
+            <span class="btn-arrow">&larr;</span> Back
+          </button>
+          <button class="btn btn-primary btn-lift" id="btn-submit" onclick="submitSurvey()">
+            Submit <span class="btn-arrow">&rarr;</span>
+          </button>
         </div>
       </div>
 
-      <div class="nav-buttons">
-        <button class="btn btn-secondary btn-lift" id="btn-habits-back" onclick="backFromHabits()">
-          <span class="btn-arrow">&larr;</span> Back
-        </button>
-        <button class="btn btn-primary btn-lift" id="btn-submit" onclick="submitSurvey()">
-          Submit <span class="btn-arrow">&rarr;</span>
-        </button>
-      </div>
-    </div>
+    </div><!-- /survey-card -->
   </div>
 
   <!-- Submitting Overlay -->
@@ -835,21 +1104,26 @@
   <!-- Completion Screen -->
   <div id="completion-screen">
     <div class="completion-hero">
-      <div class="orb orb-1"></div>
-      <div class="orb orb-2"></div>
       <div class="completion-hero-content">
-        <img src="data:image/png;base64,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" class="completion-logo" alt="Catalist">
-        <h1 class="completion-title">Thank you, <span class="accent" id="completion-name">there</span>!</h1>
+        <span class="completion-logo">Catalist</span>
+        <div class="completion-check">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <h1 class="completion-title">Thank you, <span class="accent" style="color: #6EE7B7;" id="completion-name">there</span>!</h1>
         <p class="completion-subtitle">We've added <strong>25 ungating credits</strong> to your account. Your responses help us build a better ungating experience for everyone.</p>
       </div>
     </div>
     <div class="recommendations" id="recommendations-section" style="display:none;">
-      <h2 class="recommendations-title">Brands you might want to try next</h2>
-      <div id="rec-cards"></div>
-      <div class="completion-cta">
-        <a href="https://b2b.catalistgroup.co/ungating" class="btn-cta btn-lift">
-          Ready to try? Download invoices <span class="btn-arrow">&rarr;</span>
-        </a>
+      <div class="recommendations-card-wrapper">
+        <h2 class="recommendations-title">Brands you might want to try next</h2>
+        <div id="rec-cards"></div>
+        <div class="completion-cta">
+          <a href="https://b2b.catalistgroup.co/ungating" class="btn-cta btn-lift">
+            Ready to try? Download invoices <span class="btn-arrow">&rarr;</span>
+          </a>
+        </div>
       </div>
     </div>
   </div>
