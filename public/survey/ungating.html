@@ -1430,7 +1430,7 @@
 
       // Follow-ups (if outcome already selected)
       if (existing.outcome === 'Approved') {
-        html += buildSubmissionMethodFollowUp(brand.id, existing);
+        html += buildApprovedFollowUps(brand.id, existing);
       } else if (existing.outcome === 'Denied') {
         html += buildDeniedFollowUps(brand.id, existing);
       }
@@ -1454,70 +1454,103 @@
       updateProgress();
     }
 
-    const SUBMISSION_METHODS = ['Seller Central', 'Opened a support case', 'Called support', 'Chat'];
-    const DENIAL_REASONS = ['Invoice not accepted', 'Need more documentation', 'Account doesn\'t qualify', 'Brand requires authorization letter', 'Don\'t remember', 'Other'];
-    const NEXT_STEPS = ['Opened a new case', 'Escalated the same case', 'Tried a different product', 'Waited and tried later', 'Gave up'];
+    function buildApprovedFollowUps(brandId, existing) {
+      let html = '';
 
-    function buildSubmissionMethodFollowUp(brandId, existing) {
-      let html = '<div class="follow-up">';
-      html += '<p class="follow-up-label">How did you submit?</p>';
+      // Q2a: Were you approved on your first try?
+      html += '<div class="follow-up">';
+      html += '<p class="follow-up-label">Were you approved on your first try?</p>';
       html += '<div class="radio-group">';
-      SUBMISSION_METHODS.forEach(opt => {
-        const sel = existing.submission_method === opt ? ' selected' : '';
-        html += '<label class="radio-option' + sel + '" onclick="selectBrandField(this, \'' + brandId + '\', \'submission_method\', \'' + escapeAttr(opt) + '\')">' +
-          '<input type="radio" name="method-' + brandId + '" value="' + escapeAttr(opt) + '"' + (sel ? ' checked' : '') + '>' +
+      [{ label: 'Yes', value: true }, { label: 'No', value: false }].forEach(opt => {
+        const sel = existing.first_try === opt.value ? ' selected' : '';
+        html += '<label class="radio-option' + sel + '" onclick="selectBrandBool(this, \'' + escapeAttr(brandId) + '\', \'first_try\', ' + opt.value + ')">' +
+          '<input type="radio" name="first-try-' + escapeAttr(brandId) + '" value="' + opt.value + '"' + (sel ? ' checked' : '') + '>' +
           '<span class="radio-circle"></span>' +
-          '<span class="radio-label">' + escapeHtml(opt) + '</span>' +
+          '<span class="radio-label">' + opt.label + '</span>' +
           '</label>';
       });
       html += '</div></div>';
+
+      // Q3a + Q4a: Only if first_try === false
+      if (existing.first_try === false) {
+        // Q3a: Which attempt were you approved on?
+        html += '<div class="follow-up">';
+        html += '<p class="follow-up-label">Which attempt were you approved on?</p>';
+        html += '<div class="radio-group">';
+        ['2nd', '3rd', '4th+'].forEach(opt => {
+          const sel = existing.approved_on_attempt === opt ? ' selected' : '';
+          html += '<label class="radio-option' + sel + '" onclick="selectBrandField(this, \'' + escapeAttr(brandId) + '\', \'approved_on_attempt\', \'' + escapeAttr(opt) + '\')">' +
+            '<input type="radio" name="attempt-' + escapeAttr(brandId) + '" value="' + escapeAttr(opt) + '"' + (sel ? ' checked' : '') + '>' +
+            '<span class="radio-circle"></span>' +
+            '<span class="radio-label">' + escapeHtml(opt) + '</span>' +
+            '</label>';
+        });
+        html += '</div></div>';
+
+        // Q4a: What finally worked?
+        html += '<div class="follow-up">';
+        html += '<p class="follow-up-label">What finally worked?</p>';
+        html += '<div class="radio-group">';
+        [
+          { label: 'Escalated my denial case', value: 'escalated_case' },
+          { label: 'Created a new case', value: 'new_case' },
+          { label: 'Resubmitted a new application', value: 'new_application' },
+          { label: 'Auto-ungated', value: 'auto_ungated' }
+        ].forEach(opt => {
+          const sel = existing.resolution_method === opt.value ? ' selected' : '';
+          html += '<label class="radio-option' + sel + '" onclick="selectBrandField(this, \'' + escapeAttr(brandId) + '\', \'resolution_method\', \'' + escapeAttr(opt.value) + '\')">' +
+            '<input type="radio" name="resolution-' + escapeAttr(brandId) + '" value="' + escapeAttr(opt.value) + '"' + (sel ? ' checked' : '') + '>' +
+            '<span class="radio-circle"></span>' +
+            '<span class="radio-label">' + escapeHtml(opt.label) + '</span>' +
+            '</label>';
+        });
+        html += '</div></div>';
+      }
+
       return html;
     }
 
     function buildDeniedFollowUps(brandId, existing) {
       let html = '';
 
-      // How did you submit?
+      // Q2b: How many times have you applied?
       html += '<div class="follow-up">';
-      html += '<p class="follow-up-label">How did you submit?</p>';
+      html += '<p class="follow-up-label">How many times have you applied?</p>';
       html += '<div class="radio-group">';
-      SUBMISSION_METHODS.forEach(opt => {
-        const sel = existing.submission_method === opt ? ' selected' : '';
-        html += '<label class="radio-option' + sel + '" onclick="selectBrandField(this, \'' + brandId + '\', \'submission_method\', \'' + escapeAttr(opt) + '\')">' +
-          '<input type="radio" name="method-' + brandId + '" value="' + escapeAttr(opt) + '"' + (sel ? ' checked' : '') + '>' +
+      [
+        { label: 'Once', value: 'once' },
+        { label: 'Twice', value: 'twice' },
+        { label: '3+ times', value: '3+' }
+      ].forEach(opt => {
+        const sel = existing.attempt_count === opt.value ? ' selected' : '';
+        html += '<label class="radio-option' + sel + '" onclick="selectBrandField(this, \'' + escapeAttr(brandId) + '\', \'attempt_count\', \'' + escapeAttr(opt.value) + '\')">' +
+          '<input type="radio" name="attempt-count-' + escapeAttr(brandId) + '" value="' + escapeAttr(opt.value) + '"' + (sel ? ' checked' : '') + '>' +
           '<span class="radio-circle"></span>' +
-          '<span class="radio-label">' + escapeHtml(opt) + '</span>' +
+          '<span class="radio-label">' + escapeHtml(opt.label) + '</span>' +
           '</label>';
       });
       html += '</div></div>';
 
-      // What reason?
-      html += '<div class="follow-up">';
-      html += '<p class="follow-up-label">What reason did Amazon give?</p>';
-      html += '<div class="radio-group">';
-      DENIAL_REASONS.forEach(opt => {
-        const sel = existing.denial_reason === opt ? ' selected' : '';
-        html += '<label class="radio-option' + sel + '" onclick="selectBrandField(this, \'' + brandId + '\', \'denial_reason\', \'' + escapeAttr(opt) + '\')">' +
-          '<input type="radio" name="reason-' + brandId + '" value="' + escapeAttr(opt) + '"' + (sel ? ' checked' : '') + '>' +
-          '<span class="radio-circle"></span>' +
-          '<span class="radio-label">' + escapeHtml(opt) + '</span>' +
-          '</label>';
-      });
-      html += '</div></div>';
-
-      // What did you do next?
-      html += '<div class="follow-up">';
-      html += '<p class="follow-up-label">What did you do next?</p>';
-      html += '<div class="radio-group">';
-      NEXT_STEPS.forEach(opt => {
-        const sel = existing.next_step === opt ? ' selected' : '';
-        html += '<label class="radio-option' + sel + '" onclick="selectBrandField(this, \'' + brandId + '\', \'next_step\', \'' + escapeAttr(opt) + '\')">' +
-          '<input type="radio" name="nextstep-' + brandId + '" value="' + escapeAttr(opt) + '"' + (sel ? ' checked' : '') + '>' +
-          '<span class="radio-circle"></span>' +
-          '<span class="radio-label">' + escapeHtml(opt) + '</span>' +
-          '</label>';
-      });
-      html += '</div></div>';
+      // Q3b: What have you tried? (only if twice or 3+)
+      if (existing.attempt_count === 'twice' || existing.attempt_count === '3+') {
+        const retryMethods = existing.retry_methods || [];
+        html += '<div class="follow-up">';
+        html += '<p class="follow-up-label">What have you tried?</p>';
+        html += '<div class="radio-group">';
+        [
+          { label: 'Escalated my denial case', value: 'escalated_case' },
+          { label: 'Created a new case', value: 'new_case' },
+          { label: 'Resubmitted a new application', value: 'new_application' }
+        ].forEach(opt => {
+          const sel = retryMethods.includes(opt.value) ? ' selected' : '';
+          html += '<label class="checkbox-option' + sel + '" onclick="toggleBrandCheckbox(this, \'' + escapeAttr(brandId) + '\', \'' + escapeAttr(opt.value) + '\')">' +
+            '<input type="checkbox"' + (sel ? ' checked' : '') + '>' +
+            '<span class="checkbox-box"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>' +
+            '<span class="checkbox-label">' + escapeHtml(opt.label) + '</span>' +
+            '</label>';
+        });
+        html += '</div></div>';
+      }
 
       return html;
     }
@@ -1581,6 +1614,11 @@
       delete responses.brand_results[brandId].submission_method;
       delete responses.brand_results[brandId].denial_reason;
       delete responses.brand_results[brandId].next_step;
+      delete responses.brand_results[brandId].first_try;
+      delete responses.brand_results[brandId].approved_on_attempt;
+      delete responses.brand_results[brandId].resolution_method;
+      delete responses.brand_results[brandId].attempt_count;
+      delete responses.brand_results[brandId].retry_methods;
 
       saveProgress();
 
@@ -1596,6 +1634,57 @@
 
       if (!responses.brand_results[brandId]) responses.brand_results[brandId] = {};
       responses.brand_results[brandId][field] = value;
+
+      // Re-render if this field affects visibility of subsequent questions
+      if (field === 'attempt_count') {
+        if (value === 'once') {
+          delete responses.brand_results[brandId].retry_methods;
+        }
+        saveProgress();
+        renderBrandCard();
+      } else {
+        saveProgress();
+      }
+    }
+
+    function selectBrandBool(el, brandId, field, value) {
+      const group = el.parentElement;
+      group.querySelectorAll('.radio-option').forEach(opt => opt.classList.remove('selected'));
+      el.classList.add('selected');
+      el.querySelector('input').checked = true;
+
+      if (!responses.brand_results[brandId]) responses.brand_results[brandId] = {};
+      responses.brand_results[brandId][field] = value;
+
+      // When first_try changes to true, clear conditional follow-up fields
+      if (field === 'first_try' && value === true) {
+        delete responses.brand_results[brandId].approved_on_attempt;
+        delete responses.brand_results[brandId].resolution_method;
+      }
+
+      saveProgress();
+      renderBrandCard();
+    }
+
+    function toggleBrandCheckbox(el, brandId, value) {
+      if (!responses.brand_results[brandId]) responses.brand_results[brandId] = {};
+      if (!responses.brand_results[brandId].retry_methods) {
+        responses.brand_results[brandId].retry_methods = [];
+      }
+
+      const methods = responses.brand_results[brandId].retry_methods;
+      const idx = methods.indexOf(value);
+      if (idx === -1) {
+        methods.push(value);
+      } else {
+        methods.splice(idx, 1);
+      }
+
+      // Toggle visual state
+      const cb = el.querySelector('input');
+      cb.checked = !cb.checked;
+      el.classList.toggle('selected');
+
       saveProgress();
     }
 
