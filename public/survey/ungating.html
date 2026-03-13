@@ -134,14 +134,14 @@
 
     /* ===== Brand Wordmark ===== */
     .brand-wordmark {
-      font-family: 'Instrument Serif', Georgia, serif;
-      font-style: italic;
-      font-size: 1.75rem;
-      color: white;
-      letter-spacing: -0.01em;
       display: block;
       text-align: center;
       margin-bottom: 1.5rem;
+    }
+
+    .brand-wordmark img {
+      height: 2rem;
+      width: auto;
       opacity: 0.95;
     }
 
@@ -702,14 +702,15 @@
     }
 
     .completion-logo {
-      font-family: 'Instrument Serif', Georgia, serif;
-      font-style: italic;
-      font-size: 1.5rem;
-      color: white;
-      opacity: 0.85;
       display: block;
       text-align: center;
       margin-bottom: 1.5rem;
+    }
+
+    .completion-logo img {
+      height: 2rem;
+      width: auto;
+      opacity: 0.85;
     }
 
     .completion-check {
@@ -998,7 +999,8 @@
     }
 
     @media (max-width: 640px) {
-      .brand-wordmark { font-size: 1.5rem; margin-bottom: 1rem; }
+      .brand-wordmark { margin-bottom: 1rem; }
+      .brand-wordmark img { height: 1.5rem; }
       .completion-hero { padding: 3.5rem 1.25rem 2.5rem; }
       .orb-1 { width: 300px; height: 300px; }
       .orb-2 { width: 350px; height: 350px; }
@@ -1031,7 +1033,7 @@
 
   <!-- Loading Screen -->
   <div id="loading-screen">
-    <span class="brand-wordmark">Catalist</span>
+    <span class="brand-wordmark"><img src="https://koaadlgilqwdhgfphekm.supabase.co/storage/v1/object/public/catalist/Catalist_Mark_White_RGB_600.png" alt="Catalist" /></span>
     <div class="spinner"></div>
     <p class="loading-text">Loading your survey...</p>
   </div>
@@ -1049,7 +1051,7 @@
   <div id="survey-container">
 
     <!-- Brand wordmark on gradient -->
-    <span class="brand-wordmark">Catalist</span>
+    <span class="brand-wordmark"><img src="https://koaadlgilqwdhgfphekm.supabase.co/storage/v1/object/public/catalist/Catalist_Mark_White_RGB_600.png" alt="Catalist" /></span>
 
     <!-- Survey Card -->
     <div class="survey-card">
@@ -1148,7 +1150,7 @@
   <div id="completion-screen">
     <div class="completion-hero">
       <div class="completion-hero-content">
-        <span class="completion-logo">Catalist</span>
+        <span class="completion-logo"><img src="https://koaadlgilqwdhgfphekm.supabase.co/storage/v1/object/public/catalist/Catalist_Mark_White_RGB_600.png" alt="Catalist" /></span>
         <div class="completion-check">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="20 6 9 17 4 12"></polyline>
@@ -1859,6 +1861,33 @@
       if (!result || !result.outcome) {
         showToast('Please select what happened with this brand.');
         return;
+      }
+
+      // Validate follow-up questions are answered
+      if (result.outcome === 'Approved') {
+        if (result.first_try == null) {
+          showToast('Please answer whether you were approved on your first try.');
+          return;
+        }
+        if (result.first_try === false) {
+          if (!result.approved_on_attempt) {
+            showToast('Please select which attempt you were approved on.');
+            return;
+          }
+          if (!result.resolution_method) {
+            showToast('Please select what finally worked.');
+            return;
+          }
+        }
+      } else if (result.outcome === 'Denied') {
+        if (!result.attempt_count) {
+          showToast('Please select how many times you have applied.');
+          return;
+        }
+        if ((result.attempt_count === 'twice' || result.attempt_count === '3+') && (!result.retry_methods || result.retry_methods.length === 0)) {
+          showToast('Please select at least one method you have tried.');
+          return;
+        }
       }
 
       currentBrandIndex++;
