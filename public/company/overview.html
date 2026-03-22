@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Catalist Group — AI-Powered Wholesale Distribution</title>
+  <title>Catalist Group — AI-Native B2B Marketplace</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -33,19 +33,17 @@
       --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
       --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
       --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: var(--font-primary); color: var(--fg); background: var(--bg); }
     .accent { font-family: var(--font-accent); font-style: italic; font-weight: 400; }
 
-    /* ---- ANIMATIONS ---- */
     @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes fadeScale { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
     @keyframes float1 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-30px, 20px); } }
     @keyframes float2 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(20px, -30px); } }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
-    @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
     .anim { animation: fadeUp 0.5s ease-out both; animation-delay: calc(var(--i, 0) * 0.04s); }
     .anim-s { animation: fadeScale 0.4s ease-out both; animation-delay: calc(var(--i, 0) * 0.04s); }
     @media (prefers-reduced-motion: reduce) {
@@ -84,11 +82,11 @@
     .hero-inner {
       position: relative; z-index: 1;
       max-width: 1100px; margin: 0 auto;
-      padding: 40px 32px 80px;
+      padding: 40px 32px 100px;
     }
     .hero-nav {
       display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 56px;
+      margin-bottom: 72px;
     }
     .hero-logo img { height: 36px; }
     .hero-prepared {
@@ -96,121 +94,109 @@
       font-size: 13px;
       color: rgba(255,255,255,0.5);
     }
+    .hero-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #93c5fd;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 8px 18px;
+      border-radius: var(--radius-full);
+      margin-bottom: 24px;
+    }
     .hero h1 {
-      font-size: 56px; font-weight: 800; color: #fff;
-      letter-spacing: -2px; line-height: 1.08;
-      max-width: 800px; margin-bottom: 20px;
+      font-size: 60px; font-weight: 800; color: #fff;
+      letter-spacing: -2.5px; line-height: 1.06;
+      max-width: 750px; margin-bottom: 24px;
     }
     .hero-sub {
       font-size: 19px; color: rgba(255,255,255,0.75);
-      max-width: 640px; line-height: 1.6;
-      margin-bottom: 48px;
-    }
-    .hero-kpis {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: 24px;
-    }
-    .hero-kpi {
-      background: rgba(255,255,255,0.08);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: var(--radius-lg);
-      padding: 24px 20px;
-    }
-    .hero-kpi__val {
-      font-size: 42px; font-weight: 800; color: #fff;
-      line-height: 1; letter-spacing: -1.5px;
-      font-variant-numeric: tabular-nums;
-    }
-    .hero-kpi__label {
-      font-size: 13px; font-weight: 500;
-      color: rgba(255,255,255,0.5);
-      margin-top: 6px;
-      font-family: var(--font-mono);
+      max-width: 600px; line-height: 1.65;
     }
 
     /* ---- CONTENT ---- */
     .content { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
 
     /* ---- SECTION ---- */
-    .section {
-      padding: 72px 0;
-    }
+    .section { padding: 72px 0; }
     .section-label {
       font-family: var(--font-mono);
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--primary);
-      margin-bottom: 12px;
+      font-size: 12px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 2px;
+      color: var(--primary); margin-bottom: 12px;
     }
     .section-title {
-      font-size: 36px;
-      font-weight: 800;
-      letter-spacing: -1px;
-      margin-bottom: 16px;
-      line-height: 1.15;
+      font-size: 36px; font-weight: 800;
+      letter-spacing: -1px; margin-bottom: 16px; line-height: 1.15;
     }
     .section-desc {
-      font-size: 17px;
-      color: var(--muted);
-      line-height: 1.65;
-      max-width: 680px;
-      margin-bottom: 40px;
+      font-size: 17px; color: var(--muted);
+      line-height: 1.65; max-width: 640px; margin-bottom: 40px;
     }
 
-    /* ---- WHAT WE DO (split) ---- */
-    .what-grid {
+    /* ---- SUPPLY CHAIN ---- */
+    .supply-chain {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
-      align-items: start;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 40px;
     }
-    .what-text {
-      padding-right: 24px;
-    }
-    .what-text p {
-      font-size: 16px;
-      color: var(--muted);
-      line-height: 1.7;
-      margin-bottom: 20px;
-    }
-    .what-text p strong {
-      color: var(--fg);
-    }
-    .what-cards {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .what-card {
+    .sc-step {
+      text-align: center;
+      padding: 32px 20px;
       background: var(--bg-alt);
       border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 24px;
+      border-radius: var(--radius-xl);
       transition: transform 0.2s, box-shadow 0.2s;
     }
-    .what-card:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
+    .sc-step:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
     }
-    .what-card__icon {
-      font-size: 28px;
-      margin-bottom: 10px;
+    .sc-step__icon {
+      font-size: 40px;
+      margin-bottom: 14px;
+      display: block;
     }
-    .what-card__title {
-      font-weight: 700;
-      font-size: 16px;
-      margin-bottom: 4px;
+    .sc-step__title {
+      font-weight: 800;
+      font-size: 18px;
+      margin-bottom: 6px;
     }
-    .what-card__desc {
-      font-size: 14px;
+    .sc-step__desc {
+      font-size: 13px;
       color: var(--muted);
       line-height: 1.55;
     }
+    .sc-arrow {
+      font-size: 28px;
+      color: var(--primary);
+      font-weight: 800;
+      padding: 0 4px;
+    }
+    .sc-callout {
+      background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+      border: 1px solid #a7f3d0;
+      border-radius: var(--radius-lg);
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .sc-callout__icon { font-size: 28px; flex-shrink: 0; }
+    .sc-callout__text {
+      font-size: 15px;
+      color: #065f46;
+      line-height: 1.55;
+    }
+    .sc-callout__text strong { color: #064e3b; }
 
-    /* ---- AI STACK (the star section) ---- */
+    /* ---- AI FEATURES (dark section) ---- */
     .ai-section {
       background: var(--fg);
       border-radius: var(--radius-2xl);
@@ -232,7 +218,7 @@
     }
     .ai-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 20px;
       position: relative;
       z-index: 1;
@@ -241,7 +227,7 @@
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: var(--radius-lg);
-      padding: 28px 24px;
+      padding: 32px 28px;
       transition: background 0.2s, border-color 0.2s;
     }
     .ai-card:hover {
@@ -250,97 +236,41 @@
     }
     .ai-card__icon {
       font-size: 32px;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
       display: block;
     }
     .ai-card__title {
       font-weight: 700;
-      font-size: 17px;
+      font-size: 18px;
       margin-bottom: 8px;
     }
     .ai-card__desc {
-      font-size: 14px;
+      font-size: 14.5px;
       color: rgba(255,255,255,0.55);
-      line-height: 1.6;
+      line-height: 1.65;
     }
     .ai-badge {
       display: inline-block;
       font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 600;
+      font-size: 11px; font-weight: 600;
       background: rgba(96, 165, 250, 0.15);
       color: #93c5fd;
       padding: 4px 10px;
       border-radius: var(--radius-full);
-      margin-top: 12px;
-    }
-
-    /* ---- PIPELINE (how it works) ---- */
-    .pipeline {
-      display: flex;
-      align-items: stretch;
-      gap: 0;
-      margin-bottom: 20px;
-      position: relative;
-    }
-    .pipeline::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 60px;
-      right: 60px;
-      height: 3px;
-      background: linear-gradient(to right, var(--primary), #8b5cf6, #ec4899);
-      transform: translateY(-50%);
-      z-index: 0;
-      border-radius: 2px;
-    }
-    .pipeline-step {
-      flex: 1;
-      text-align: center;
-      position: relative;
-      z-index: 1;
-    }
-    .pipeline-step__dot {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: var(--bg);
-      border: 3px solid var(--primary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 14px;
-      font-size: 24px;
-      box-shadow: 0 0 0 6px rgba(0, 102, 255, 0.08);
-    }
-    .pipeline-step:nth-child(2) .pipeline-step__dot { border-color: #7c3aed; box-shadow: 0 0 0 6px rgba(124, 58, 237, 0.08); }
-    .pipeline-step:nth-child(3) .pipeline-step__dot { border-color: #db2777; box-shadow: 0 0 0 6px rgba(219, 39, 119, 0.08); }
-    .pipeline-step:nth-child(4) .pipeline-step__dot { border-color: #059669; box-shadow: 0 0 0 6px rgba(5, 150, 105, 0.08); }
-    .pipeline-step__title {
-      font-weight: 700;
-      font-size: 15px;
-      margin-bottom: 4px;
-    }
-    .pipeline-step__desc {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.5;
-      max-width: 180px;
-      margin: 0 auto;
+      margin-top: 14px;
     }
 
     /* ---- BRANDS ---- */
     .brands-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
       gap: 12px;
     }
     .brand-pill {
       background: var(--bg-alt);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 14px 18px;
+      padding: 16px 14px;
       font-weight: 600;
       font-size: 14px;
       text-align: center;
@@ -350,14 +280,6 @@
       transform: translateY(-2px);
       box-shadow: var(--shadow-md);
     }
-    .brand-pill .brand-count {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--muted-fg);
-      font-weight: 500;
-      display: block;
-      margin-top: 3px;
-    }
     .brands-more {
       font-family: var(--font-mono);
       font-size: 13px;
@@ -365,6 +287,27 @@
       text-align: center;
       margin-top: 20px;
     }
+
+    /* ---- DIFFERENTIATORS ---- */
+    .diff-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .diff-card {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .diff-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .diff-card__icon { font-size: 28px; margin-bottom: 12px; display: block; }
+    .diff-card__title { font-weight: 700; font-size: 16px; margin-bottom: 6px; }
+    .diff-card__desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
 
     /* ---- CTA ---- */
     .cta {
@@ -385,12 +328,19 @@
       color: var(--primary);
       padding: 14px 36px;
       border-radius: var(--radius-full);
-      font-weight: 700;
-      font-size: 15px;
+      font-weight: 700; font-size: 15px;
       text-decoration: none;
       transition: transform 0.15s, box-shadow 0.15s;
     }
     .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+    .cta-links {
+      margin-top: 16px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+    }
+    .cta-links a { color: rgba(255,255,255,0.7); text-decoration: none; }
+    .cta-links a:hover { color: #fff; }
 
     /* ---- FOOTER ---- */
     .footer {
@@ -407,19 +357,15 @@
 
     /* ---- RESPONSIVE ---- */
     @media (max-width: 768px) {
-      .hero h1 { font-size: 32px; letter-spacing: -1px; }
+      .hero h1 { font-size: 34px; letter-spacing: -1px; }
       .hero-sub { font-size: 16px; }
-      .hero-kpis { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-      .hero-kpi__val { font-size: 32px; }
-      .hero-inner { padding: 24px 20px 60px; }
+      .hero-inner { padding: 24px 20px 72px; }
       .content { padding: 0 20px; }
-      .what-grid { grid-template-columns: 1fr; gap: 32px; }
-      .what-text { padding-right: 0; }
+      .supply-chain { grid-template-columns: 1fr; gap: 12px; }
+      .sc-arrow { transform: rotate(90deg); text-align: center; }
       .ai-section { padding: 40px 24px; }
       .ai-grid { grid-template-columns: 1fr; }
-      .pipeline { flex-direction: column; gap: 24px; }
-      .pipeline::before { display: none; }
-      .pipeline-step__desc { max-width: 100%; }
+      .diff-grid { grid-template-columns: 1fr; }
       .brands-grid { grid-template-columns: repeat(2, 1fr); }
       .section { padding: 48px 0; }
       .section-title { font-size: 28px; }
@@ -427,7 +373,6 @@
       .cta h2 { font-size: 24px; }
     }
 
-    /* ---- PRINT ---- */
     @media print {
       body { background: white; }
       .hero, .cta, .ai-section { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -445,142 +390,126 @@
   <div class="hero-inner">
     <nav class="hero-nav">
       <div class="hero-logo">
-        <img src="data:image/png;base64,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" alt="Catalist Group">
+        <img src="data:image/png;base64,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" alt="Catalist Group">
       </div>
-      <span class="hero-prepared">March 2026</span>
+      <span class="hero-prepared">Prepared for Sellers United &mdash; March 2026</span>
     </nav>
     <div class="hero-content">
-      <h1 class="anim" style="--i:0">The AI-Powered<br><span class="accent">Wholesale</span> Platform</h1>
-      <p class="hero-sub anim" style="--i:2">Catalist Group is a technology-first wholesale distributor. We use AI agents to automate procurement, customer support, and brand partnerships &mdash; so our clients get better products, faster service, and higher margins.</p>
-      <div class="hero-kpis">
-        <div class="hero-kpi anim-s" style="--i:4">
-          <div class="hero-kpi__val">565+</div>
-          <div class="hero-kpi__label">Brands</div>
-        </div>
-        <div class="hero-kpi anim-s" style="--i:5">
-          <div class="hero-kpi__val">13K+</div>
-          <div class="hero-kpi__label">Active SKUs</div>
-        </div>
-        <div class="hero-kpi anim-s" style="--i:6">
-          <div class="hero-kpi__val">42</div>
-          <div class="hero-kpi__label">Categories</div>
-        </div>
-        <div class="hero-kpi anim-s" style="--i:7">
-          <div class="hero-kpi__val">15.2%</div>
-          <div class="hero-kpi__label">Avg Margin</div>
-        </div>
-      </div>
+      <div class="hero-badge anim" style="--i:0">AI-Native B2B Marketplace</div>
+      <h1 class="anim" style="--i:1">Buy direct from<br><span class="accent">brands</span>, powered<br>by AI</h1>
+      <p class="hero-sub anim" style="--i:3">Catalist is a B2B marketplace where online sellers buy brand-direct inventory at wholesale prices &mdash; with AI built into every step, from product discovery to reorder recommendations.</p>
     </div>
   </div>
 </div>
 
-<!-- WHAT WE DO -->
+<!-- BRAND-DIRECT SUPPLY CHAIN -->
 <div class="content">
   <div class="section">
-    <div class="what-grid">
-      <div class="what-text">
-        <div class="section-label anim" style="--i:0">What We Do</div>
-        <h2 class="section-title anim" style="--i:1">Wholesale distribution,<br><span class="accent">reimagined</span></h2>
-        <p class="anim" style="--i:2">Catalist Group connects <strong>brands</strong> with <strong>online sellers</strong> through a technology platform that eliminates the friction of traditional wholesale. We maintain direct relationships with 565+ brands across 42 product categories &mdash; from household names like Under Armour and Cuisinart to specialty brands like Stonewall Kitchen and Luigi Bormioli.</p>
-        <p class="anim" style="--i:3">Our platform handles everything from <strong>product discovery and ungating</strong> to <strong>automated purchase orders and invoicing</strong> &mdash; all powered by AI agents that work around the clock.</p>
+    <div class="section-label anim" style="--i:0">Supply Chain</div>
+    <h2 class="section-title anim" style="--i:1">Every order ships <span class="accent">brand-direct</span></h2>
+    <p class="section-desc anim" style="--i:2">No middlemen, no gray market, no mystery sourcing. When you place an order on Catalist, it goes directly to the brand. You receive authentic, factory-fresh inventory with full manufacturer support.</p>
+
+    <div class="supply-chain">
+      <div class="sc-step anim-s" style="--i:3">
+        <span class="sc-step__icon">&#x1f3ea;</span>
+        <div class="sc-step__title">You Order</div>
+        <div class="sc-step__desc">Place your order through the Catalist portal with real-time pricing and availability</div>
       </div>
-      <div class="what-cards">
-        <div class="what-card anim-s" style="--i:4">
-          <div class="what-card__icon">&#x1f4e6;</div>
-          <div class="what-card__title">For Sellers</div>
-          <div class="what-card__desc">Access 13,000+ profitable SKUs from top brands. Our B2B portal provides real-time pricing, one-click ordering, and AI-assisted product recommendations tailored to your store.</div>
-        </div>
-        <div class="what-card anim-s" style="--i:5">
-          <div class="what-card__icon">&#x1f3ed;</div>
-          <div class="what-card__title">For Brands</div>
-          <div class="what-card__desc">Expand your distribution without adding overhead. We manage seller relationships, automate PO generation, and provide sales analytics &mdash; so you can focus on making great products.</div>
-        </div>
-        <div class="what-card anim-s" style="--i:6">
-          <div class="what-card__icon">&#x26a1;</div>
-          <div class="what-card__title">AI-Native Operations</div>
-          <div class="what-card__desc">Every part of our business is augmented by AI &mdash; from inbound email triage to purchase order generation. The result: faster turnaround, fewer errors, and 24/7 responsiveness.</div>
-        </div>
+      <div class="sc-arrow anim" style="--i:4">&rarr;</div>
+      <div class="sc-step anim-s" style="--i:5">
+        <span class="sc-step__icon">&#x1f4e4;</span>
+        <div class="sc-step__title">Brand Fulfills</div>
+        <div class="sc-step__desc">Your PO is sent directly to the brand, who picks, packs, and ships from their warehouse</div>
       </div>
+      <div class="sc-arrow anim" style="--i:6">&rarr;</div>
+      <div class="sc-step anim-s" style="--i:7">
+        <span class="sc-step__icon">&#x1f4e6;</span>
+        <div class="sc-step__title">You Receive</div>
+        <div class="sc-step__desc">Authentic product ships to your warehouse &mdash; ready to list and sell with full brand authorization</div>
+      </div>
+    </div>
+
+    <div class="sc-callout anim" style="--i:8">
+      <span class="sc-callout__icon">&#x2705;</span>
+      <div class="sc-callout__text"><strong>Why this matters:</strong> Brand-direct sourcing means you get authorized invoices for ungating, consistent supply, and the confidence that every product is genuine. No counterfeit risk, no supply chain surprises.</div>
     </div>
   </div>
 </div>
 
-<!-- AI / TECHNOLOGY (dark section) -->
+<!-- AI-POWERED PORTAL -->
 <div class="content">
   <div class="ai-section">
     <div class="ai-orb"></div>
-    <div class="section-label anim" style="--i:0">Our Technology</div>
-    <h2 class="section-title anim" style="--i:1">A team of <span class="accent">AI agents</span><br>running the business</h2>
-    <p class="section-desc anim" style="--i:2">We built an autonomous agent network that handles the operational backbone of our business. Each agent is a specialist &mdash; trained on our data, connected to our systems, and working continuously.</p>
+    <div class="section-label anim" style="--i:0">AI-Powered Portal</div>
+    <h2 class="section-title anim" style="--i:1">Your wholesale buying experience,<br><span class="accent">supercharged</span> by AI</h2>
+    <p class="section-desc anim" style="--i:2">Our B2B portal at <strong style="color:#93c5fd">b2b.catalistgroup.co</strong> uses AI across the entire buying experience &mdash; not as a gimmick, but as the core of how the platform works.</p>
 
     <div class="ai-grid">
       <div class="ai-card anim-s" style="--i:3">
-        <span class="ai-card__icon">&#x1f916;</span>
-        <div class="ai-card__title">Ana &mdash; Procurement Agent</div>
-        <div class="ai-card__desc">Monitors inventory, generates purchase orders, and communicates directly with suppliers. Ana processes hundreds of line items and sends formatted PO emails &mdash; with zero human intervention.</div>
-        <span class="ai-badge">Automated PO Generation</span>
+        <span class="ai-card__icon">&#x1f50d;</span>
+        <div class="ai-card__title">Smart Product Discovery</div>
+        <div class="ai-card__desc">AI analyzes your store's categories, past orders, and market trends to surface the products most likely to sell well for you. No more scrolling through thousands of SKUs &mdash; your catalog is personalized from day one.</div>
+        <span class="ai-badge">Personalized Recommendations</span>
       </div>
       <div class="ai-card anim-s" style="--i:4">
-        <span class="ai-card__icon">&#x1f4ac;</span>
-        <div class="ai-card__title">Charlie &mdash; Support Agent</div>
-        <div class="ai-card__desc">Handles inbound customer emails 24/7. Answers product questions, tracks orders, resolves issues, and escalates edge cases &mdash; all while maintaining our brand voice and tone.</div>
-        <span class="ai-badge">24/7 Email Support</span>
+        <span class="ai-card__icon">&#x1f513;</span>
+        <div class="ai-card__title">AI-Assisted Ungating</div>
+        <div class="ai-card__desc">Need to get approved to sell a brand? Our platform identifies which brands are easy to ungate, walks you through the process, and provides the authorized invoices you need &mdash; all in one place.</div>
+        <span class="ai-badge">Friction-Free Approvals</span>
       </div>
       <div class="ai-card anim-s" style="--i:5">
-        <span class="ai-card__icon">&#x1f91d;</span>
-        <div class="ai-card__title">Jason &mdash; Business Dev Agent</div>
-        <div class="ai-card__desc">Identifies and reaches out to potential brand partners. Researches companies, crafts personalized outreach, and manages the relationship pipeline from first contact to closed deal.</div>
-        <span class="ai-badge">Brand Outreach Automation</span>
+        <span class="ai-card__icon">&#x1f504;</span>
+        <div class="ai-card__title">Reorder Intelligence</div>
+        <div class="ai-card__desc">The platform tracks your sell-through rates and inventory levels, then proactively suggests when and what to reorder. You get reminders before you run out &mdash; tuned to your specific velocity.</div>
+        <span class="ai-badge">Never Run Out of Stock</span>
       </div>
       <div class="ai-card anim-s" style="--i:6">
-        <span class="ai-card__icon">&#x1f4e3;</span>
-        <div class="ai-card__title">Maya &mdash; Marketing Agent</div>
-        <div class="ai-card__desc">Creates and executes marketing campaigns across email and social. Manages our content calendar, writes copy, and optimizes messaging based on engagement data.</div>
-        <span class="ai-badge">Content &amp; Campaign Automation</span>
-      </div>
-      <div class="ai-card anim-s" style="--i:7">
-        <span class="ai-card__icon">&#x1f50d;</span>
-        <div class="ai-card__title">Sentinel &mdash; Monitor Agent</div>
-        <div class="ai-card__desc">Watches system health, tracks agent performance, and flags anomalies. Runs continuous diagnostics across all agents and alerts the team when something needs attention.</div>
-        <span class="ai-badge">Ops Monitoring</span>
-      </div>
-      <div class="ai-card anim-s" style="--i:8">
-        <span class="ai-card__icon">&#x1f9e0;</span>
-        <div class="ai-card__title">Shared Memory Layer</div>
-        <div class="ai-card__desc">All agents share a persistent memory system. When Ana processes a PO, Charlie can reference it in a customer email. When Jason closes a new brand, Ana starts ordering immediately.</div>
-        <span class="ai-badge">Cross-Agent Intelligence</span>
+        <span class="ai-card__icon">&#x1f4ac;</span>
+        <div class="ai-card__title">Instant Support</div>
+        <div class="ai-card__desc">Questions about an order, a product, or your account? Our AI-powered support responds in minutes, not days. It knows your order history, your brands, and can resolve most issues without escalation.</div>
+        <span class="ai-badge">24/7 Responsiveness</span>
       </div>
     </div>
   </div>
 </div>
 
-<!-- HOW IT WORKS (pipeline) -->
+<!-- WHY CATALIST (differentiators) -->
 <div class="content">
   <div class="section">
-    <div class="section-label anim" style="--i:0">How It Works</div>
-    <h2 class="section-title anim" style="--i:1">From brand to <span class="accent">buyer</span>, fully automated</h2>
-    <p class="section-desc anim" style="--i:2">Our AI-driven pipeline connects every step of the wholesale process into a single, seamless workflow.</p>
+    <div class="section-label anim" style="--i:0">Why Catalist</div>
+    <h2 class="section-title anim" style="--i:1">Built for sellers who want <span class="accent">better</span></h2>
+    <p class="section-desc anim" style="--i:2">We're not just another wholesale directory. Catalist is a technology company that happens to sell wholesale goods.</p>
 
-    <div class="pipeline">
-      <div class="pipeline-step anim-s" style="--i:3">
-        <div class="pipeline-step__dot">&#x1f50e;</div>
-        <div class="pipeline-step__title">Discover</div>
-        <div class="pipeline-step__desc">AI identifies high-margin products and new brand opportunities using real-time market data</div>
+    <div class="diff-grid">
+      <div class="diff-card anim-s" style="--i:3">
+        <span class="diff-card__icon">&#x1f3ed;</span>
+        <div class="diff-card__title">Direct Brand Relationships</div>
+        <div class="diff-card__desc">We maintain direct accounts with every brand in our catalog. Your orders are fulfilled by the brand, not a third-party warehouse.</div>
       </div>
-      <div class="pipeline-step anim-s" style="--i:5">
-        <div class="pipeline-step__dot">&#x1f4cb;</div>
-        <div class="pipeline-step__title">Procure</div>
-        <div class="pipeline-step__desc">Automated PO generation, supplier communication, and inventory management</div>
+      <div class="diff-card anim-s" style="--i:4">
+        <span class="diff-card__icon">&#x1f4c4;</span>
+        <div class="diff-card__title">Authorized Invoices</div>
+        <div class="diff-card__desc">Every purchase comes with a brand-authorized invoice &mdash; the documentation you need for ungating and compliance, included automatically.</div>
       </div>
-      <div class="pipeline-step anim-s" style="--i:7">
-        <div class="pipeline-step__dot">&#x1f6d2;</div>
-        <div class="pipeline-step__title">Sell</div>
-        <div class="pipeline-step__desc">B2B portal with personalized recommendations, real-time pricing, and one-click ordering</div>
+      <div class="diff-card anim-s" style="--i:5">
+        <span class="diff-card__icon">&#x1f9e0;</span>
+        <div class="diff-card__title">AI That Actually Helps</div>
+        <div class="diff-card__desc">Our AI isn't a chatbot bolted onto a legacy system. It's the backbone of the platform &mdash; driving recommendations, support, and operations from the ground up.</div>
       </div>
-      <div class="pipeline-step anim-s" style="--i:9">
-        <div class="pipeline-step__dot">&#x1f4de;</div>
-        <div class="pipeline-step__title">Support</div>
-        <div class="pipeline-step__desc">AI-powered customer support handles inquiries, order tracking, and issue resolution 24/7</div>
+      <div class="diff-card anim-s" style="--i:6">
+        <span class="diff-card__icon">&#x1f4b0;</span>
+        <div class="diff-card__title">Transparent Pricing</div>
+        <div class="diff-card__desc">See real wholesale cost, your selling price, and your margin on every product &mdash; before you buy. No hidden fees, no surprises.</div>
+      </div>
+      <div class="diff-card anim-s" style="--i:7">
+        <span class="diff-card__icon">&#x1f4e6;</span>
+        <div class="diff-card__title">No Minimums on Most Brands</div>
+        <div class="diff-card__desc">Test new products without committing to massive orders. Most brands on Catalist have low or no minimum order requirements.</div>
+      </div>
+      <div class="diff-card anim-s" style="--i:8">
+        <span class="diff-card__icon">&#x26a1;</span>
+        <div class="diff-card__title">Growing Catalog</div>
+        <div class="diff-card__desc">565+ brands across 42 categories &mdash; from Under Armour and Cuisinart to specialty brands like Stonewall Kitchen and Luigi Bormioli. And we're adding more every week.</div>
       </div>
     </div>
   </div>
@@ -588,30 +517,30 @@
 
 <!-- BRANDS -->
 <div class="content">
-  <div class="section">
-    <div class="section-label anim" style="--i:0">Our Brands</div>
-    <h2 class="section-title anim" style="--i:1">565+ brands across <span class="accent">42 categories</span></h2>
-    <p class="section-desc anim" style="--i:2">From household names to specialty brands, our catalog spans sports, kitchen, outdoor, home &amp; living, health, and more.</p>
+  <div class="section" style="padding-top:0">
+    <div class="section-label anim" style="--i:0">Featured Brands</div>
+    <h2 class="section-title anim" style="--i:1">Some of the <span class="accent">brands</span> on our platform</h2>
+    <p class="section-desc anim" style="--i:2">Direct partnerships across sports, kitchen, outdoor, home, health, and more.</p>
 
     <div class="brands-grid">
-      <div class="brand-pill anim-s" style="--i:3">Under Armour<span class="brand-count">226 SKUs</span></div>
-      <div class="brand-pill anim-s" style="--i:4">Cuisinart<span class="brand-count">166 SKUs</span></div>
-      <div class="brand-pill anim-s" style="--i:5">Luigi Bormioli<span class="brand-count">171 SKUs</span></div>
-      <div class="brand-pill anim-s" style="--i:6">Stonewall Kitchen<span class="brand-count">244 SKUs</span></div>
-      <div class="brand-pill anim-s" style="--i:7">Franklin Sports<span class="brand-count">456 SKUs</span></div>
-      <div class="brand-pill anim-s" style="--i:8">GUND<span class="brand-count">150 SKUs</span></div>
-      <div class="brand-pill anim-s" style="--i:9">Shock Doctor<span class="brand-count">299 SKUs</span></div>
-      <div class="brand-pill anim-s" style="--i:10">CHAMPRO<span class="brand-count">906 SKUs</span></div>
-      <div class="brand-pill anim-s" style="--i:11">EuroGraphics<span class="brand-count">597 SKUs</span></div>
-      <div class="brand-pill anim-s" style="--i:12">McDavid<span class="brand-count">449 SKUs</span></div>
-      <div class="brand-pill anim-s" style="--i:13">Norpro<span class="brand-count">292 SKUs</span></div>
-      <div class="brand-pill anim-s" style="--i:14">Coghlan's<span class="brand-count">338 SKUs</span></div>
-      <div class="brand-pill anim-s" style="--i:15">Starwest Botanicals<span class="brand-count">179 SKUs</span></div>
-      <div class="brand-pill anim-s" style="--i:16">Mary Meyer<span class="brand-count">205 SKUs</span></div>
-      <div class="brand-pill anim-s" style="--i:17">Dexter-Russell<span class="brand-count">150 SKUs</span></div>
-      <div class="brand-pill anim-s" style="--i:18">Superio<span class="brand-count">179 SKUs</span></div>
+      <div class="brand-pill anim-s" style="--i:3">Under Armour</div>
+      <div class="brand-pill anim-s" style="--i:4">Cuisinart</div>
+      <div class="brand-pill anim-s" style="--i:5">Luigi Bormioli</div>
+      <div class="brand-pill anim-s" style="--i:6">Stonewall Kitchen</div>
+      <div class="brand-pill anim-s" style="--i:7">Franklin Sports</div>
+      <div class="brand-pill anim-s" style="--i:8">GUND</div>
+      <div class="brand-pill anim-s" style="--i:9">Shock Doctor</div>
+      <div class="brand-pill anim-s" style="--i:10">CHAMPRO</div>
+      <div class="brand-pill anim-s" style="--i:11">EuroGraphics</div>
+      <div class="brand-pill anim-s" style="--i:12">McDavid</div>
+      <div class="brand-pill anim-s" style="--i:13">Norpro</div>
+      <div class="brand-pill anim-s" style="--i:14">Mary Meyer</div>
+      <div class="brand-pill anim-s" style="--i:15">Dexter-Russell</div>
+      <div class="brand-pill anim-s" style="--i:16">Coghlan's</div>
+      <div class="brand-pill anim-s" style="--i:17">Starwest Botanicals</div>
+      <div class="brand-pill anim-s" style="--i:18">Superio</div>
     </div>
-    <div class="brands-more anim" style="--i:19">+ 549 more brands</div>
+    <div class="brands-more anim" style="--i:19">+ 549 more brands across 42 categories</div>
   </div>
 </div>
 
@@ -620,9 +549,10 @@
   <div class="cta">
     <div class="hero-orb1" style="width:300px;height:300px;top:-100px;right:-50px;"></div>
     <div class="hero-orb2" style="width:200px;height:200px;bottom:-50px;left:-30px;"></div>
-    <h2>Let's Build Something <span class="accent">Together</span></h2>
-    <p>Whether you're a brand looking to expand distribution or a seller looking for better products &mdash; we'd love to talk.</p>
-    <a href="mailto:hello@catalistgroup.co" class="cta-btn">hello@catalistgroup.co</a>
+    <h2>Ready to Source <span class="accent">Smarter</span>?</h2>
+    <p>Sign up for the Catalist portal and start buying brand-direct today.</p>
+    <a href="https://b2b.catalistgroup.co" class="cta-btn">Visit b2b.catalistgroup.co</a>
+    <div class="cta-links">or email us at <a href="mailto:hello@catalistgroup.co">hello@catalistgroup.co</a></div>
   </div>
 </div>
 
