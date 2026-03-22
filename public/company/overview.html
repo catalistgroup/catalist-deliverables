@@ -17,7 +17,7 @@
       --blue-600: #2563eb;
       --blue-500: #3b82f6;
       --emerald: #059669;
-      --emerald-dim: rgba(5, 150, 105, 0.08);
+      --emerald-dim: rgba(5,150,105,0.06);
       --bg: #FFFFFF;
       --bg-alt: #FAFBFC;
       --fg: #111827;
@@ -29,309 +29,155 @@
       --radius-xl: 1.5rem;
       --radius-2xl: 2rem;
       --radius-full: 9999px;
-      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
       --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
       --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.07);
     }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:var(--font-primary);color:var(--fg);background:var(--bg)}
+    .accent{font-family:var(--font-accent);font-style:italic;font-weight:400}
+    .icon{width:28px;height:28px;stroke-width:1.8;stroke:currentColor;fill:none;stroke-linecap:round;stroke-linejoin:round}
+    .icon-sm{width:20px;height:20px}
+    .icon-lg{width:36px;height:36px}
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: var(--font-primary); color: var(--fg); background: var(--bg); }
-    .accent { font-family: var(--font-accent); font-style: italic; font-weight: 400; }
+    @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeScale{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+    @keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(-30px,20px)}}
+    @keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(20px,-30px)}}
+    .anim{animation:fadeUp .5s ease-out both;animation-delay:calc(var(--i,0)*.04s)}
+    .anim-s{animation:fadeScale .4s ease-out both;animation-delay:calc(var(--i,0)*.04s)}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important;transition-duration:.01ms!important}}
 
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes fadeScale { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-    @keyframes float1 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-30px, 20px); } }
-    @keyframes float2 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(20px, -30px); } }
-    .anim { animation: fadeUp 0.5s ease-out both; animation-delay: calc(var(--i, 0) * 0.04s); }
-    .anim-s { animation: fadeScale 0.4s ease-out both; animation-delay: calc(var(--i, 0) * 0.04s); }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: 0.01ms !important; animation-delay: 0ms !important; transition-duration: 0.01ms !important; }
-    }
+    /* HERO */
+    .hero{background:linear-gradient(135deg,#1e3a8a 0%,#2563eb 50%,#3b82f6 100%);position:relative;overflow:hidden}
+    .hero-orb1{position:absolute;top:-200px;right:-100px;width:600px;height:600px;background:rgba(11,36,251,.2);border-radius:50%;filter:blur(100px);animation:float1 20s ease-in-out infinite;pointer-events:none}
+    .hero-orb2{position:absolute;bottom:-100px;left:-50px;width:400px;height:400px;background:rgba(0,102,255,.15);border-radius:50%;filter:blur(100px);animation:float2 25s ease-in-out infinite;pointer-events:none}
+    .hero-fade{position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(to top,#fff,transparent);pointer-events:none}
+    .hero-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:40px 32px 100px}
+    .hero-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:72px}
+    .hero-logo img{height:36px}
+    .hero-prepared{font-family:var(--font-mono);font-size:13px;color:rgba(255,255,255,.5)}
+    .hero-badge{display:inline-block;font-family:var(--font-mono);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:#93c5fd;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);padding:8px 18px;border-radius:var(--radius-full);margin-bottom:24px}
+    .hero h1{font-size:52px;font-weight:800;color:#fff;letter-spacing:-2.5px;line-height:1.08;max-width:720px;margin-bottom:24px}
+    .hero-sub{font-size:18px;color:rgba(255,255,255,.72);max-width:560px;line-height:1.65}
 
-    .icon { width: 32px; height: 32px; stroke-width: 1.8; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-    .icon-sm { width: 20px; height: 20px; }
-    .icon-lg { width: 40px; height: 40px; }
+    /* CONTENT */
+    .content{max-width:1100px;margin:0 auto;padding:0 32px}
+    .section{padding:72px 0}
+    .section+.section{border-top:1px solid var(--border)}
+    .section-label{font-family:var(--font-mono);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--primary);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+    .section-label::before{content:'';display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--primary)}
+    .section-title{font-size:36px;font-weight:800;letter-spacing:-1px;margin-bottom:16px;line-height:1.15}
+    .section-desc{font-size:17px;color:var(--muted);line-height:1.65;max-width:600px;margin-bottom:40px}
 
-    /* ---- HERO ---- */
-    .hero {
-      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
-      position: relative; overflow: hidden; padding: 0;
-    }
-    .hero-orb1 {
-      position: absolute; top: -200px; right: -100px;
-      width: 600px; height: 600px;
-      background: rgba(11, 36, 251, 0.2);
-      border-radius: 50%; filter: blur(100px);
-      animation: float1 20s ease-in-out infinite; pointer-events: none;
-    }
-    .hero-orb2 {
-      position: absolute; bottom: -100px; left: -50px;
-      width: 400px; height: 400px;
-      background: rgba(0, 102, 255, 0.15);
-      border-radius: 50%; filter: blur(100px);
-      animation: float2 25s ease-in-out infinite; pointer-events: none;
-    }
-    .hero-fade {
-      position: absolute; bottom: 0; left: 0; right: 0; height: 120px;
-      background: linear-gradient(to top, #fff, transparent); pointer-events: none;
-    }
-    .hero-inner {
-      position: relative; z-index: 1;
-      max-width: 1100px; margin: 0 auto; padding: 40px 32px 100px;
-    }
-    .hero-nav {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 72px;
-    }
-    .hero-logo img { height: 36px; }
-    .hero-prepared {
-      font-family: var(--font-mono); font-size: 13px;
-      color: rgba(255,255,255,0.5);
-    }
-    .hero-badge {
-      display: inline-block; font-family: var(--font-mono);
-      font-size: 12px; font-weight: 600; text-transform: uppercase;
-      letter-spacing: 2px; color: #93c5fd;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.15);
-      padding: 8px 18px; border-radius: var(--radius-full); margin-bottom: 24px;
-    }
-    .hero h1 {
-      font-size: 56px; font-weight: 800; color: #fff;
-      letter-spacing: -2.5px; line-height: 1.06;
-      max-width: 700px; margin-bottom: 24px;
-    }
-    .hero-sub {
-      font-size: 19px; color: rgba(255,255,255,0.75);
-      max-width: 580px; line-height: 1.65;
-    }
+    /* AI SECTION (dark, star) */
+    .ai-section{background:var(--fg);border-radius:var(--radius-2xl);padding:64px 56px;color:#fff;position:relative;overflow:hidden;margin-bottom:0}
+    .ai-section .section-label{color:#60a5fa}
+    .ai-section .section-label::before{background:#60a5fa}
+    .ai-section .section-title{color:#fff}
+    .ai-section .section-desc{color:rgba(255,255,255,.55)}
+    .ai-orb{position:absolute;top:-120px;right:-60px;width:350px;height:350px;background:rgba(37,99,235,.12);border-radius:50%;filter:blur(80px);pointer-events:none}
+    .ai-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;position:relative;z-index:1}
+    .ai-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius-lg);padding:32px 28px;transition:background .2s ease,border-color .2s ease}
+    .ai-card:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.16)}
+    .ai-card__icon{color:#60a5fa;margin-bottom:16px}
+    .ai-card__title{font-weight:700;font-size:17px;margin-bottom:8px}
+    .ai-card__desc{font-size:14px;color:rgba(255,255,255,.5);line-height:1.65}
+    .ai-badge{display:inline-block;font-family:var(--font-mono);font-size:11px;font-weight:600;background:rgba(96,165,250,.12);color:#93c5fd;padding:4px 10px;border-radius:var(--radius-full);margin-top:14px}
 
-    /* ---- CONTENT ---- */
-    .content { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
-    .section { padding: 72px 0; }
-    .section + .section { border-top: 1px solid var(--border); }
-    .section-label {
-      font-family: var(--font-mono); font-size: 12px; font-weight: 600;
-      text-transform: uppercase; letter-spacing: 2px;
-      color: var(--primary); margin-bottom: 12px;
-      display: flex; align-items: center; gap: 8px;
-    }
-    .section-label::before {
-      content: ''; display: inline-block; width: 8px; height: 8px;
-      border-radius: 50%; background: var(--primary);
-    }
-    .section-title {
-      font-size: 36px; font-weight: 800;
-      letter-spacing: -1px; margin-bottom: 16px; line-height: 1.15;
-    }
-    .section-desc {
-      font-size: 17px; color: var(--muted);
-      line-height: 1.65; max-width: 600px; margin-bottom: 40px;
-    }
+    /* BRANDS */
+    .brands-bar{background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--radius-xl);padding:48px 40px;text-align:center;margin-bottom:32px}
+    .brands-bar__badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--primary);background:rgba(0,102,255,.06);border:1px solid rgba(0,102,255,.12);padding:6px 16px;border-radius:var(--radius-full);margin-bottom:16px}
+    .brands-bar__badge svg{width:16px;height:16px;stroke:var(--primary);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .brands-bar__title{font-size:28px;font-weight:800;letter-spacing:-.5px;margin-bottom:8px}
+    .brands-bar__sub{font-size:15px;color:var(--muted);margin-bottom:32px}
+    .logo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px 32px;align-items:center;justify-items:center;max-width:700px;margin:0 auto}
+    .logo-grid img{height:32px;width:auto;opacity:.55;filter:grayscale(100%);transition:opacity .2s ease,filter .2s ease}
+    .logo-grid img:hover{opacity:1;filter:grayscale(0%)}
 
-    /* ---- AGGREGATION (dark, star section) ---- */
-    .agg-section {
-      background: var(--fg); border-radius: var(--radius-2xl);
-      padding: 64px 56px; color: #fff;
-      position: relative; overflow: hidden; margin: 0 0 0;
-    }
-    .agg-section .section-label { color: #60a5fa; }
-    .agg-section .section-label::before { background: #60a5fa; }
-    .agg-section .section-title { color: #fff; }
-    .agg-section .section-desc { color: rgba(255,255,255,0.55); }
-    .agg-orb {
-      position: absolute; top: -120px; right: -60px;
-      width: 350px; height: 350px;
-      background: rgba(37, 99, 235, 0.12);
-      border-radius: 50%; filter: blur(80px); pointer-events: none;
-    }
+    /* PRODUCT CARDS */
+    .product-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+    .product-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:transform .2s ease,box-shadow .2s ease}
+    .product-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+    .product-card__img{width:100%;aspect-ratio:1/1;object-fit:cover;background:var(--bg-alt)}
+    .product-card__body{padding:14px 16px}
+    .product-card__brand{font-family:var(--font-mono);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--muted-fg);margin-bottom:4px}
+    .product-card__name{font-weight:600;font-size:13px;line-height:1.4}
 
-    .agg-diagram {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr auto 1fr;
-      align-items: center; gap: 0;
-      position: relative; z-index: 1;
-      margin-bottom: 32px;
-    }
-    .agg-col { display: flex; flex-direction: column; gap: 12px; }
-    .agg-seller {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: var(--radius); padding: 14px 18px;
-      display: flex; align-items: center; gap: 12px;
-    }
-    .agg-seller__icon { color: rgba(255,255,255,0.4); flex-shrink: 0; }
-    .agg-seller__name { font-weight: 600; font-size: 14px; }
-    .agg-seller__qty {
-      font-family: var(--font-mono); font-size: 12px;
-      color: rgba(255,255,255,0.4); margin-top: 2px;
-    }
-    .agg-arrow {
-      display: flex; align-items: center; justify-content: center;
-      padding: 0 12px; color: rgba(255,255,255,0.25);
-    }
-    .agg-arrow svg { width: 32px; height: 32px; }
-    .agg-center {
-      background: rgba(37, 99, 235, 0.15);
-      border: 1px solid rgba(96, 165, 250, 0.25);
-      border-radius: var(--radius-lg); padding: 28px 24px;
-      text-align: center;
-    }
-    .agg-center__label {
-      font-family: var(--font-mono); font-size: 11px;
-      text-transform: uppercase; letter-spacing: 1.5px;
-      color: #60a5fa; margin-bottom: 8px;
-    }
-    .agg-center__val {
-      font-size: 32px; font-weight: 800;
-      letter-spacing: -1px; margin-bottom: 4px;
-    }
-    .agg-center__sub {
-      font-size: 13px; color: rgba(255,255,255,0.4);
-    }
-    .agg-brand {
-      background: rgba(5, 150, 105, 0.12);
-      border: 1px solid rgba(52, 211, 153, 0.2);
-      border-radius: var(--radius-lg); padding: 28px 24px;
-      text-align: center;
-    }
-    .agg-brand__icon { color: #34d399; margin-bottom: 10px; display: flex; justify-content: center; }
-    .agg-brand__name { font-weight: 700; font-size: 16px; margin-bottom: 4px; }
-    .agg-brand__sub { font-size: 13px; color: rgba(255,255,255,0.4); }
+    /* DOCUMENTATION */
+    .doc-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .doc-card{background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px 28px;transition:transform .2s ease,box-shadow .2s ease}
+    .doc-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+    .doc-card__icon{color:var(--primary);margin-bottom:16px}
+    .doc-card__title{font-weight:700;font-size:17px;margin-bottom:8px}
+    .doc-card__desc{font-size:14px;color:var(--muted);line-height:1.65}
 
-    .agg-benefits {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 16px; position: relative; z-index: 1;
-    }
-    .agg-benefit {
-      display: flex; align-items: flex-start; gap: 14px;
-      padding: 20px; border-radius: var(--radius);
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-    .agg-benefit__icon { color: #60a5fa; flex-shrink: 0; margin-top: 2px; }
-    .agg-benefit__title { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
-    .agg-benefit__desc { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.55; }
+    /* AGGREGATION */
+    .agg-section{background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--radius-xl);padding:48px 44px;position:relative}
+    .agg-diagram{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:0;margin-bottom:28px}
+    .agg-col{display:flex;flex-direction:column;gap:10px}
+    .agg-seller{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;display:flex;align-items:center;gap:10px}
+    .agg-seller__icon{color:var(--muted-fg);flex-shrink:0}
+    .agg-seller__name{font-weight:600;font-size:13px}
+    .agg-seller__qty{font-family:var(--font-mono);font-size:11px;color:var(--muted-fg);margin-top:1px}
+    .agg-arrow{display:flex;align-items:center;justify-content:center;padding:0 10px;color:var(--muted-fg)}
+    .agg-arrow svg{width:28px;height:28px}
+    .agg-center{background:rgba(0,102,255,.04);border:1px solid rgba(0,102,255,.12);border-radius:var(--radius-lg);padding:24px 20px;text-align:center}
+    .agg-center__label{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--primary);margin-bottom:6px}
+    .agg-center__val{font-size:28px;font-weight:800;letter-spacing:-1px;margin-bottom:4px}
+    .agg-center__sub{font-size:12px;color:var(--muted)}
+    .agg-brand{background:var(--emerald-dim);border:1px solid rgba(5,150,105,.12);border-radius:var(--radius-lg);padding:24px 20px;text-align:center}
+    .agg-brand__icon{color:var(--emerald);margin-bottom:8px;display:flex;justify-content:center}
+    .agg-brand__name{font-weight:700;font-size:15px;margin-bottom:4px}
+    .agg-brand__sub{font-size:12px;color:var(--muted)}
+    .agg-benefits{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .agg-benefit{display:flex;align-items:flex-start;gap:12px;padding:16px;border-radius:var(--radius);background:#fff;border:1px solid var(--border)}
+    .agg-benefit__icon{color:var(--primary);flex-shrink:0;margin-top:2px}
+    .agg-benefit__title{font-weight:600;font-size:13px;margin-bottom:2px}
+    .agg-benefit__desc{font-size:12px;color:var(--muted);line-height:1.5}
 
-    /* ---- SUPPLY CHAIN ---- */
-    .sc-flow {
-      display: grid; grid-template-columns: 1fr auto 1fr auto 1fr;
-      align-items: center; gap: 0; margin-bottom: 32px;
-    }
-    .sc-step {
-      text-align: center; padding: 32px 20px;
-      background: var(--bg-alt); border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .sc-step:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
-    .sc-step__icon { color: var(--primary); margin-bottom: 14px; display: flex; justify-content: center; }
-    .sc-step__title { font-weight: 800; font-size: 17px; margin-bottom: 6px; }
-    .sc-step__desc { font-size: 13px; color: var(--muted); line-height: 1.55; }
-    .sc-arrow { display: flex; align-items: center; justify-content: center; padding: 0 8px; color: var(--primary); }
-    .sc-arrow svg { width: 28px; height: 28px; }
+    /* CTA */
+    .cta{background:linear-gradient(135deg,#1e3a8a 0%,#2563eb 50%,#3b82f6 100%);border-radius:var(--radius-2xl);padding:56px 48px;text-align:center;color:#fff;position:relative;overflow:hidden;margin:48px 0}
+    .cta h2{font-size:32px;font-weight:800;letter-spacing:-1px;margin-bottom:8px}
+    .cta p{color:rgba(255,255,255,.7);font-size:16px;margin-bottom:24px}
+    .cta-btn{display:inline-block;background:#fff;color:var(--primary);padding:14px 36px;border-radius:var(--radius-full);font-weight:700;font-size:15px;text-decoration:none;transition:transform .15s ease,box-shadow .15s ease}
+    .cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.15)}
+    .cta-links{margin-top:14px;font-family:var(--font-mono);font-size:13px;color:rgba(255,255,255,.45)}
+    .cta-links a{color:rgba(255,255,255,.65);text-decoration:none}
+    .cta-links a:hover{color:#fff}
 
-    .sc-callout {
-      background: var(--emerald-dim); border: 1px solid rgba(5, 150, 105, 0.15);
-      border-radius: var(--radius-lg); padding: 20px 28px;
-      display: flex; align-items: flex-start; gap: 16px;
-    }
-    .sc-callout__icon { color: var(--emerald); flex-shrink: 0; margin-top: 2px; }
-    .sc-callout__text { font-size: 15px; color: #065f46; line-height: 1.55; }
-    .sc-callout__text strong { color: #064e3b; }
+    /* FOOTER */
+    .footer{text-align:center;padding:32px;font-size:13px;color:var(--muted-fg);border-top:1px solid var(--border);margin-top:24px}
+    .footer a{color:var(--muted);text-decoration:none}
+    .footer a:hover{color:var(--primary)}
+    .footer div+div{margin-top:6px}
 
-    /* ---- AI FEATURES ---- */
-    .ai-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    /* RESPONSIVE */
+    @media(max-width:768px){
+      .hero h1{font-size:32px;letter-spacing:-1px}
+      .hero-sub{font-size:16px}
+      .hero-inner{padding:24px 20px 72px}
+      .content{padding:0 20px}
+      .ai-section{padding:36px 24px;border-radius:var(--radius-xl)}
+      .ai-grid{grid-template-columns:1fr}
+      .brands-bar{padding:32px 24px}
+      .logo-grid{grid-template-columns:repeat(2,1fr);gap:20px}
+      .product-strip{grid-template-columns:repeat(2,1fr);gap:12px}
+      .product-strip .product-card:last-child{display:none}
+      .doc-grid{grid-template-columns:1fr}
+      .agg-section{padding:32px 24px}
+      .agg-diagram{grid-template-columns:1fr;gap:10px}
+      .agg-arrow{transform:rotate(90deg);padding:4px 0}
+      .agg-benefits{grid-template-columns:1fr}
+      .section{padding:48px 0}
+      .section-title{font-size:28px}
+      .cta{padding:40px 24px}
+      .cta h2{font-size:24px}
     }
-    .ai-card {
-      background: var(--bg-alt); border: 1px solid var(--border);
-      border-radius: var(--radius-lg); padding: 32px 28px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .ai-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
-    .ai-card__icon { color: var(--primary); margin-bottom: 16px; }
-    .ai-card__title { font-weight: 700; font-size: 17px; margin-bottom: 8px; }
-    .ai-card__desc { font-size: 14.5px; color: var(--muted); line-height: 1.65; }
-    .ai-badge {
-      display: inline-block; font-family: var(--font-mono);
-      font-size: 11px; font-weight: 600;
-      background: rgba(0, 102, 255, 0.06); color: var(--primary);
-      padding: 4px 10px; border-radius: var(--radius-full); margin-top: 14px;
-    }
-
-    /* ---- BRANDS ---- */
-    .brands-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 10px;
-    }
-    .brand-pill {
-      background: var(--bg-alt); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 14px 12px;
-      font-weight: 600; font-size: 13.5px; text-align: center;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-    .brand-pill:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
-    .brands-more {
-      font-family: var(--font-mono); font-size: 13px;
-      color: var(--muted); text-align: center; margin-top: 20px;
-    }
-
-    /* ---- CTA ---- */
-    .cta {
-      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
-      border-radius: var(--radius-2xl); padding: 56px 48px;
-      text-align: center; color: #fff;
-      position: relative; overflow: hidden; margin: 48px 0;
-    }
-    .cta h2 { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; }
-    .cta p { color: rgba(255,255,255,0.7); font-size: 16px; margin-bottom: 24px; }
-    .cta-btn {
-      display: inline-block; background: #fff; color: var(--primary);
-      padding: 14px 36px; border-radius: var(--radius-full);
-      font-weight: 700; font-size: 15px; text-decoration: none;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
-    .cta-links {
-      margin-top: 14px; font-family: var(--font-mono);
-      font-size: 13px; color: rgba(255,255,255,0.45);
-    }
-    .cta-links a { color: rgba(255,255,255,0.65); text-decoration: none; }
-    .cta-links a:hover { color: #fff; }
-
-    /* ---- FOOTER ---- */
-    .footer {
-      text-align: center; padding: 32px; font-size: 13px;
-      color: var(--muted-fg); border-top: 1px solid var(--border); margin-top: 24px;
-    }
-    .footer a { color: var(--muted); text-decoration: none; }
-    .footer a:hover { color: var(--primary); }
-    .footer div + div { margin-top: 6px; }
-
-    /* ---- RESPONSIVE ---- */
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 34px; letter-spacing: -1px; }
-      .hero-sub { font-size: 16px; }
-      .hero-inner { padding: 24px 20px 72px; }
-      .content { padding: 0 20px; }
-      .agg-section { padding: 40px 24px; border-radius: var(--radius-xl); }
-      .agg-diagram { grid-template-columns: 1fr; gap: 12px; }
-      .agg-arrow { transform: rotate(90deg); padding: 4px 0; }
-      .agg-benefits { grid-template-columns: 1fr; }
-      .sc-flow { grid-template-columns: 1fr; gap: 12px; }
-      .sc-arrow { transform: rotate(90deg); padding: 4px 0; }
-      .ai-grid { grid-template-columns: 1fr; }
-      .brands-grid { grid-template-columns: repeat(2, 1fr); }
-      .section { padding: 48px 0; }
-      .section-title { font-size: 28px; }
-      .cta { padding: 40px 24px; }
-      .cta h2 { font-size: 24px; }
-    }
-
-    @media print {
-      body { background: white; }
-      .hero, .cta, .agg-section { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-      * { animation: none !important; }
+    @media print{
+      body{background:#fff}
+      .hero,.cta,.ai-section{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      *{animation:none!important}
     }
   </style>
 </head>
@@ -345,29 +191,178 @@
   <div class="hero-inner">
     <nav class="hero-nav">
       <div class="hero-logo">
-        <img src="data:image/png;base64,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" alt="Catalist Group">
+        <img src="https://catalistgroup.co/images/catalist-logo-white.png" alt="Catalist Group">
       </div>
       <span class="hero-prepared">Prepared for Sellers United &mdash; March 2026</span>
     </nav>
     <div class="hero-content">
       <div class="hero-badge anim" style="--i:0">AI-Native B2B Marketplace</div>
-      <h1 class="anim" style="--i:1">Buy direct from<br><span class="accent">brands</span>, powered<br>by AI</h1>
-      <p class="hero-sub anim" style="--i:3">Catalist is a B2B marketplace that aggregates seller demand into brand-direct purchase orders &mdash; with AI built into every step of the buying experience.</p>
+      <h1 class="anim" style="--i:1">Making product catalogs <span class="accent">intelligent</span> &amp; autonomously discoverable</h1>
+      <p class="hero-sub anim" style="--i:3">Catalist partners with global consumer brands to maximize their B2B revenue &mdash; turning fragmented catalogs into personalized, predictive buying experiences for the next generation of sellers.</p>
+    </div>
+  </div>
+</div>
+
+<!-- AI / INTELLIGENCE -->
+<div class="content">
+  <div class="section" style="border-top:none">
+    <div class="ai-section">
+      <div class="ai-orb"></div>
+      <div class="section-label anim" style="--i:0">Intelligent Commerce</div>
+      <h2 class="section-title anim" style="--i:1">AI is the <span class="accent">product</span></h2>
+      <p class="section-desc anim" style="--i:2">Our platform doesn't just list products &mdash; it understands them, understands your business, and connects the two. Every interaction with the Catalist marketplace is shaped by AI that learns and adapts in real time.</p>
+
+      <div class="ai-grid">
+        <div class="ai-card anim-s" style="--i:3">
+          <div class="ai-card__icon">
+            <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+          </div>
+          <div class="ai-card__title">Autonomous Product Discovery</div>
+          <div class="ai-card__desc">The catalog finds you. AI analyzes your store's categories, sales velocity, and competitive landscape to surface products you should be selling &mdash; before you know to look for them.</div>
+          <span class="ai-badge">Zero-Click Discovery</span>
+        </div>
+        <div class="ai-card anim-s" style="--i:4">
+          <div class="ai-card__icon">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="ai-card__title">Buyer Personalization</div>
+          <div class="ai-card__desc">No two sellers see the same catalog. The marketplace adapts to each buyer's profile &mdash; showing relevant brands, personalized pricing, and curated recommendations based on what actually moves in their store.</div>
+          <span class="ai-badge">Adaptive Catalog</span>
+        </div>
+        <div class="ai-card anim-s" style="--i:5">
+          <div class="ai-card__icon">
+            <svg class="icon" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div class="ai-card__title">Predictive Reordering</div>
+          <div class="ai-card__desc">The platform tracks sell-through rates across your catalog and predicts when you'll need to restock. You get proactive reorder suggestions tuned to your specific inventory velocity &mdash; before you run out.</div>
+          <span class="ai-badge">Demand Forecasting</span>
+        </div>
+        <div class="ai-card anim-s" style="--i:6">
+          <div class="ai-card__icon">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="ai-card__title">AI-Native Support</div>
+          <div class="ai-card__desc">Questions about products, orders, or your account get answered in minutes, not days. AI-powered support knows your history, your brands, and resolves most issues without escalation &mdash; 24/7.</div>
+          <span class="ai-badge">Instant Resolution</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BRAND SHOWCASE -->
+<div class="content">
+  <div class="section">
+    <div class="section-label anim" style="--i:0">Brand Partners</div>
+    <h2 class="section-title anim" style="--i:1">Trusted by the <span class="accent">best</span></h2>
+    <p class="section-desc anim" style="--i:2">Direct partnerships with global consumer brands. Access premium inventory through portal and API.</p>
+
+    <div class="brands-bar anim-s" style="--i:3">
+      <div class="brands-bar__badge">
+        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Brand-Authorized
+      </div>
+      <div class="logo-grid">
+        <img src="https://catalistgroup.co/images/brands/spalding.png" alt="Spalding">
+        <img src="https://catalistgroup.co/images/brands/cambro.png" alt="Cambro">
+        <img src="https://catalistgroup.co/images/brands/corelle.png" alt="Corelle">
+        <img src="https://catalistgroup.co/images/brands/duralex.png" alt="Duralex">
+        <img src="https://catalistgroup.co/images/brands/head.png" alt="HEAD">
+        <img src="https://catalistgroup.co/images/brands/wilson.png" alt="Wilson">
+        <img src="https://catalistgroup.co/images/brands/franklin.png" alt="Franklin Sports">
+        <img src="https://catalistgroup.co/images/brands/cuisinart.png" alt="Cuisinart">
+      </div>
+    </div>
+
+    <div class="product-strip anim" style="--i:5">
+      <div class="product-card">
+        <img class="product-card__img" src="https://catalistgroup.co/images/products/cambro-tumbler.jpg" alt="Cambro Laguna Tumbler Collection">
+        <div class="product-card__body">
+          <div class="product-card__brand">Cambro</div>
+          <div class="product-card__name">Laguna Tumbler Collection</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <img class="product-card__img" src="https://catalistgroup.co/images/products/corelle-plate.jpg" alt="Corelle Winter Frost Salad Plate">
+        <div class="product-card__body">
+          <div class="product-card__brand">Corelle</div>
+          <div class="product-card__name">Winter Frost Salad Plate</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <img class="product-card__img" src="https://catalistgroup.co/images/products/duralex-plate.jpg" alt="Duralex Squirrel Dinner Plate">
+        <div class="product-card__body">
+          <div class="product-card__brand">Duralex</div>
+          <div class="product-card__name">Squirrel Dinner Plate</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <img class="product-card__img" src="https://catalistgroup.co/images/products/head-padel.jpg" alt="HEAD Extreme Pro Padel Racket">
+        <div class="product-card__body">
+          <div class="product-card__brand">HEAD</div>
+          <div class="product-card__name">Extreme Pro Padel Racket</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <img class="product-card__img" src="https://catalistgroup.co/images/products/spalding-legacy.jpg" alt="Spalding Legacy TF-1000 Basketball">
+        <div class="product-card__body">
+          <div class="product-card__brand">Spalding</div>
+          <div class="product-card__name">Legacy TF-1000 Basketball</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DOCUMENTATION -->
+<div class="content">
+  <div class="section">
+    <div class="section-label anim" style="--i:0">Documentation</div>
+    <h2 class="section-title anim" style="--i:1">Every order comes with <span class="accent">proof</span></h2>
+    <p class="section-desc anim" style="--i:2">Selling gated brands requires documentation. Catalist generates the paperwork automatically on every purchase &mdash; no chasing invoices, no manual requests.</p>
+
+    <div class="doc-grid">
+      <div class="doc-card anim-s" style="--i:3">
+        <div class="doc-card__icon">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <div class="doc-card__title">Brand-Authorized Invoices</div>
+        <div class="doc-card__desc">Every purchase generates a brand-authorized invoice that meets platform requirements. These are genuine supplier invoices &mdash; not receipts from a reseller &mdash; which is what approval teams look for.</div>
+      </div>
+      <div class="doc-card anim-s" style="--i:4">
+        <div class="doc-card__icon">
+          <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <div class="doc-card__title">Ungating-Ready</div>
+        <div class="doc-card__desc">Our platform identifies which brands are easy to ungate and gives you the exact documentation package you need. Buy the product, get the invoice, submit for approval &mdash; all from one place.</div>
+      </div>
+      <div class="doc-card anim-s" style="--i:5">
+        <div class="doc-card__icon">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="doc-card__title">Compliance Built In</div>
+        <div class="doc-card__desc">Because every order ships directly from the brand, your supply chain is clean and auditable. No gray market sourcing, no counterfeit risk &mdash; just authentic product with a clear paper trail.</div>
+      </div>
+      <div class="doc-card anim-s" style="--i:6">
+        <div class="doc-card__icon">
+          <svg class="icon" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <div class="doc-card__title">Digital-First Records</div>
+        <div class="doc-card__desc">All your invoices, order history, and brand documentation live in your portal dashboard. Download, search, and reference them any time &mdash; no digging through email threads.</div>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- ORDER AGGREGATION -->
 <div class="content">
-  <div class="section" style="border-top:none;">
-    <div class="agg-section">
-      <div class="agg-orb"></div>
-      <div class="section-label anim" style="--i:0">Order Aggregation</div>
-      <h2 class="section-title anim" style="--i:1">The power of <span class="accent">collective</span> buying</h2>
-      <p class="section-desc anim" style="--i:2">Catalist combines orders from hundreds of sellers into consolidated purchase orders. You get brand-direct pricing and access to brands you couldn't reach on your own &mdash; because you're buying as part of something bigger.</p>
+  <div class="section">
+    <div class="section-label anim" style="--i:0">Order Aggregation</div>
+    <h2 class="section-title anim" style="--i:1">The power of <span class="accent">collective</span> buying</h2>
+    <p class="section-desc anim" style="--i:2">Catalist combines orders from hundreds of sellers into consolidated brand-direct purchase orders. You get access to brands and pricing you couldn't reach on your own.</p>
 
-      <div class="agg-diagram anim" style="--i:3">
-        <!-- Sellers column -->
+    <div class="agg-section anim" style="--i:3">
+      <div class="agg-diagram">
         <div class="agg-col">
           <div class="agg-seller">
             <svg class="icon icon-sm agg-seller__icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -386,190 +381,53 @@
             <div><div class="agg-seller__name">Seller D</div><div class="agg-seller__qty">60 units</div></div>
           </div>
         </div>
-
-        <!-- Arrow -->
         <div class="agg-arrow">
-          <svg viewBox="0 0 32 32"><path d="M8 16h16M20 10l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg viewBox="0 0 28 28"><path d="M6 14h16M18 8l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
-
-        <!-- Catalist center -->
         <div class="agg-center">
           <div class="agg-center__label">Catalist Aggregates</div>
           <div class="agg-center__val">220 units</div>
           <div class="agg-center__sub">Single consolidated PO</div>
         </div>
-
-        <!-- Arrow -->
         <div class="agg-arrow">
-          <svg viewBox="0 0 32 32"><path d="M8 16h16M20 10l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg viewBox="0 0 28 28"><path d="M6 14h16M18 8l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
-
-        <!-- Brand -->
         <div class="agg-brand">
           <div class="agg-brand__icon">
-            <svg class="icon icon-lg" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a4 4 0 0 0-8 0v2"/></svg>
+            <svg class="icon" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a4 4 0 0 0-8 0v2"/></svg>
           </div>
           <div class="agg-brand__name">Brand Partner</div>
           <div class="agg-brand__sub">Ships direct to each seller</div>
         </div>
       </div>
 
-      <div class="agg-benefits anim" style="--i:5">
+      <div class="agg-benefits">
         <div class="agg-benefit">
-          <svg class="icon icon-sm agg-benefit__icon" viewBox="0 0 24 24"><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
-          <div>
-            <div class="agg-benefit__title">Meet minimums you can't hit alone</div>
-            <div class="agg-benefit__desc">Brands require minimum order quantities. Catalist pools demand across sellers so everyone clears the threshold &mdash; even if your individual order is small.</div>
-          </div>
+          <svg class="icon icon-sm agg-benefit__icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <div><div class="agg-benefit__title">Meet minimums you can't hit alone</div><div class="agg-benefit__desc">Pooled demand means every seller clears brand MOQs, even on small orders.</div></div>
         </div>
         <div class="agg-benefit">
           <svg class="icon icon-sm agg-benefit__icon" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-          <div>
-            <div class="agg-benefit__title">Brand-direct pricing</div>
-            <div class="agg-benefit__desc">No middlemen markups. Because Catalist places bulk orders directly with brands, you get true wholesale cost on every SKU.</div>
-          </div>
-        </div>
-        <div class="agg-benefit">
-          <svg class="icon icon-sm agg-benefit__icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-          <div>
-            <div class="agg-benefit__title">Authorized invoices included</div>
-            <div class="agg-benefit__desc">Every purchase comes with brand-authorized documentation &mdash; the invoices you need for ungating and compliance, generated automatically.</div>
-          </div>
+          <div><div class="agg-benefit__title">True wholesale pricing</div><div class="agg-benefit__desc">No middlemen markups. Bulk POs go directly to brands, so you get real wholesale cost.</div></div>
         </div>
         <div class="agg-benefit">
           <svg class="icon icon-sm agg-benefit__icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-          <div>
-            <div class="agg-benefit__title">Authentic, factory-fresh product</div>
-            <div class="agg-benefit__desc">No gray market, no counterfeit risk. Every unit ships from the brand's own warehouse to yours with full manufacturer backing.</div>
-          </div>
+          <div><div class="agg-benefit__title">Authentic, factory-fresh product</div><div class="agg-benefit__desc">Every unit ships from the brand's warehouse. No gray market, no counterfeits.</div></div>
+        </div>
+        <div class="agg-benefit">
+          <svg class="icon icon-sm agg-benefit__icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          <div><div class="agg-benefit__title">Invoices included</div><div class="agg-benefit__desc">Brand-authorized invoices generated automatically on every order.</div></div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-
-<!-- BRAND-DIRECT SUPPLY CHAIN -->
-<div class="content">
-  <div class="section">
-    <div class="section-label anim" style="--i:0">Brand-Direct Supply Chain</div>
-    <h2 class="section-title anim" style="--i:1">Your order goes straight to the <span class="accent">source</span></h2>
-    <p class="section-desc anim" style="--i:2">No third-party warehouses, no mystery sourcing. When you place an order on Catalist, it's fulfilled directly by the brand.</p>
-
-    <div class="sc-flow anim" style="--i:3">
-      <div class="sc-step">
-        <div class="sc-step__icon">
-          <svg class="icon icon-lg" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-        </div>
-        <div class="sc-step__title">You Place an Order</div>
-        <div class="sc-step__desc">Browse and buy through the Catalist portal with real-time pricing</div>
-      </div>
-      <div class="sc-arrow">
-        <svg viewBox="0 0 28 28"><path d="M6 14h16M18 8l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="sc-step">
-        <div class="sc-step__icon">
-          <svg class="icon icon-lg" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a4 4 0 0 0-8 0v2"/></svg>
-        </div>
-        <div class="sc-step__title">Brand Fulfills Direct</div>
-        <div class="sc-step__desc">The brand picks, packs, and ships from their own facility</div>
-      </div>
-      <div class="sc-arrow">
-        <svg viewBox="0 0 28 28"><path d="M6 14h16M18 8l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="sc-step">
-        <div class="sc-step__icon">
-          <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-        </div>
-        <div class="sc-step__title">You Receive Product</div>
-        <div class="sc-step__desc">Authentic inventory arrives at your warehouse, ready to list</div>
-      </div>
-    </div>
-
-    <div class="sc-callout anim" style="--i:5">
-      <svg class="icon icon-sm sc-callout__icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      <div class="sc-callout__text"><strong>Why brand-direct matters:</strong> You get authorized invoices for ungating, consistent supply from a single source, and the confidence that every product is genuine. No counterfeit risk, no supply chain surprises.</div>
-    </div>
-  </div>
-</div>
-
-<!-- AI-POWERED PORTAL -->
-<div class="content">
-  <div class="section">
-    <div class="section-label anim" style="--i:0">AI-Powered Portal</div>
-    <h2 class="section-title anim" style="--i:1">Your buying experience,<br><span class="accent">supercharged</span> by AI</h2>
-    <p class="section-desc anim" style="--i:2">Our portal at <strong>b2b.catalistgroup.co</strong> uses AI across the entire buying experience &mdash; not as a gimmick, but as the core of how the platform works.</p>
-
-    <div class="ai-grid">
-      <div class="ai-card anim-s" style="--i:3">
-        <div class="ai-card__icon">
-          <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        </div>
-        <div class="ai-card__title">Smart Product Discovery</div>
-        <div class="ai-card__desc">AI analyzes your store's categories, past orders, and market trends to surface the products most likely to sell for you. Your catalog is personalized from day one &mdash; no scrolling through thousands of SKUs.</div>
-        <span class="ai-badge">Personalized Recommendations</span>
-      </div>
-      <div class="ai-card anim-s" style="--i:4">
-        <div class="ai-card__icon">
-          <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        </div>
-        <div class="ai-card__title">AI-Assisted Ungating</div>
-        <div class="ai-card__desc">Need to get approved to sell a brand? The platform identifies which brands are easy to ungate, walks you through the process, and provides the authorized invoices you need &mdash; all in one place.</div>
-        <span class="ai-badge">Friction-Free Approvals</span>
-      </div>
-      <div class="ai-card anim-s" style="--i:5">
-        <div class="ai-card__icon">
-          <svg class="icon" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-        </div>
-        <div class="ai-card__title">Reorder Intelligence</div>
-        <div class="ai-card__desc">The platform tracks your sell-through rates and inventory, then proactively suggests when and what to reorder. You get reminders before you run out &mdash; tuned to your specific velocity.</div>
-        <span class="ai-badge">Never Run Out of Stock</span>
-      </div>
-      <div class="ai-card anim-s" style="--i:6">
-        <div class="ai-card__icon">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        </div>
-        <div class="ai-card__title">Instant Support</div>
-        <div class="ai-card__desc">Questions about an order, a product, or your account? AI-powered support responds in minutes, not days. It knows your order history, your brands, and resolves most issues without escalation.</div>
-        <span class="ai-badge">24/7 Responsiveness</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- FEATURED BRANDS -->
-<div class="content">
-  <div class="section">
-    <div class="section-label anim" style="--i:0">Featured Brands</div>
-    <h2 class="section-title anim" style="--i:1">565+ brands on the <span class="accent">marketplace</span></h2>
-    <p class="section-desc anim" style="--i:2">Direct partnerships across sports, kitchen, outdoor, home, health, and 42 categories.</p>
-
-    <div class="brands-grid">
-      <div class="brand-pill anim-s" style="--i:3">Under Armour</div>
-      <div class="brand-pill anim-s" style="--i:4">Cuisinart</div>
-      <div class="brand-pill anim-s" style="--i:5">Luigi Bormioli</div>
-      <div class="brand-pill anim-s" style="--i:6">Stonewall Kitchen</div>
-      <div class="brand-pill anim-s" style="--i:7">Franklin Sports</div>
-      <div class="brand-pill anim-s" style="--i:8">GUND</div>
-      <div class="brand-pill anim-s" style="--i:9">Shock Doctor</div>
-      <div class="brand-pill anim-s" style="--i:10">CHAMPRO</div>
-      <div class="brand-pill anim-s" style="--i:11">EuroGraphics</div>
-      <div class="brand-pill anim-s" style="--i:12">McDavid</div>
-      <div class="brand-pill anim-s" style="--i:13">Norpro</div>
-      <div class="brand-pill anim-s" style="--i:14">Mary Meyer</div>
-      <div class="brand-pill anim-s" style="--i:15">Dexter-Russell</div>
-      <div class="brand-pill anim-s" style="--i:16">Coghlan's</div>
-      <div class="brand-pill anim-s" style="--i:17">Starwest Botanicals</div>
-      <div class="brand-pill anim-s" style="--i:18">Superio</div>
-    </div>
-    <div class="brands-more anim" style="--i:19">+ 549 more brands across 42 categories</div>
   </div>
 </div>
 
 <!-- CTA -->
 <div class="content">
   <div class="cta">
-    <div class="hero-orb1" style="width:300px;height:300px;top:-100px;right:-50px;"></div>
-    <div class="hero-orb2" style="width:200px;height:200px;bottom:-50px;left:-30px;"></div>
+    <div class="hero-orb1" style="width:300px;height:300px;top:-100px;right:-50px"></div>
+    <div class="hero-orb2" style="width:200px;height:200px;bottom:-50px;left:-30px"></div>
     <h2>Ready to Source <span class="accent">Smarter</span>?</h2>
     <p>Sign up for the Catalist marketplace and start buying brand-direct today.</p>
     <a href="https://b2b.catalistgroup.co" class="cta-btn">Visit b2b.catalistgroup.co</a>
@@ -577,7 +435,6 @@
   </div>
 </div>
 
-<!-- FOOTER -->
 <footer class="footer">
   <div>Catalist Group &mdash; 287 Park Avenue South, New York, NY 10010</div>
   <div><a href="https://catalistgroup.co">catalistgroup.co</a> | <a href="https://b2b.catalistgroup.co">b2b.catalistgroup.co</a></div>
