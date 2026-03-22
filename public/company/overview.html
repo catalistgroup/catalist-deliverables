@@ -78,6 +78,7 @@
     .ai-section .section-desc{color:rgba(255,255,255,.55)}
     .ai-orb{position:absolute;top:-120px;right:-60px;width:350px;height:350px;background:rgba(37,99,235,.12);border-radius:50%;filter:blur(80px);pointer-events:none}
     .ai-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;position:relative;z-index:1}
+    .ai-grid .ai-card:last-child{grid-column:1/-1}
     .ai-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius-lg);padding:32px 28px;transition:background .2s ease,border-color .2s ease}
     .ai-card:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.16)}
     .ai-card__icon{color:#60a5fa;margin-bottom:16px}
@@ -236,14 +237,6 @@
           <div class="ai-card__title">Predictive Reordering</div>
           <div class="ai-card__desc">The platform tracks sell-through rates across your catalog and predicts when you'll need to restock. You get proactive reorder suggestions tuned to your specific inventory velocity &mdash; before you run out.</div>
           <span class="ai-badge">Demand Forecasting</span>
-        </div>
-        <div class="ai-card anim-s" style="--i:6">
-          <div class="ai-card__icon">
-            <svg class="icon" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          </div>
-          <div class="ai-card__title">AI-Native Support</div>
-          <div class="ai-card__desc">Questions about products, orders, or your account get answered in minutes, not days. AI-powered support knows your history, your brands, and resolves most issues without escalation &mdash; 24/7.</div>
-          <span class="ai-badge">Instant Resolution</span>
         </div>
       </div>
     </div>
