@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Catalist Group -- Supplier Directory</title>
+  <title>Catalist Group — Supplier Directory</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -17,19 +17,11 @@
       --font-mono: 'JetBrains Mono', Consolas, monospace;
       --primary: #0066FF;
       --bg: #FFFFFF;
-      --bg-alt: #FAFBFC;
       --bg-muted: #F3F4F6;
       --fg: #111827;
       --muted: #6B7280;
-      --muted-fg: #9CA3AF;
       --border: #E5E7EB;
-      --border-strong: #D1D5DB;
       --radius: 0.75rem;
-      --radius-lg: 1rem;
-      --radius-xl: 1.5rem;
-      --radius-2xl: 2rem;
-      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-      --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
       --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
     }
 
@@ -49,10 +41,9 @@
 
     /* === ANIMATIONS === */
     @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes fadeScale { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
     @keyframes float1 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-30px, 20px); } }
     @keyframes float2 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(20px, -30px); } }
-    .anim { animation: fadeUp 0.5s ease-out both; animation-delay: calc(var(--i, 0) * 0.04s); }
+    .anim { animation: fadeUp 0.5s ease-out both; animation-delay: calc(min(var(--i, 0), 15) * 0.04s); }
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: 0.01ms !important; animation-delay: 0ms !important; transition-duration: 0.01ms !important; }
