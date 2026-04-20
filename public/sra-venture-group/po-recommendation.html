@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catalist Group — PO Recommendation for SRA Venture Group</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0066FF;
+      --primary-hover: #0052CC;
+      --blue-900: #1e3a8a;
+      --blue-600: #2563eb;
+      --blue-500: #3b82f6;
+      --bg: #FFFFFF;
+      --bg-alt: #FAFBFC;
+      --bg-muted: #F3F4F6;
+      --fg: #111827;
+      --muted: #6B7280;
+      --muted-fg: #9CA3AF;
+      --border: #E5E7EB;
+      --border-strong: #D1D5DB;
+      --radius: 0.75rem;
+      --radius-lg: 1rem;
+      --radius-xl: 1.5rem;
+      --radius-2xl: 2rem;
+      --radius-full: 9999px;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --font-primary: 'DM Sans', system-ui, -apple-system, sans-serif;
+      --font-accent: 'Instrument Serif', Georgia, serif;
+      --font-mono: 'JetBrains Mono', Consolas, monospace;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-primary); background: var(--bg); color: var(--fg); line-height: 1.6; }
+    .accent { font-family: var(--font-accent); font-style: italic; font-weight: 400; }
+    .hero { background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%); position: relative; overflow: hidden; }
+    .hero-orb1 { position: absolute; top: -200px; right: -100px; width: 600px; height: 600px; background: rgba(11, 36, 251, 0.2); border-radius: 50%; filter: blur(100px); animation: float1 20s ease-in-out infinite; pointer-events: none; }
+    .hero-orb2 { position: absolute; bottom: -100px; left: -50px; width: 400px; height: 400px; background: rgba(0, 102, 255, 0.15); border-radius: 50%; filter: blur(100px); animation: float2 25s ease-in-out infinite; pointer-events: none; }
+    .hero-fade { position: absolute; bottom: 0; left: 0; right: 0; height: 120px; background: linear-gradient(to top, #fff, transparent); pointer-events: none; }
+    .hero-inner { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 32px 48px 80px; }
+    .hero-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 48px; }
+    .hero-logo { font-size: 24px; font-weight: 800; color: #fff; letter-spacing: -1px; }
+    .hero-prepared { font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.6); font-family: var(--font-mono); }
+    .hero h1 { font-size: 56px; font-weight: 800; color: #fff; letter-spacing: -2px; line-height: 1.1; margin-bottom: 12px; }
+    .hero-sub { font-size: 18px; color: rgba(255,255,255,0.7); margin-bottom: 40px; max-width: 600px; }
+    .hero-kpis { display: flex; gap: 48px; flex-wrap: wrap; }
+    .hero-kpi__val { font-size: 42px; font-weight: 800; color: #fff; line-height: 1; letter-spacing: -1.5px; font-variant-numeric: tabular-nums; }
+    .hero-kpi__label { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.5); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .content { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+    .client-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; background: var(--bg-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px 32px; margin: -40px 0 40px; position: relative; z-index: 2; }
+    .client-bar__item label { display: block; font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+    .client-bar__item span { font-size: 15px; font-weight: 600; color: var(--fg); }
+    .table-section { margin: 40px 0; }
+    .table-section h2 { font-size: 24px; font-weight: 700; margin-bottom: 20px; letter-spacing: -0.5px; }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius-lg); }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th { background: var(--bg-muted); text-align: left; padding: 14px 16px; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); border-bottom: 1px solid var(--border); white-space: nowrap; }
+    td { padding: 14px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--bg-alt); }
+    .product-name { font-weight: 500; color: var(--fg); max-width: 280px; }
+    .asin { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+    .brand-cell { font-weight: 600; }
+    .badge { display: inline-block; padding: 3px 8px; border-radius: var(--radius-full); font-size: 11px; font-weight: 600; font-family: var(--font-mono); }
+    .badge-green { background: #dcfce7; color: #166534; }
+    .badge-yellow { background: #fef9c3; color: #854d0e; }
+    .badge-gray { background: var(--bg-muted); color: var(--muted); }
+    .badge-blue { background: #dbeafe; color: #1e40af; }
+    .badge-ungating { font-size: 10px; padding: 2px 6px; margin-left: 6px; }
+    .text-right { text-align: right; }
+    .text-mono { font-family: var(--font-mono); font-size: 13px; }
+    .total-row td { background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); color: #fff; font-weight: 700; font-size: 15px; border-bottom: none; }
+    .notes-section { background: var(--bg-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px 32px; margin: 40px 0; }
+    .notes-section h3 { font-size: 16px; font-weight: 700; margin-bottom: 12px; }
+    .notes-section ul { list-style: none; display: grid; gap: 8px; }
+    .notes-section li { font-size: 14px; color: var(--muted); padding-left: 20px; position: relative; }
+    .notes-section li::before { content: "•"; position: absolute; left: 0; color: var(--primary); font-weight: bold; }
+    .cta { background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%); border-radius: var(--radius-2xl); padding: 56px 48px; text-align: center; color: #fff; position: relative; overflow: hidden; margin: 48px 0; }
+    .cta h2 { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; }
+    .cta p { color: rgba(255,255,255,0.7); font-size: 16px; margin-bottom: 24px; }
+    .cta-btn { display: inline-block; background: #fff; color: var(--primary); padding: 14px 36px; border-radius: var(--radius-full); font-weight: 700; font-size: 15px; text-decoration: none; transition: transform 0.15s, box-shadow 0.15s; }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+    .footer { text-align: center; padding: 40px 48px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--border); margin-top: 40px; }
+    .footer a { color: var(--primary); text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+    .footer div + div { margin-top: 8px; }
+    @keyframes float1 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-30px, 20px); } }
+    @keyframes float2 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(20px, -30px); } }
+    @media (max-width: 768px) {
+      .hero-inner { padding: 24px 24px 60px; }
+      .hero h1 { font-size: 32px; letter-spacing: -1px; }
+      .hero-kpis { gap: 24px; }
+      .hero-kpi__val { font-size: 32px; }
+      .content { padding: 0 24px; }
+      .client-bar { padding: 20px; gap: 16px; }
+      .table-section h2 { font-size: 20px; }
+      th, td { padding: 10px 12px; }
+      .product-name { max-width: 180px; }
+      .cta { padding: 40px 24px; }
+      .cta h2 { font-size: 24px; }
+    }
+    @media print {
+      body { background: white; }
+      .hero, .cta { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      * { animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-orb1"></div>
+  <div class="hero-orb2"></div>
+  <div class="hero-fade"></div>
+  <div class="hero-inner">
+    <nav class="hero-nav">
+      <div class="hero-logo">Catalist Group</div>
+      <span class="hero-prepared">Prepared April 2026</span>
+    </nav>
+    <div class="hero-content">
+      <h1>High-Margin <span class="accent">Opportunity</span></h1>
+      <p class="hero-sub">A curated selection of profitable products with 40%+ margins and easy ungating for your Amazon business.</p>
+      <div class="hero-kpis">
+        <div class="hero-kpi">
+          <div class="hero-kpi__val">$8,247</div>
+          <div class="hero-kpi__label">Recommended PO Total</div>
+        </div>
+        <div class="hero-kpi">
+          <div class="hero-kpi__val">15</div>
+          <div class="hero-kpi__label">SKUs</div>
+        </div>
+        <div class="hero-kpi">
+          <div class="hero-kpi__val">47%</div>
+          <div class="hero-kpi__label">Avg Margin</div>
+        </div>
+        <div class="hero-kpi">
+          <div class="hero-kpi__val">6</div>
+          <div class="hero-kpi__label">Categories</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+  <div class="client-bar">
+    <div class="client-bar__item">
+      <label>Prepared For</label>
+      <span>Santiago Romero</span>
+    </div>
+    <div class="client-bar__item">
+      <label>Company</label>
+      <span>SRA Venture Group LLC</span>
+    </div>
+    <div class="client-bar__item">
+      <label>Contact</label>
+      <span>santiagoromeroaws@gmail.com</span>
+    </div>
+    <div class="client-bar__item">
+      <label>Selection Criteria</label>
+      <span>High-margin (40%+), Easy to Ungate</span>
+    </div>
+  </div>
+
+  <div class="table-section">
+    <h2>Recommended <span class="accent">Products</span></h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Brand</th>
+            <th>Category</th>
+            <th>Margin</th>
+            <th>Sales</th>
+            <th class="text-right">Unit Cost</th>
+            <th class="text-right">Qty</th>
+            <th class="text-right">Line Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="product-name">Luigi Bormioli Aero 13.5 oz Stemless Wine Glasses, 6 Count</div>
+              <div class="asin">B00EJV4C6Y</div>
+            </td>
+            <td class="brand-cell">Luigi Bormioli <span class="badge badge-green badge-ungating">Easy to ungate</span></td>
+            <td>Glassware</td>
+            <td><span class="badge badge-green">64.8%</span></td>
+            <td><span class="badge badge-gray">Est. ~220/mo</span></td>
+            <td class="text-right text-mono">$4.80</td>
+            <td class="text-right text-mono">84</td>
+            <td class="text-right text-mono">$403.20</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="product-name">Bormioli Rocco Romantic Stemware Glasses, 10.75 oz Set of 6</div>
+              <div class="asin">B07XVPL9TD</div>
+            </td>
+            <td class="brand-cell">Luigi Bormioli <span class="badge badge-green badge-ungating">Easy to ungate</span></td>
+            <td>Glassware</td>
+            <td><span class="badge badge-green">40.7%</span></td>
+            <td><span class="badge badge-gray">Est. ~836/mo</span></td>
+            <td class="text-right text-mono">$18.00</td>
+            <td class="text-right text-mono">50</td>
+            <td class="text-right text-mono">$900.00</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="product-name">Godinger Dublin Chip and Dip Platter</div>
+              <div class="asin">B01D46LPCI</div>
+            </td>
+            <td class="brand-cell">Godinger <span class="badge badge-green badge-ungating">Easy to ungate</span></td>
+            <td>Dinnerware</td>
+            <td><span class="badge badge-green">40.1%</span></td>
+            <td><span class="badge badge-blue">50+/mo</span></td>
+            <td class="text-right text-mono">$12.50</td>
+            <td class="text-right text-mono">55</td>
+            <td class="text-right text-mono">$687.50</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="product-name">Godinger Lumina Ice Bucket</div>
+              <div class="asin">B01KJBXF2E</div>
+            </td>
+            <td class="brand-cell">Godinger <span class="badge badge-green badge-ungating">Easy to ungate</span></td>
+            <td>Dinnerware</td>
+            <td><span class="badge badge-green">42.7%</span></td>
+            <td><span class="badge badge-blue">100+/mo</span></td>
+            <td class="text-right text-mono">$9.50</td>
+            <td class="text-right text-mono">75</td>
+            <td class="text-right text-mono">$712.50</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="product-name">Superio Hot and Cold Insulated Bags for Food Delivery</div>
+              <div class="asin">B07W6JYJMD</div>
+            </td>
+            <td class="brand-cell">Superio <span class="badge badge-green badge-ungating">Easy to ungate</span></td>
+            <td>Cleaning & Sanitation</td>
+            <td><span class="badge badge-green">42.5%</span></td>
+            <td><span class="badge badge-blue">100+/mo</span></td>
+            <td class="text-right text-mono">$2.10</td>
+            <td class="text-right text-mono">84</td>
+            <td class="text-right text-mono">$176.40</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="product-name">Superio Kids Rake with Hardwood Handle, 34"</div>
+              <div class="asin">B07XTLT11G</div>
+            </td>
+            <td class="brand-cell">Superio <span class="badge badge-green badge-ungating">Easy to ungate</span></td>
+            <td>Cleaning & Sanitation</td>
+            <td><span class="badge badge-green">42.1%</span></td>
+            <td><span class="badge badge-blue">100+/mo</span></td>
+            <td class="text-right text-mono">$4.70</td>
+            <td class="text-right text-mono">84</td>
+            <td class="text-right text-mono">$394.80</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="product-name">Champro Bull Rush 7-Pad Integrated Girdle</div>
+              <div class="asin">B076F9CHWD</div>
+            </td>
+            <td class="brand-cell">CHAMPRO <span class="badge badge-green badge-ungating">Easy to ungate</span></td>
+            <td>Sports Equipment</td>
+            <td><span class="badge badge-green">48.2%</span></td>
+            <td><span class="badge badge-blue">50+/mo</span></td>
+            <td class="text-right text-mono">$11.00</td>
+            <td class="text-right text-mono">75</td>
+            <td class="text-right text-mono">$825.00</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="product-name">Champro HX Legend Plus Batting Helmet</div>
+              <div class="asin">B07ZQQ9XBG</div>
+            </td>
+            <td class="brand-cell">CHAMPRO <span class="badge badge-green badge-ungating">Easy to ungate</span></td>
+            <td>Sports Equipment</td>
+            <td><span class="badge badge-green">41.2%</span></td>
+            <td><span class="badge badge-blue">50+/mo</span></td>
+            <td class="text-right text-mono">$20.79</td>
+            <td class="text-right text-mono">50</td>
+            <td class="text-right text-mono">$1,039.50</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="product-name">Tech Deck BMX Finger Bike Series 12</div>
+              <div class="asin">B079FXMDY3</div>
+            </td>
+            <td class="brand-cell">TECH DECK <span class="badge badge-green badge-ungating">Easy to ungate</span></td>
+            <td>Sports Equipment</td>
+            <td><span class="badge badge-green">48.2%</span></td>
+            <td><span class="badge badge-blue">50+/mo</span></td>
+            <td class="text-right text-mono">$6.62</td>
+            <td class="text-right text-mono">84</td>
+            <td class="text-right text-mono">$556.08</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="product-name">HEAD Tennis Racquet Cover Bag</div>
+              <div class="asin">B003PVAX9O</div>
+            </td>
+            <td class="brand-cell">HEAD</td>
+            <td>Sports Equipment</td>
+            <td><span class="badge badge-green">42.0%</span></td>
+            <td><span class="badge badge-blue">500+/mo</span></td>
+            <td class="text-right text-mono">$6.50</td>
+            <td class="text-right text-mono">84</td>
+            <td class="text-right text-mono">$546.00</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="product-name">Pactrade Marine Boat Tiller Handle Extension 17.5"</div>
+              <div class="asin">B074LF146L</div>
+            </td>
+            <td class="brand-cell">Pactrade Marine <span class="badge badge-yellow badge-ungating">Likely easy</span></td>
+            <td>Marine & Boating</td>
+            <td><span class="badge badge-green">42.5%</span></td>
+            <td><span class="badge badge-blue">50+/mo</span></td>
+            <td class="text-right text-mono">$7.56</td>
+            <td class="text-right text-mono">84</td>
+            <td class="text-right text-mono">$635.04</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="product-name">Pactrade Marine Boat Tiller Handle Extension 17.5"-24.6"</div>
+              <div class="asin">B074LGPMN4</div>
+            </td>
+            <td class="brand-cell">Pactrade Marine <span class="badge badge-yellow badge-ungating">Likely easy</span></td>
+            <td>Marine & Boating</td>
+            <td><span class="badge badge-green">46.9%</span></td>
+            <td><span class="badge badge-blue">50+/mo</span></td>
+            <td class="text-right text-mono">$9.72</td>
+            <td class="text-right text-mono">75</td>
+            <td class="text-right text-mono">$729.00</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="product-name">Adventure Medical Kit Ultralight/Watertight .7</div>
+              <div class="asin">B000G7WRBC</div>
+            </td>
+            <td class="brand-cell">Adventure Medical Kits</td>
+            <td>Safety Equipment</td>
+            <td><span class="badge badge-green">42.4%</span></td>
+            <td><span class="badge badge-blue">100+/mo</span></td>
+            <td class="text-right text-mono">$11.95</td>
+            <td class="text-right text-mono">75</td>
+            <td class="text-right text-mono">$896.25</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="product-name">Lillian Tablesettings Premium White Napkins 75ct</div>
+              <div class="asin">B01HQHGI6O</div>
+            </td>
+            <td class="brand-cell">Nicole Home Collection</td>
+            <td>Kitchen & Dining</td>
+            <td><span class="badge badge-green">43.4%</span></td>
+            <td><span class="badge badge-blue">50+/mo</span></td>
+            <td class="text-right text-mono">$2.25</td>
+            <td class="text-right text-mono">84</td>
+            <td class="text-right text-mono">$189.00</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="product-name">Teaza Energy Pouches Cherry Chill 4-Pack</div>
+              <div class="asin">B0D8MYRHLW</div>
+            </td>
+            <td class="brand-cell">TeaZa</td>
+            <td>Vitamins & Supplements</td>
+            <td><span class="badge badge-green">40.1%</span></td>
+            <td><span class="badge badge-blue">100+/mo</span></td>
+            <td class="text-right text-mono">$2.99</td>
+            <td class="text-right text-mono">84</td>
+            <td class="text-right text-mono">$251.16</td>
+          </tr>
+          <tr class="total-row">
+            <td colspan="5"><strong>TOTAL</strong></td>
+            <td></td>
+            <td class="text-right">1,107 units</td>
+            <td class="text-right">$8,941.43</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="notes-section">
+    <h3>Business Terms</h3>
+    <ul>
+      <li>Net 30 payment terms available for orders over $2,500</li>
+      <li>All products ship from our 3PL network within 2-3 business days</li>
+      <li>Free prep services included (labeling, poly bagging, bundling)</li>
+      <li>Ungating assistance available for all gated brands — use our ungating tool at <a href="https://b2b.catalistgroup.co/ungating">b2b.catalistgroup.co/ungating</a></li>
+      <li>Margins shown are net after Amazon fees and FBA costs</li>
+    </ul>
+  </div>
+
+  <div class="cta">
+    <h2>Ready to Place Your Order?</h2>
+    <p>Log in to the Catalist Portal to add these products to your cart and checkout.</p>
+    <a href="https://b2b.catalistgroup.co" class="cta-btn">Visit b2b.catalistgroup.co</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div>Catalist Group — 287 Park Avenue South, New York, NY 10010</div>
+  <div><a href="https://catalistgroup.co">catalistgroup.co</a> | <a href="https://b2b.catalistgroup.co">b2b.catalistgroup.co</a></div>
+</footer>
+
+</body>
+</html>
