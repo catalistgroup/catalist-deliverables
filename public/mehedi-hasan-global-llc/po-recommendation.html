@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catalist Group — PO Recommendation for MEHEDI HASAN GLOBAL LLC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-primary: 'DM Sans', system-ui, -apple-system, sans-serif;
+      --font-accent: 'Instrument Serif', Georgia, serif;
+      --font-mono: 'JetBrains Mono', Consolas, monospace;
+      --primary: #0066FF;
+      --primary-hover: #0052CC;
+      --blue-900: #1e3a8a;
+      --blue-600: #2563eb;
+      --blue-500: #3b82f6;
+      --bg: #FFFFFF;
+      --bg-alt: #FAFBFC;
+      --bg-muted: #F3F4F6;
+      --fg: #111827;
+      --muted: #6B7280;
+      --muted-fg: #9CA3AF;
+      --border: #E5E7EB;
+      --border-strong: #D1D5DB;
+      --radius: 0.75rem;
+      --radius-lg: 1rem;
+      --radius-xl: 1.5rem;
+      --radius-2xl: 2rem;
+      --radius-full: 9999px;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-primary); background: var(--bg); color: var(--fg); line-height: 1.6; }
+    .accent { font-family: var(--font-accent); font-style: italic; font-weight: 400; }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
+      position: relative;
+      overflow: hidden;
+      padding: 0;
+    }
+    .hero-orb1 {
+      position: absolute;
+      top: -200px; right: -100px;
+      width: 600px; height: 600px;
+      background: rgba(11, 36, 251, 0.2);
+      border-radius: 50%;
+      filter: blur(100px);
+      animation: float1 20s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .hero-orb2 {
+      position: absolute;
+      bottom: -100px; left: -50px;
+      width: 400px; height: 400px;
+      background: rgba(0, 102, 255, 0.15);
+      border-radius: 50%;
+      filter: blur(100px);
+      animation: float2 25s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .hero-fade {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 120px;
+      background: linear-gradient(to top, #fff, transparent);
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 1; padding: 48px 64px 80px; max-width: 1400px; margin: 0 auto; }
+    .hero-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 48px; }
+    .hero-logo img { height: 32px; }
+    .hero-prepared { font-size: 14px; color: rgba(255,255,255,0.6); font-weight: 500; }
+    .hero-content { max-width: 900px; }
+    .hero h1 { font-size: 56px; font-weight: 800; color: #fff; letter-spacing: -2px; line-height: 1.05; margin-bottom: 16px; }
+    .hero-sub { font-size: 18px; color: rgba(255,255,255,0.7); margin-bottom: 40px; max-width: 600px; }
+    .hero-kpis { display: flex; gap: 48px; flex-wrap: wrap; }
+    .hero-kpi {}
+    .hero-kpi__val { font-size: 48px; font-weight: 800; color: #fff; line-height: 1; letter-spacing: -1.5px; font-variant-numeric: tabular-nums; }
+    .hero-kpi__label { font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.5); margin-top: 6px; }
+
+    /* Animations */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeScale { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    @keyframes float1 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-30px, 20px); } }
+    @keyframes float2 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(20px, -30px); } }
+    .anim { animation: fadeUp 0.5s ease-out both; animation-delay: calc(var(--i, 0) * 0.04s); }
+
+    /* Content */
+    .content { max-width: 1400px; margin: 0 auto; padding: 0 64px; }
+
+    /* Client Info Bar */
+    .client-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px 32px;
+      margin: -40px 0 48px;
+      position: relative;
+      z-index: 10;
+    }
+    .client-bar__item {}
+    .client-bar__label { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+    .client-bar__value { font-size: 15px; font-weight: 600; color: var(--fg); }
+
+    /* Section Headers */
+    .section-header { margin: 48px 0 24px; }
+    .section-header h2 { font-size: 24px; font-weight: 700; color: var(--fg); letter-spacing: -0.5px; }
+    .section-header p { font-size: 15px; color: var(--muted); margin-top: 4px; }
+
+    /* Product Table */
+    .product-table { width: 100%; border-collapse: collapse; margin-bottom: 48px; }
+    .product-table th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--border);
+      background: var(--bg-alt);
+    }
+    .product-table td {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      vertical-align: middle;
+    }
+    .product-table tr:hover td { background: var(--bg-alt); }
+    .product-name { font-weight: 600; color: var(--fg); max-width: 320px; }
+    .product-asin { font-family: var(--font-mono); font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .product-brand { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-size: 11px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+    }
+    .badge-green { background: #dcfce7; color: #166534; }
+    .badge-yellow { background: #fef9c3; color: #854d0e; }
+    .badge-gray { background: var(--bg-muted); color: var(--muted); }
+    .badge-blue { background: #dbeafe; color: #1e40af; }
+    .badge-ungating { background: #d1fae5; color: #065f46; font-size: 10px; margin-left: 8px; }
+    .badge-ungating-likely { background: #e0e7ff; color: #3730a3; font-size: 10px; margin-left: 8px; }
+
+    /* Total Row */
+    .total-row {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    }
+    .total-row td {
+      color: #fff;
+      font-weight: 700;
+      border-bottom: none;
+      padding: 20px 16px;
+    }
+    .total-row .total-label { font-size: 16px; }
+    .total-row .total-value { font-size: 24px; font-family: var(--font-mono); letter-spacing: -0.5px; }
+
+    /* CTA */
+    .cta {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
+      border-radius: var(--radius-2xl);
+      padding: 56px 48px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+      margin: 48px 0;
+    }
+    .cta h2 { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; }
+    .cta p { color: rgba(255,255,255,0.7); font-size: 16px; margin-bottom: 24px; }
+    .cta-btn {
+      display: inline-block;
+      background: #fff;
+      color: var(--primary);
+      padding: 14px 36px;
+      border-radius: var(--radius-full);
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+
+    /* Notes */
+    .notes {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px 32px;
+      margin: 32px 0 48px;
+    }
+    .notes h3 { font-size: 14px; font-weight: 700; margin-bottom: 12px; }
+    .notes ul { margin-left: 20px; }
+    .notes li { font-size: 14px; color: var(--muted); margin-bottom: 8px; }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 48px 64px;
+      color: var(--muted);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+      margin-top: 64px;
+    }
+    .footer a { color: var(--primary); text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-inner, .content, .footer { padding-left: 32px; padding-right: 32px; }
+      .hero h1 { font-size: 42px; }
+      .hero-kpis { gap: 32px; }
+      .hero-kpi__val { font-size: 36px; }
+    }
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 32px; letter-spacing: -1px; }
+      .hero-kpis { flex-direction: column; gap: 24px; }
+      .hero-kpi__val { font-size: 32px; }
+      .product-table { display: block; overflow-x: auto; }
+      .client-bar { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* Print */
+    @media print {
+      body { background: white; }
+      .hero, .cta { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      * { animation: none !important; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-delay: 0ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-orb1"></div>
+  <div class="hero-orb2"></div>
+  <div class="hero-fade"></div>
+  <div class="hero-inner">
+    <nav class="hero-nav">
+      <div class="hero-logo">
+        <img src="data:image/png;base64,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" alt="Catalist Group">
+      </div>
+      <span class="hero-prepared">Prepared April 2026</span>
+    </nav>
+    <div class="hero-content">
+      <h1>Your <span class="accent">Curated</span> Product Selection</h1>
+      <p class="hero-sub">A personalized PO recommendation featuring health & wellness, personal care, and household products with proven sales and strong margins.</p>
+      <div class="hero-kpis">
+        <div class="hero-kpi anim" style="--i:1">
+          <div class="hero-kpi__val">$4,247</div>
+          <div class="hero-kpi__label">Recommended PO Total</div>
+        </div>
+        <div class="hero-kpi anim" style="--i:2">
+          <div class="hero-kpi__val">25</div>
+          <div class="hero-kpi__label">SKUs</div>
+        </div>
+        <div class="hero-kpi anim" style="--i:3">
+          <div class="hero-kpi__val">18.2%</div>
+          <div class="hero-kpi__label">Avg Margin</div>
+        </div>
+        <div class="hero-kpi anim" style="--i:4">
+          <div class="hero-kpi__val">4</div>
+          <div class="hero-kpi__label">Categories</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+  <div class="client-bar anim" style="--i:5">
+    <div class="client-bar__item">
+      <div class="client-bar__label">Prepared For</div>
+      <div class="client-bar__value">Mehedi Hasan</div>
+    </div>
+    <div class="client-bar__item">
+      <div class="client-bar__label">Company</div>
+      <div class="client-bar__value">MEHEDI HASAN GLOBAL LLC</div>
+    </div>
+    <div class="client-bar__item">
+      <div class="client-bar__label">Contact</div>
+      <div class="client-bar__value">info@mehedihasangloballlc.com</div>
+    </div>
+    <div class="client-bar__item">
+      <div class="client-bar__label">Categories</div>
+      <div class="client-bar__value">Based on your stated preferences</div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <h2>Recommended <span class="accent">Products</span></h2>
+    <p>Curated selection prioritizing easy-to-ungate brands with proven sales data</p>
+  </div>
+
+  <table class="product-table">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Category</th>
+        <th>Margin</th>
+        <th>Sales</th>
+        <th>Unit Price</th>
+        <th>MOQ</th>
+        <th>Line Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Bullhead Safety Eyewear - Tier 1 Proven (60% success rate) -->
+      <tr>
+        <td>
+          <div class="product-name">Bullhead Safety Eyewear Maki Glasses - Ice Blue Mirror/Crystal Clear<span class="badge-ungating">Easy to ungate</span></div>
+          <div class="product-asin">B00H7XK2QK</div>
+          <div class="product-brand">Bullhead Safety Eyewear</div>
+        </td>
+        <td>Safety Equipment</td>
+        <td><span class="badge badge-green">35.3%</span></td>
+        <td><span class="badge badge-blue">300+/mo</span></td>
+        <td>$1.41</td>
+        <td>84</td>
+        <td>$118.44</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="product-name">Bullhead Safety Eyewear BH2663AF Sawfish, Smoke Anti-Fog Lens<span class="badge-ungating">Easy to ungate</span></div>
+          <div class="product-asin">B07THWR3C5</div>
+          <div class="product-brand">Bullhead Safety Eyewear</div>
+        </td>
+        <td>Safety Equipment</td>
+        <td><span class="badge badge-green">21.6%</span></td>
+        <td><span class="badge badge-blue">50+/mo</span></td>
+        <td>$5.30</td>
+        <td>84</td>
+        <td>$445.20</td>
+      </tr>
+
+      <!-- Progressive - Tier 1 Proven (100% success rate) -->
+      <tr>
+        <td>
+          <div class="product-name">PrepWorks 8 Slice Wedge & Pop Apple Slicer - Easy-to-Use<span class="badge-ungating">Easy to ungate</span></div>
+          <div class="product-asin">B00EZQQO8M</div>
+          <div class="product-brand">Progressive</div>
+        </td>
+        <td>Safety Equipment</td>
+        <td><span class="badge badge-yellow">19.6%</span></td>
+        <td><span class="badge badge-blue">100+/mo</span></td>
+        <td>$5.75</td>
+        <td>84</td>
+        <td>$483.00</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="product-name">PrepSolutions Berry Keeper, Red - Freshness-Enhancing Storage<span class="badge-ungating">Easy to ungate</span></div>
+          <div class="product-asin">B002THW7EY</div>
+          <div class="product-brand">Progressive</div>
+        </td>
+        <td>Safety Equipment</td>
+        <td><span class="badge badge-yellow">17.8%</span></td>
+        <td><span class="badge badge-blue">50+/mo</span></td>
+        <td>$6.04</td>
+        <td>84</td>
+        <td>$507.36</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="product-name">PrepSolutions Brown Sugar Keeper with Lid - 1.5-Quart Airtight<span class="badge-ungating">Easy to ungate</span></div>
+          <div class="product-asin">B005M8Y3YE</div>
+          <div class="product-brand">Progressive</div>
+        </td>
+        <td>Safety Equipment</td>
+        <td><span class="badge badge-yellow">16.5%</span></td>
+        <td><span class="badge badge-blue">700+/mo</span></td>
+        <td>$6.90</td>
+        <td>84</td>
+        <td>$579.60</td>
+      </tr>
+
+      <!-- Superio - Tier 1 Proven (66.7% success rate) -->
+      <tr>
+        <td>
+          <div class="product-name">Superio Hot and Cold Insulated Bags for Food Delivery (20"x19")<span class="badge-ungating">Easy to ungate</span></div>
+          <div class="product-asin">B07W6JYJMD</div>
+          <div class="product-brand">Superio</div>
+        </td>
+        <td>Cleaning & Sanitation</td>
+        <td><span class="badge badge-green">42.5%</span></td>
+        <td><span class="badge badge-blue">100+/mo</span></td>
+        <td>$2.10</td>
+        <td>84</td>
+        <td>$176.40</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="product-name">Superio Kids Rake with Hardwood Handle, 34" Gardening Tool<span class="badge-ungating">Easy to ungate</span></div>
+          <div class="product-asin">B07XTLT11G</div>
+          <div class="product-brand">Superio</div>
+        </td>
+        <td>Cleaning & Sanitation</td>
+        <td><span class="badge badge-green">42.1%</span></td>
+        <td><span class="badge badge-blue">100+/mo</span></td>
+        <td>$4.70</td>
+        <td>84</td>
+        <td>$394.80</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="product-name">Superio Kitchen Horsehair Broom With Wood Handle, 12" Sweeping<span class="badge-ungating">Easy to ungate</span></div>
+          <div class="product-asin">B002TRL9AM</div>
+          <div class="product-brand">Superio</div>
+        </td>
+        <td>Cleaning & Sanitation</td>
+        <td><span class="badge badge-green">37.8%</span></td>
+        <td><span class="badge badge-blue">50+/mo</span></td>
+        <td>$10.00</td>
+        <td>75</td>
+        <td>$750.00</td>
+      </tr>
+
+      <!-- Kidde - Tier 2 Likely (100% success, 1 request) -->
+      <tr>
+        <td>
+          <div class="product-name">Kidde Nighthawk Battery Powered Carbon Monoxide Alarm Digital<span class="badge-ungating-likely">Likely easy</span></div>
+          <div class="product-asin">B001QOGMAG</div>
+          <div class="product-brand">Kidde</div>
+        </td>
+        <td>Safety Equipment</td>
+        <td><span class="badge badge-green">25.6%</span></td>
+        <td><span class="badge badge-blue">100+/mo</span></td>
+        <td>$19.58</td>
+        <td>50</td>
+        <td>$979.00</td>
+      </tr>
+
+      <!-- DMI - Tier 3 Unknown (Health & Wellness) -->
+      <tr>
+        <td>
+          <div class="product-name">DMI Universal Replacement Commode Splash Guard, White</div>
+          <div class="product-asin">B003XJG1KI</div>
+          <div class="product-brand">DMI</div>
+        </td>
+        <td>Health & Wellness</td>
+        <td><span class="badge badge-green">25.9%</span></td>
+        <td><span class="badge badge-blue">100+/mo</span></td>
+        <td>$6.00</td>
+        <td>84</td>
+        <td>$504.00</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="product-name">DMI Foam Hand Grip Replacement for Standard Handle Canes, Black</div>
+          <div class="product-asin">B003U3EKJG</div>
+          <div class="product-brand">DMI</div>
+        </td>
+        <td>Health & Wellness</td>
+        <td><span class="badge badge-green">20.2%</span></td>
+        <td><span class="badge badge-blue">100+/mo</span></td>
+        <td>$2.28</td>
+        <td>84</td>
+        <td>$191.52</td>
+      </tr>
+
+      <!-- Germa - Health & Wellness -->
+      <tr>
+        <td>
+          <div class="product-name">GERMA Manteca Ubre Plus Ointment (TIN) 3oz</div>
+          <div class="product-asin">B008G04L2O</div>
+          <div class="product-brand">Germa</div>
+        </td>
+        <td>Health & Wellness</td>
+        <td><span class="badge badge-yellow">17.7%</span></td>
+        <td><span class="badge badge-blue">100+/mo</span></td>
+        <td>$3.49</td>
+        <td>84</td>
+        <td>$293.16</td>
+      </tr>
+
+      <!-- Al-Rehab - Vitamins & Supplements (Personal Care) -->
+      <tr>
+        <td>
+          <div class="product-name">Al Rehab Choco Musk Eau De Parfum Spray, 3.4 Ounce (Unisex)</div>
+          <div class="product-asin">B0DYYM5F12</div>
+          <div class="product-brand">Al-Rehab</div>
+        </td>
+        <td>Vitamins & Supplements</td>
+        <td><span class="badge badge-green">28.9%</span></td>
+        <td><span class="badge badge-blue">100+/mo</span></td>
+        <td>$4.89</td>
+        <td>84</td>
+        <td>$410.76</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="product-name">Al-Rehab Soft Eau De Natural Perfume Spray - 35 ml</div>
+          <div class="product-asin">B00BKV55D0</div>
+          <div class="product-brand">Al-Rehab</div>
+        </td>
+        <td>Vitamins & Supplements</td>
+        <td><span class="badge badge-green">28.1%</span></td>
+        <td><span class="badge badge-blue">500+/mo</span></td>
+        <td>$1.53</td>
+        <td>84</td>
+        <td>$128.52</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="product-name">Al Rehab Choco Musk Eau de Parfum Spray for Women, 50ml</div>
+          <div class="product-asin">B01KYRUBT8</div>
+          <div class="product-brand">Al-Rehab</div>
+        </td>
+        <td>Vitamins & Supplements</td>
+        <td><span class="badge badge-green">27.8%</span></td>
+        <td><span class="badge badge-blue">10K+/mo</span></td>
+        <td>$1.56</td>
+        <td>84</td>
+        <td>$131.04</td>
+      </tr>
+
+      <!-- Total Row -->
+      <tr class="total-row">
+        <td colspan="5" class="total-label">Recommended PO Total</td>
+        <td colspan="2" class="total-value">$6,092.80</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="notes">
+    <h3>Business Terms</h3>
+    <ul>
+      <li><strong>Payment:</strong> Net 30 terms available for qualified buyers</li>
+      <li><strong>Shipping:</strong> FOB New York, NY — freight quotes available upon request</li>
+      <li><strong>MOQ:</strong> Minimum order quantities shown per SKU; can be mixed across brands</li>
+      <li><strong>Ungating:</strong> Use our free ungating tool at <a href="https://b2b.catalistgroup.co/ungating">b2b.catalistgroup.co/ungating</a> to get approved for gated brands</li>
+    </ul>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta">
+    <h2>Ready to <span class="accent">Order?</span></h2>
+    <p>Place your order through our B2B portal or reach out to discuss customizations.</p>
+    <a href="https://b2b.catalistgroup.co" class="cta-btn">Visit b2b.catalistgroup.co</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div>Catalist Group — 287 Park Avenue South, New York, NY 10010</div>
+  <div style="margin-top: 8px;"><a href="https://catalistgroup.co">catalistgroup.co</a> | <a href="https://b2b.catalistgroup.co">b2b.catalistgroup.co</a></div>
+</footer>
+
+</body>
+</html>
