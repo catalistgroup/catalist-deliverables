@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenClaw Agent System Reference — Catalist Group</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --font-body:'DM Sans',system-ui,sans-serif;--font-mono:'Fira Code','Cascadia Code',monospace;
+  --bg:#0a1628;--bg-grid:rgba(45,130,200,0.025);--surface:#0f1f38;--surface2:#132847;--surface-elevated:#162d4e;
+  --border:rgba(80,150,220,0.12);--border-bright:rgba(80,150,220,0.25);
+  --text:#b8cfe0;--text-bright:#dce8f3;--text-dim:#4a6a88;
+  --accent:#2d9cdb;--accent-dim:rgba(45,156,219,0.12);
+  --green:#27ae60;--green-dim:rgba(39,174,96,0.10);
+  --amber:#e2b55a;--amber-dim:rgba(226,181,90,0.10);
+  --red:#e06050;--red-dim:rgba(224,96,80,0.10);
+  --purple:#9b7ed8;--purple-dim:rgba(155,126,216,0.10);
+}
+@media(prefers-color-scheme:light){:root{
+  --bg:#ecf0f6;--bg-grid:rgba(45,100,170,0.04);--surface:#ffffff;--surface2:#f4f7fb;--surface-elevated:#ffffff;
+  --border:rgba(20,60,120,0.10);--border-bright:rgba(20,60,120,0.18);
+  --text:#1a2e42;--text-bright:#0c1824;--text-dim:#5a7b98;
+  --accent:#1a7bb5;--accent-dim:rgba(26,122,181,0.07);
+  --green:#1e8a50;--green-dim:rgba(30,138,80,0.07);
+  --amber:#c49630;--amber-dim:rgba(196,150,48,0.07);
+  --red:#c4443a;--red-dim:rgba(196,68,58,0.07);
+  --purple:#7a5ab8;--purple-dim:rgba(122,90,184,0.07);
+}}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);color:var(--text);background:var(--bg);
+  background-image:linear-gradient(var(--bg-grid) 1px,transparent 1px),linear-gradient(90deg,var(--bg-grid) 1px,transparent 1px);
+  background-size:40px 40px;padding:40px;line-height:1.6}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+code{font-family:var(--font-mono);font-size:0.88em;background:var(--surface2);padding:2px 6px;border-radius:4px}
+.wrap{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:180px 1fr;gap:0 40px}
+.main{min-width:0}
+.toc{position:sticky;top:24px;align-self:start;padding:14px 0;grid-row:1/-1;max-height:calc(100dvh - 48px);overflow-y:auto}
+.toc::-webkit-scrollbar{width:3px}.toc::-webkit-scrollbar-thumb{background:var(--surface-elevated);border-radius:2px}
+.toc-title{font-family:var(--font-mono);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--text-dim);padding:0 0 10px;margin-bottom:8px;border-bottom:1px solid var(--border)}
+.toc a{display:block;font-size:11px;color:var(--text-dim);text-decoration:none;padding:4px 8px;border-radius:5px;border-left:2px solid transparent;transition:all .15s;line-height:1.4;margin-bottom:1px}
+.toc a:hover{color:var(--text);background:var(--surface2)}.toc a.active{color:var(--text-bright);border-left-color:var(--accent)}
+.sec-head{font-family:var(--font-mono);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--accent);padding:32px 0 16px;margin-top:48px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;scroll-margin-top:20px}
+.sec-head::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0}
+.sec-head.green::before{background:var(--green)}.sec-head.amber::before{background:var(--amber)}.sec-head.red::before{background:var(--red)}.sec-head.purple::before{background:var(--purple)}
+.ve-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 20px;position:relative;margin-bottom:16px}
+.ve-card--elevated{background:var(--surface-elevated);box-shadow:0 2px 8px rgba(0,0,0,0.15)}
+.ve-card--hero{background:color-mix(in srgb,var(--surface) 92%,var(--accent) 8%);box-shadow:0 4px 20px rgba(0,0,0,0.12);border-color:color-mix(in srgb,var(--border) 50%,var(--accent) 50%)}
+.ve-card--recessed{background:color-mix(in srgb,var(--bg) 70%,var(--surface) 30%);box-shadow:inset 0 1px 3px rgba(0,0,0,0.08)}
+.ve-card__label{font-family:var(--font-mono);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:8px}
+.hero{padding:48px 0 24px}.hero h1{font-size:32px;font-weight:700;color:var(--text-bright);letter-spacing:-0.5px;margin-bottom:8px}
+.hero .sub{font-size:15px;color:var(--text-dim);max-width:640px}
+.hero .meta{display:flex;gap:24px;margin-top:16px;flex-wrap:wrap}
+.hero .meta span{font-family:var(--font-mono);font-size:11px;color:var(--text-dim);display:flex;align-items:center;gap:6px}
+.hero .meta span b{color:var(--text);font-weight:600}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:10px;margin:16px 0}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead{position:sticky;top:0;z-index:2}
+th{background:var(--surface-elevated);font-family:var(--font-mono);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;color:var(--text-dim);padding:12px 14px;text-align:left;border-bottom:1px solid var(--border)}
+td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:top}
+tr:last-child td{border-bottom:none}tr:hover td{background:var(--accent-dim)}
+.badge{display:inline-block;font-family:var(--font-mono);font-size:10px;font-weight:600;padding:3px 8px;border-radius:4px;letter-spacing:0.5px}
+.badge--opus{background:var(--purple-dim);color:var(--purple)}.badge--sonnet{background:var(--accent-dim);color:var(--accent)}
+.badge--haiku{background:var(--green-dim);color:var(--green)}.badge--on{background:var(--green-dim);color:var(--green)}.badge--off{background:var(--red-dim);color:var(--red)}
+details{margin:12px 0}summary{cursor:pointer;font-family:var(--font-mono);font-size:12px;font-weight:500;color:var(--text-dim);padding:8px 0;user-select:none}
+summary:hover{color:var(--text)}details[open] summary{color:var(--accent);margin-bottom:8px}
+.file-tree{font-family:var(--font-mono);font-size:12px;line-height:1.8;color:var(--text-dim);background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 18px;white-space:pre;overflow-x:auto}
+.file-tree .dir{color:var(--accent)}.file-tree .key{color:var(--amber)}.file-tree .dim{color:var(--text-dim)}
+.agent-id{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start}
+.agent-avatar{width:48px;height:48px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:var(--text-bright)}
+.agent-id h3{font-size:18px;font-weight:600;color:var(--text-bright);margin-bottom:2px}
+.agent-id .title{font-size:13px;color:var(--text-dim)}
+.agent-meta{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+.agent-meta span{font-family:var(--font-mono);font-size:11px;color:var(--text-dim)}
+.cap-list{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px;margin:12px 0}
+.cap-list li{font-size:13px;padding:8px 12px;background:var(--surface);border:1px solid var(--border);border-radius:6px;display:flex;align-items:start;gap:8px}
+.cap-list li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:6px}
+.cron-mini td{padding:6px 10px;font-family:var(--font-mono);font-size:12px}.cron-mini td:first-child{color:var(--amber)}
+.mermaid-wrap{position:relative;border:1px solid var(--border);border-radius:10px;padding:16px;margin:16px 0;overflow:hidden;display:flex;justify-content:center}
+.mermaid-wrap .mermaid{cursor:grab;transition:transform 0.1s ease}.mermaid-wrap .mermaid.dragging{cursor:grabbing;transition:none}
+.zoom-controls{position:absolute;top:12px;right:12px;display:flex;gap:4px;z-index:10}
+.zoom-btn{width:28px;height:28px;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--text-dim);font-family:var(--font-mono);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.zoom-btn:hover{color:var(--text);border-color:var(--accent)}
+.callout{border-left:3px solid var(--amber);background:var(--amber-dim);padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;font-size:13px}
+.callout strong{color:var(--amber)}.callout.info{border-left-color:var(--accent);background:var(--accent-dim)}.callout.info strong{color:var(--accent)}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:16px 0}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 16px;text-align:center}
+.kpi .val{font-size:24px;font-weight:700;color:var(--text-bright);font-family:var(--font-mono)}
+.kpi .lbl{font-size:10px;color:var(--text-dim);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.main>*{animation:fadeUp .4s ease both}.main>*:nth-child(2){animation-delay:.05s}.main>*:nth-child(3){animation-delay:.1s}
+@media(prefers-reduced-motion:reduce){.main>*{animation:none}}
+@media(max-width:1000px){
+  .wrap{grid-template-columns:1fr;padding-top:0}body{padding:20px;padding-top:0}
+  .toc{position:sticky;top:0;z-index:200;max-height:none;display:flex;gap:4px;align-items:center;overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--bg);border-bottom:1px solid var(--border);padding:10px 0;margin:0 -20px;padding-left:20px;padding-right:20px;grid-row:auto}
+  .toc::-webkit-scrollbar{display:none}.toc-title{display:none}
+  .toc a{white-space:nowrap;flex-shrink:0;border-left:none;border-bottom:2px solid transparent;border-radius:4px 4px 0 0;padding:6px 10px;font-size:10px}
+  .toc a.active{border-left:none;border-bottom-color:var(--accent);background:var(--surface)}
+  .main{padding-top:20px}.sec-head{scroll-margin-top:52px}.hero h1{font-size:24px}.agent-id{grid-template-columns:1fr}.agent-avatar{display:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="toc" id="toc">
+  <div class="toc-title">Reference</div>
+  <a href="#s1">1. Architecture</a><a href="#s2">2. Infrastructure</a><a href="#s3">3. Agent Registry</a>
+  <a href="#s4">4. Sam (main)</a><a href="#s5">5. Charlie (support)</a><a href="#s6">6. Jason (bd)</a>
+  <a href="#s7">7. Ana (procurement)</a><a href="#s8">8. Maya (marketing)</a><a href="#s9">9. Mia (partnerships)</a>
+  <a href="#s10">10. Monitor</a><a href="#s11">11. Sentinel</a><a href="#s12">12. Verifier</a>
+  <a href="#s13">13. Cron Schedule</a><a href="#s14">14. Shared Scripts</a><a href="#s15">15. Health Checks</a>
+  <a href="#s16">16. Ops Playbook</a><a href="#s17">17. Claude Skills</a>
+</nav>
+<div class="main">
+<div class="hero">
+  <h1>OpenClaw Agent System Reference</h1>
+  <p class="sub">Internal technical reference for the Catalist Group multi-agent AI system. Covers architecture, agent configurations, cron scheduling, shared infrastructure, and operational procedures.</p>
+  <div class="meta"><span>VPS <b>178.156.187.132</b></span><span>Agents <b>9</b></span><span>Cron Jobs <b>20</b></span><span>Gateway <b>Port 3002</b></span><span>Updated <b>Mar 2026</b></span></div>
+</div>
+
+<div id="s1" class="sec-head">1 — System Architecture</div>
+<div class="mermaid-wrap">
+  <div class="zoom-controls"><button class="zoom-btn" onclick="zoomIn(this)">+</button><button class="zoom-btn" onclick="zoomOut(this)">−</button><button class="zoom-btn" onclick="zoomReset(this)" style="font-size:11px">R</button></div>
+  <pre class="mermaid">
+flowchart TD
+    CRON["Cron Scheduler — 20 Jobs"] -->|isolated sessions| GW
+    HLTH["Health Scanner — 5 Checks"] -->|15-min scans| GW
+    HLTH -->|alerts| SLACK
+    GW["OpenClaw Gateway :3002"] <-->|LLM calls| ANTHRO["Anthropic API"]
+    GW <-->|socket mode| SLACK["Slack"]
+    GW <-->|vector search| SMEM["Supermemory"]
+    GW --> SAM["Sam · main"]
+    GW --> CHA["Charlie · support"]
+    GW --> JAS["Jason · bd"]
+    GW --> ANA["Ana · procurement"]
+    GW --> MAY["Maya · marketing"]
+    GW --> MIA["Mia · partnerships"]
+    GW --> SEN["Sentinel"]
+    GW --> VER["Verifier"]
+    GW --> MON["Monitor"]
+    CHA <-->|fetch/send| GMAIL["Gmail API"]
+    JAS <-->|fetch/send| GMAIL
+    ANA <-->|fetch/send| GMAIL
+    MIA <-->|send/poll| GMAIL
+    MAY <-->|campaigns| HR["HeyReach API"]
+    MIA <-->|discovery| YT["YouTube API"]
+    MIA <-->|enrichment| HUNT["Hunter.io"]
+    MIA <-->|bookings| CAL["Cal.com"]
+    SAM <-->|queries| SUPA["Supabase"]
+    CHA <-->|queries| SUPA
+    JAS <-->|queries| SUPA
+    ANA <-->|queries| SUPA
+    MIA <-->|pipeline| SUPA
+    classDef ext fill:#1a3a5c,stroke:#2d9cdb,color:#dce8f3,stroke-width:1px
+    classDef gw fill:#1a3050,stroke:#e2b55a,color:#e2b55a,stroke-width:2px
+    classDef opus fill:#1e2848,stroke:#9b7ed8,color:#dce8f3,stroke-width:2px
+    classDef sonnet fill:#1e2848,stroke:#2d9cdb,color:#dce8f3,stroke-width:1px
+    classDef haiku fill:#1e2848,stroke:#27ae60,color:#dce8f3,stroke-width:1px
+    classDef sys fill:#1a3050,stroke:#4a6a88,color:#b8cfe0,stroke-width:1px
+    class ANTHRO,SLACK,GMAIL,SUPA,SMEM,HR,YT,HUNT,CAL ext
+    class GW gw
+    class SAM opus
+    class CHA,JAS,ANA,MAY,MIA,SEN,VER sonnet
+    class MON haiku
+    class CRON,HLTH sys
+  </pre>
+</div>
+<p style="font-size:12px;color:var(--text-dim);margin-top:8px"><span style="color:var(--purple)">Purple</span> = Opus · <span style="color:var(--accent)">Blue</span> = Sonnet · <span style="color:var(--green)">Green</span> = Haiku · <span style="color:var(--amber)">Gold</span> = Gateway</p>
+
+<div id="s2" class="sec-head">2 — Infrastructure</div>
+<div class="kpi-row"><div class="kpi"><div class="val">4</div><div class="lbl">vCPU</div></div><div class="kpi"><div class="val">8GB</div><div class="lbl">RAM</div></div><div class="kpi"><div class="val">160GB</div><div class="lbl">SSD</div></div><div class="kpi"><div class="val">2GB</div><div class="lbl">Swap</div></div></div>
+<div class="ve-card ve-card--elevated">
+  <div class="ve-card__label">Server</div>
+  <table style="font-size:13px;width:100%">
+    <tr><td style="color:var(--text-dim);width:140px">Provider</td><td>Hetzner Cloud — cpx31</td></tr>
+    <tr><td style="color:var(--text-dim)">OS</td><td>Ubuntu 24.04 LTS</td></tr>
+    <tr><td style="color:var(--text-dim)">IP</td><td><code>178.156.187.132</code></td></tr>
+    <tr><td style="color:var(--text-dim)">User</td><td><code>openclaw</code> (UID 1000)</td></tr>
+    <tr><td style="color:var(--text-dim)">Base Path</td><td><code>/home/openclaw/.openclaw/</code></td></tr>
+  </table>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+  <div class="ve-card"><div class="ve-card__label">Gateway Service</div>
+    <table style="font-size:12px;width:100%">
+      <tr><td style="color:var(--text-dim);width:100px">Service</td><td><code>openclaw-gateway.service</code></td></tr>
+      <tr><td style="color:var(--text-dim)">Type</td><td>User-level systemd (NOT system-level)</td></tr>
+      <tr><td style="color:var(--text-dim)">Port</td><td>3002</td></tr>
+      <tr><td style="color:var(--text-dim)">Restart</td><td><code>ops.sh restart</code></td></tr>
+      <tr><td style="color:var(--text-dim)">Config</td><td><code>openclaw.json</code></td></tr>
+    </table>
+  </div>
+  <div class="ve-card"><div class="ve-card__label">Key Integrations</div>
+    <table style="font-size:12px;width:100%">
+      <tr><td style="color:var(--text-dim);width:100px">LLM</td><td>Anthropic API (OAuth tokens)</td></tr>
+      <tr><td style="color:var(--text-dim)">Chat</td><td>Slack (socket mode)</td></tr>
+      <tr><td style="color:var(--text-dim)">Email</td><td>Gmail API (OAuth 2.0)</td></tr>
+      <tr><td style="color:var(--text-dim)">DB</td><td>Supabase (PostgreSQL)</td></tr>
+      <tr><td style="color:var(--text-dim)">Memory</td><td>Supermemory Pro (vector)</td></tr>
+      <tr><td style="color:var(--text-dim)">LinkedIn</td><td>HeyReach API</td></tr>
+    </table>
+  </div>
+</div>
+<div class="callout info"><strong>SSH Access:</strong> Always use <code>/c/Windows/System32/OpenSSH/ssh.exe -o StrictHostKeyChecking=no root@178.156.187.132</code>. Bare <code>ssh</code> silently drops stdout. NEVER reference <code>$PATH</code>/<code>$HOME</code> in SSH commands — MSYS2 expands them locally.</div>
+<div class="ve-card ve-card--recessed">
+  <div class="ve-card__label">Supermemory Plugin</div>
+  <p style="font-size:13px;margin-bottom:6px"><code>@supermemory/openclaw-supermemory</code> v1.0.5 — takes exclusive "memory" slot. API: <code>/v3/documents</code> (store), <code>/v3/search</code> (query).</p>
+  <p style="font-size:12px;color:var(--text-dim)">Tags: <code>catalist_openclaw</code> · <code>supplier_comms</code> · <code>customer_comms</code> · <code>orders_lifecycle</code> · <code>corrections</code> · <code>marketing_outreach</code> · <code>influencer_partnerships</code></p>
+</div>
+
+<div id="s3" class="sec-head green">3 — Agent Registry</div>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>ID</th><th>Persona</th><th>Title</th><th>Model</th><th>Crons</th><th>TOOLS.md</th><th>Slack</th></tr></thead>
+  <tbody>
+    <tr><td><code>main</code></td><td style="color:var(--text-bright)">Sam Reeves</td><td>Chief of Staff</td><td><span class="badge badge--opus">OPUS</span></td><td>5</td><td>13.7 KB</td><td><code>#sam-chief-of-staff</code></td></tr>
+    <tr><td><code>support</code></td><td style="color:var(--text-bright)">Charlie Kline</td><td>Dir. Client Success</td><td><span class="badge badge--sonnet">SONNET</span></td><td>2</td><td>10.0 KB</td><td>DM</td></tr>
+    <tr><td><code>bd</code></td><td style="color:var(--text-bright)">Jason Fanucci</td><td>Dir. Retail Sales</td><td><span class="badge badge--sonnet">SONNET</span></td><td>1</td><td>15.9 KB</td><td>DM</td></tr>
+    <tr><td><code>procurement</code></td><td style="color:var(--text-bright)">Ana Morgan</td><td>Head of Procurement</td><td><span class="badge badge--sonnet">SONNET</span></td><td>3</td><td>20.0 KB</td><td>DM</td></tr>
+    <tr><td><code>marketing</code></td><td style="color:var(--text-bright)">Maya Torres</td><td>Growth Lead</td><td><span class="badge badge--sonnet">SONNET</span></td><td>4</td><td>17.0 KB</td><td>DM</td></tr>
+    <tr><td><code>partnerships</code></td><td style="color:var(--text-bright)">Mia Chen</td><td>Partnerships Lead</td><td><span class="badge badge--sonnet">SONNET</span></td><td>4</td><td>8.7 KB</td><td><code>#openclaw-partnerships</code></td></tr>
+    <tr><td><code>monitor</code></td><td style="color:var(--text-dim)">—</td><td>System Monitor</td><td><span class="badge badge--haiku">HAIKU</span></td><td>1 <span class="badge badge--off">OFF</span></td><td>4.0 KB</td><td>—</td></tr>
+    <tr><td><code>sentinel</code></td><td style="color:var(--text-dim)">—</td><td>Infra Health</td><td><span class="badge badge--sonnet">SONNET</span></td><td>1</td><td>8.2 KB</td><td>—</td></tr>
+    <tr><td><code>verifier</code></td><td style="color:var(--text-dim)">—</td><td>Adversarial QA</td><td><span class="badge badge--sonnet">SONNET</span></td><td>0</td><td>1.6 KB</td><td>—</td></tr>
+  </tbody>
+</table></div>
+<p style="font-size:12px;color:var(--text-dim);margin-top:4px">All cron jobs use <code>sessionTarget: "isolated"</code> — each run creates a new session. Main sessions are separate for coordinator pings. TOOLS.md has a 20K char hard limit — gateway silently truncates.</p>
+
+<!-- S4: SAM -->
+<div id="s4" class="sec-head purple">4 — Sam Reeves (main)</div>
+<div class="ve-card ve-card--hero"><div class="agent-id">
+  <div class="agent-avatar" style="background:var(--purple-dim)">S</div>
+  <div><h3>Sam Reeves</h3><div class="title">Chief of Staff &amp; Team Coordinator</div>
+    <div class="agent-meta"><span><span class="badge badge--opus">OPUS</span></span><span>ID: <code>main</code></span><span>Slack: <code>#sam-chief-of-staff</code></span></div>
+  </div></div>
+</div>
+<p style="font-size:13px;margin:8px 0 16px">Sam is the orchestrator — coordinates all other agents, runs morning briefings, monitors team health, handles corrections, and serves as the primary Slack interface. Uses Opus for complex reasoning and multi-step coordination.</p>
+<details><summary>File Structure</summary>
+<div class="file-tree"><span class="dir">agents/main/</span>
+├── <span class="dir">workspace/</span>
+│   ├── <span class="key">SOUL.md</span>          <span class="dim">— Identity, personality, business context</span>
+│   ├── <span class="key">TOOLS.md</span>         <span class="dim">— 13.7 KB — Decision framework, queue templates</span>
+│   ├── <span class="key">HEARTBEAT.md</span>     <span class="dim">— Coordinator cron protocol</span>
+│   ├── <span class="key">AGENTS.md</span>        <span class="dim">— Registry of all agents</span>
+│   ├── <span class="key">MEMORY.md</span>        <span class="dim">— Cross-session memory</span>
+│   ├── <span class="key">WORKING.md</span>       <span class="dim">— Status, updated by cron</span>
+│   └── <span class="dir">heartbeat/</span>    <span class="dim">— Daily logs (YYYY-MM-DD.md)</span>
+└── <span class="dir">agent/</span>            <span class="dim">— Lock files, auth symlinks</span></div></details>
+<div class="ve-card"><div class="ve-card__label">Capabilities</div>
+<ul class="cap-list">
+  <li>Team coordination via <code>sessions_send</code> to ping agents</li>
+  <li>Slack interactive decisions via <code>agent-queue-decision</code></li>
+  <li>Morning briefing generation (Supabase + agent status)</li>
+  <li>Health monitoring across all agents</li>
+  <li>Correction monitoring — tracks data fixes</li>
+  <li>Schema cache refresh for Supabase</li>
+</ul></div>
+<div class="ve-card ve-card--recessed"><div class="ve-card__label">Cron Jobs (5)</div>
+<div class="tbl-wrap" style="margin:0"><table class="cron-mini">
+  <tr><td>team-coordinator</td><td><code>:25,:55 5-23h daily</code></td><td>Ping agents, write heartbeat</td></tr>
+  <tr><td>morning-briefing</td><td><code>9:00 daily</code></td><td>Daily summary to Slack</td></tr>
+  <tr><td>health-monitor</td><td><code>8,12,16,20h daily</code></td><td>System health check</td></tr>
+  <tr><td>correction-monitor</td><td><code>every 10m 5-23h daily</code></td><td>Track corrections</td></tr>
+  <tr><td>schema-cache-refresh</td><td><code>5:00 daily</code></td><td>Schema cache</td></tr>
+</table></div></div>
+<div class="callout"><strong>Dev note:</strong> Coordinator appends to <code>heartbeat/YYYY-MM-DD.md</code> using read-then-write (not edit tool) — overnight entries are identical and cause edit uniqueness collisions. Uses <code>timeout 90</code> for sessions_send since gateway serializes turns.</div>
+
+<!-- S5: CHARLIE -->
+<div id="s5" class="sec-head">5 — Charlie Kline (support)</div>
+<div class="ve-card ve-card--hero"><div class="agent-id">
+  <div class="agent-avatar" style="background:var(--accent-dim)">C</div>
+  <div><h3>Charlie Kline</h3><div class="title">Director of Client Success</div>
+    <div class="agent-meta"><span><span class="badge badge--sonnet">SONNET</span></span><span>ID: <code>support</code></span><span>Email: Gmail OAuth</span></div>
+  </div></div>
+</div>
+<p style="font-size:13px;margin:8px 0 16px">Handles all inbound customer emails — order inquiries, product questions, complaints, refunds. Polls Gmail every 15 min, drafts responses with strict brand voice, queues decisions for human approval via Slack.</p>
+<details><summary>File Structure</summary>
+<div class="file-tree"><span class="dir">agents/support/workspace/</span>
+├── <span class="key">SOUL.md</span>          <span class="dim">— Identity, tone rules, conciseness</span>
+├── <span class="key">TOOLS.md</span>         <span class="dim">— 10.0 KB — Refund queue, email tools</span>
+├── <span class="key">MEMORY.md</span> / <span class="key">WORKING.md</span>
+├── <span class="dir">skills/email-support/</span>
+│   ├── <span class="key">SKILL.md</span>      <span class="dim">— Email processing workflow</span>
+│   └── <span class="dir">references/</span>   <span class="dim">— Brand guidelines, templates</span>
+└── <span class="dir">daily/</span>            <span class="dim">— Daily processing logs</span></div></details>
+<div class="ve-card"><div class="ve-card__label">Capabilities</div>
+<ul class="cap-list">
+  <li>Gmail polling via <code>gmail-fetch.js</code></li>
+  <li>AI response drafting via <code>catalist-support-agent</code> npm lib</li>
+  <li>Refund/credit approval queue to Slack</li>
+  <li>Shadow daily report — EOD summary</li>
+  <li>Brand voice enforcement — Catalist guidelines</li>
+  <li>Portal URL: always <code>b2b.catalistgroup.co</code></li>
+</ul></div>
+<div class="ve-card ve-card--recessed"><div class="ve-card__label">Cron Jobs (2)</div>
+<div class="tbl-wrap" style="margin:0"><table class="cron-mini">
+  <tr><td>gmail-poll</td><td><code>every 15m 5-23h daily</code></td><td>Fetch and process customer emails</td></tr>
+  <tr><td>shadow-daily-report</td><td><code>18:00 daily</code></td><td>End-of-day summary</td></tr>
+</table></div></div>
+<div class="callout"><strong>Dev note:</strong> System prompt lives ONLY in <code>catalist-agents/support-agent/src/generation/index.ts</code>. NEVER add Claude API calls to admin portal. The npm library is consumed by the admin portal webhook.</div>
+
+<!-- S6: JASON -->
+<div id="s6" class="sec-head">6 — Jason Fanucci (bd)</div>
+<div class="ve-card ve-card--hero"><div class="agent-id">
+  <div class="agent-avatar" style="background:var(--accent-dim)">J</div>
+  <div><h3>Jason Fanucci</h3><div class="title">Director of Retail Sales</div>
+    <div class="agent-meta"><span><span class="badge badge--sonnet">SONNET</span></span><span>ID: <code>bd</code></span><span>Email: Gmail BD creds</span></div>
+  </div></div>
+</div>
+<p style="font-size:13px;margin:8px 0 16px">Manages outbound sales pipeline — dealer account emails, inbound brand inquiries, form approvals, catalog decisions. Pre-processor <code>bd-ensure-contacts.js</code> auto-creates DB records for unsolicited inbound emails.</p>
+<details><summary>File Structure</summary>
+<div class="file-tree"><span class="dir">agents/bd/workspace-bd/</span>    <span class="dim">— Note: workspace-bd, not workspace</span>
+├── <span class="key">SOUL.md</span>          <span class="dim">— Identity, sales methodology</span>
+├── <span class="key">TOOLS.md</span>         <span class="dim">— 15.9 KB — Shadow draft, pipeline, forms</span>
+├── <span class="key">BOOT.md</span>          <span class="dim">— Startup instructions, prefetch</span>
+├── <span class="key">MEMORY.md</span> / <span class="key">WORKING.md</span>
+└── <span class="dir">daily/</span>            <span class="dim">— Daily activity logs</span></div></details>
+<div class="ve-card"><div class="ve-card__label">Capabilities</div>
+<ul class="cap-list">
+  <li>Shadow draft emails — AI drafts, human approves</li>
+  <li>BD pipeline management in Supabase</li>
+  <li>Form approval decisions — supplier apps</li>
+  <li>Catalog decisions — product inquiries</li>
+  <li>Unsolicited inbound via <code>bd-ensure-contacts.js</code></li>
+  <li>BD Gmail: <code>gmail-fetch-bd.js</code>, <code>gmail-search-bd.js</code></li>
+</ul></div>
+<div class="ve-card ve-card--recessed"><div class="ve-card__label">Cron Jobs (1)</div>
+<div class="tbl-wrap" style="margin:0"><table class="cron-mini">
+  <tr><td>bd-heartbeat</td><td><code>:10,:40 5-23h daily</code></td><td>Emails, pipeline, prefetch</td></tr>
+</table></div></div>
+<div class="callout"><strong>Dev note:</strong> Workspace is <code>workspace-bd/</code> not <code>workspace/</code>. TOOLS.md must stay under 20K — gateway silently truncates. If Jason posts "ANNOUNCE_SKIP", check <code>wc -c</code> on TOOLS.md.</div>
+
+<!-- S7: ANA -->
+<div id="s7" class="sec-head">7 — Ana Morgan (procurement)</div>
+<div class="ve-card ve-card--hero"><div class="agent-id">
+  <div class="agent-avatar" style="background:var(--accent-dim)">A</div>
+  <div><h3>Ana Morgan</h3><div class="title">Head of Procurement</div>
+    <div class="agent-meta"><span><span class="badge badge--sonnet">SONNET</span></span><span>ID: <code>procurement</code></span><span>Email: Gmail procurement creds</span></div>
+  </div></div>
+</div>
+<p style="font-size:13px;margin:8px 0 16px">Manages procurement — PO generation, supplier follow-ups, shipping confirmations, inbound supplier emails, and <strong>supplier pricing negotiation</strong>. Polls Gmail 4x/hour. PO generation uses <code>openclaw-po-generator</code> edge function with branded templates.</p>
+<details><summary>File Structure</summary>
+<div class="file-tree"><span class="dir">agents/procurement/workspace/</span>
+├── <span class="key">SOUL.md</span>          <span class="dim">— Identity, procurement procedures</span>
+├── <span class="key">TOOLS.md</span>         <span class="dim">— 20.0 KB — PO approval, shipping, queue, negotiation</span>
+├── <span class="key">MEMORY.md</span> / <span class="key">WORKING.md</span>
+└── <span class="dir">skills/</span>
+    ├── <span class="dir">supplier-follow-up/</span>   <span class="dim">— Follow-up cadence</span>
+    ├── <span class="dir">email-inbound/</span>        <span class="dim">— Inbound processing</span>
+    ├── <span class="dir">po-generation/</span>        <span class="dim">— PO creation workflow</span>
+    └── <span class="dir">references/</span>           <span class="dim">— Templates, guidelines</span></div></details>
+<div class="ve-card"><div class="ve-card__label">Capabilities</div>
+<ul class="cap-list">
+  <li>PO generation and email delivery</li>
+  <li>Supplier follow-up cadence automation</li>
+  <li>Gmail via <code>procurement-gmail-fetch.js</code></li>
+  <li>Shipping confirmation processing</li>
+  <li>Supplier decision queue to Slack</li>
+  <li>Data prefetch via <code>procurement-prefetch.js</code></li>
+  <li><strong>Supplier negotiation</strong> — tiered discount asks (10%/8%/5%) + net-30 term requests</li>
+</ul></div>
+<div class="ve-card"><div class="ve-card__label">Negotiation System</div>
+<p style="font-size:12px;margin:4px 0 8px;color:var(--text-dim)">Weekly scan of <code>supplier_spend_summary</code> materialized view (refreshed daily via pg_cron). Sends up to 3 discount + 3 net-terms emails per week. Logs all outreach to <code>supplier_negotiation_log</code>. Excludes closed/inactive suppliers.</p>
+<div class="tbl-wrap" style="margin:0"><table class="cron-mini">
+  <tr style="font-weight:600;color:var(--text-dim);font-size:11px"><td>Tier</td><td>COGS Threshold</td><td>Discount Ask</td></tr>
+  <tr><td>tier_1</td><td><code>$50,000+</code></td><td>10%</td></tr>
+  <tr><td>tier_2</td><td><code>$20,000–$49,999</code></td><td>8%</td></tr>
+  <tr><td>tier_3</td><td><code>$5,000–$19,999</code></td><td>5%</td></tr>
+</table></div>
+<p style="font-size:12px;margin:6px 0 0;color:var(--text-dim)">Net-30 requests sent 3 weeks after discount ask for suppliers with 5+ orders and no existing terms. Escalates counter-offers to <code>#procurement</code> Slack.</p>
+</div>
+<div class="ve-card ve-card--recessed"><div class="ve-card__label">Cron Jobs (3)</div>
+<div class="tbl-wrap" style="margin:0"><table class="cron-mini">
+  <tr><td>procurement-heartbeat</td><td><code>every 2h 5-23h daily</code></td><td>Pipeline, POs, follow-ups</td></tr>
+  <tr><td>procurement-gmail-poll</td><td><code>:05,:20,:35,:50 5-23h daily</code></td><td>Supplier emails</td></tr>
+  <tr><td>procurement-negotiation-scan</td><td><code>10:00 Monday</code></td><td>Discount + net-terms outreach</td></tr>
+</table></div></div>
+<div class="callout"><strong>Dev note:</strong> TOOLS.md is 20.0 KB — at the 20K limit. PO and negotiation emails must NEVER include Amazon/ASIN/marketplace terms. Use branded URLs (<code>confirm.ccretailgroup.com</code>), not raw Supabase URLs.</div>
+
+<!-- S8: MAYA -->
+<div id="s8" class="sec-head">8 — Maya Torres (marketing)</div>
+<div class="ve-card ve-card--hero"><div class="agent-id">
+  <div class="agent-avatar" style="background:var(--accent-dim)">M</div>
+  <div><h3>Maya Torres</h3><div class="title">Growth Lead — LinkedIn Outbound</div>
+    <div class="agent-meta"><span><span class="badge badge--sonnet">SONNET</span></span><span>ID: <code>marketing</code></span><span>APIs: HeyReach + Unipile</span><span>Campaign: <code>340910</code></span></div>
+  </div></div>
+</div>
+<p style="font-size:13px;margin:8px 0 16px">Manages the full LinkedIn outbound pipeline — prospect discovery via Unipile, ICP scoring, automated outreach via HeyReach, reply tracking, and weekly performance reports. Operates a 7-day rotating ICP schedule across 4 major segments. Has the most cron jobs (4) of any agent.</p>
+
+<div class="kpi-row">
+  <div class="kpi"><div class="val">7</div><div class="lbl">ICP Segments</div></div>
+  <div class="kpi"><div class="val">2</div><div class="lbl">Sender Accounts</div></div>
+  <div class="kpi"><div class="val">4</div><div class="lbl">Cron Jobs</div></div>
+  <div class="kpi"><div class="val">173</div><div class="lbl">Conversations</div></div>
+</div>
+
+<!-- ICP Weekly Rotation -->
+<div class="ve-card ve-card--elevated"><div class="ve-card__label">Weekly ICP Rotation Schedule</div>
+<p style="font-size:12px;color:var(--text-dim);margin-bottom:12px">Each day targets a different ICP segment. Discovery runs during the morning batch (8:00 UTC) when the prospect queue falls below 50.</p>
+<div class="tbl-wrap" style="margin:0"><table>
+  <thead><tr><th>Day</th><th>ICP Segment</th><th>Geographic Focus</th><th>Discovery Method</th></tr></thead>
+  <tbody>
+    <tr><td style="color:var(--amber);font-family:var(--font-mono);font-size:12px">MON</td><td style="color:var(--text-bright)">Import/Export — Gulf States</td><td>Saudi Arabia, UAE, Dubai, Qatar, Bahrain, Kuwait, Oman</td><td>Region-specific keywords (e.g. "Import Saudi")</td></tr>
+    <tr><td style="color:var(--amber);font-family:var(--font-mono);font-size:12px">TUE</td><td style="color:var(--text-bright)">Import/Export — Secondary Markets</td><td>Jordan, Egypt, Morocco, Turkey, Brazil, Mexico</td><td>Region-specific keywords (e.g. "Import Egypt")</td></tr>
+    <tr><td style="color:var(--amber);font-family:var(--font-mono);font-size:12px">WED</td><td style="color:var(--text-bright)">Amazon FBA Wholesale (set 1)</td><td>No geographic filter</td><td>FBA keywords — "Amazon FBA Wholesale", "FBA Sourcing"</td></tr>
+    <tr><td style="color:var(--amber);font-family:var(--font-mono);font-size:12px">THU</td><td style="color:var(--text-bright)">Amazon FBA Wholesale (set 2)</td><td>No geographic filter</td><td>FBA keywords — "Wholesale Amazon Seller", "Wholesale Distributor"</td></tr>
+    <tr><td style="color:var(--amber);font-family:var(--font-mono);font-size:12px">FRI</td><td style="color:var(--text-bright)">Foodservice + Hospitality</td><td>US regional rotation (NE → SE → MW → W)</td><td>Vertical keywords + city names appended</td></tr>
+    <tr><td style="color:var(--amber);font-family:var(--font-mono);font-size:12px">SAT</td><td style="color:var(--text-bright)">Janitorial + Facility Mgmt</td><td>US regional rotation</td><td>Vertical keywords + city names appended</td></tr>
+    <tr><td style="color:var(--amber);font-family:var(--font-mono);font-size:12px">SUN</td><td style="color:var(--text-bright)">Outdoor Recreation</td><td>US regional rotation</td><td>Vertical keywords + city names appended</td></tr>
+  </tbody>
+</table></div></div>
+
+<!-- ICP Target Profiles -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+<div class="ve-card"><div class="ve-card__label">Import/Export Targets (Mon-Tue)</div>
+<p style="font-size:12px;color:var(--text-dim);margin-bottom:8px">Target titles: <code>Import Manager</code>, <code>Import Export</code></p>
+<div class="tbl-wrap" style="margin:0"><table style="font-size:12px">
+  <thead><tr><th>Region</th><th>Search Keywords</th></tr></thead>
+  <tbody>
+    <tr><td>Saudi Arabia</td><td><code>Import Saudi</code> · <code>Export Import Saudi Arabia</code></td></tr>
+    <tr><td>UAE / Dubai</td><td><code>Import UAE</code> · <code>Import Dubai</code></td></tr>
+    <tr><td>Qatar / Kuwait</td><td><code>Import Qatar</code> · <code>Import Kuwait</code></td></tr>
+    <tr><td>Middle East</td><td><code>Import American brands Middle East</code></td></tr>
+    <tr><td>Jordan / Egypt</td><td><code>Import Jordan</code> · <code>Import Egypt</code></td></tr>
+    <tr><td>Morocco / Turkey</td><td><code>Import Morocco</code> · <code>Import Turkey</code></td></tr>
+    <tr><td>Brazil / Mexico</td><td><code>Import Brazil</code> · <code>Import Mexico</code></td></tr>
+  </tbody>
+</table></div></div>
+<div class="ve-card"><div class="ve-card__label">Amazon FBA Wholesale Targets (Wed-Thu)</div>
+<p style="font-size:12px;color:var(--text-dim);margin-bottom:8px">Target titles: <code>Amazon Seller</code>, <code>Sourcing Manager</code>, <code>Wholesale Expert</code></p>
+<div class="tbl-wrap" style="margin:0"><table style="font-size:12px">
+  <thead><tr><th>Focus</th><th>Search Keywords</th></tr></thead>
+  <tbody>
+    <tr><td>FBA Wholesale</td><td><code>Amazon FBA Wholesale</code></td></tr>
+    <tr><td>FBA Sourcing</td><td><code>Amazon FBA Sourcing</code></td></tr>
+    <tr><td>Wholesale Seller</td><td><code>Wholesale Amazon Seller</code></td></tr>
+    <tr><td>Wholesale Dist.</td><td><code>Amazon Wholesale Distributor</code></td></tr>
+  </tbody>
+</table></div>
+<div class="callout" style="margin-top:8px;font-size:11px"><strong>CRITICAL:</strong> Amazon/FBA/ASIN terms are for INTERNAL search only. External messages must use "wholesale", "sourcing", "brands".</div>
+</div></div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+<div class="ve-card"><div class="ve-card__label">Foodservice + Hospitality (Fri)</div>
+<table style="font-size:12px;width:100%">
+  <tr><td style="color:var(--text-dim);width:90px">Titles</td><td><code>Purchasing Manager</code> · <code>Director of Operations</code> · <code>Food Service Director</code> · <code>F&B Director</code> · <code>Procurement Manager</code></td></tr>
+  <tr><td style="color:var(--text-dim)">Keywords</td><td>"Purchasing Manager Foodservice" · "Director Operations Foodservice" · "Procurement Manager Hospitality Hotel"</td></tr>
+</table></div>
+<div class="ve-card"><div class="ve-card__label">Janitorial + Facility (Sat)</div>
+<table style="font-size:12px;width:100%">
+  <tr><td style="color:var(--text-dim);width:90px">Titles</td><td><code>Facility Manager</code> · <code>Janitorial Director</code> · <code>Purchasing Director</code> · <code>Building Manager</code></td></tr>
+  <tr><td style="color:var(--text-dim)">Keywords</td><td>"Facility Manager Janitorial Sanitation" · "Janitorial Director Cleaning" · "Building Manager Procurement"</td></tr>
+</table></div>
+<div class="ve-card"><div class="ve-card__label">Outdoor Recreation (Sun)</div>
+<table style="font-size:12px;width:100%">
+  <tr><td style="color:var(--text-dim);width:90px">Titles</td><td><code>Purchasing Manager</code> · <code>Store Owner</code></td></tr>
+  <tr><td style="color:var(--text-dim)">Keywords</td><td>"Purchasing Manager Outdoor Recreation" · "Store Owner Outdoor Sporting"</td></tr>
+</table></div></div>
+
+<!-- US Regional Rotation -->
+<div class="ve-card ve-card--recessed"><div class="ve-card__label">US Regional Rotation (Fri-Sun ICP Verticals)</div>
+<p style="font-size:12px;color:var(--text-dim);margin-bottom:8px">For domestic ICP segments, city names are appended to keywords for geographic targeting. Regions rotate weekly.</p>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:10px 12px"><div style="font-family:var(--font-mono);font-size:10px;color:var(--accent);font-weight:600;margin-bottom:4px">NORTHEAST</div><span style="font-size:12px">New York · Boston · Philadelphia</span></div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:10px 12px"><div style="font-family:var(--font-mono);font-size:10px;color:var(--accent);font-weight:600;margin-bottom:4px">SOUTHEAST</div><span style="font-size:12px">Atlanta · Miami · Charlotte</span></div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:10px 12px"><div style="font-family:var(--font-mono);font-size:10px;color:var(--accent);font-weight:600;margin-bottom:4px">MIDWEST</div><span style="font-size:12px">Chicago · Detroit · Minneapolis</span></div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:10px 12px"><div style="font-family:var(--font-mono);font-size:10px;color:var(--accent);font-weight:600;margin-bottom:4px">WEST</div><span style="font-size:12px">Los Angeles · Seattle · Denver</span></div>
+</div></div>
+
+<!-- Pipeline Flow -->
+<div class="ve-card"><div class="ve-card__label">Outreach Pipeline Flow</div>
+<div class="mermaid-wrap">
+  <div class="zoom-controls"><button class="zoom-btn" onclick="zoomIn(this)">+</button><button class="zoom-btn" onclick="zoomOut(this)">−</button><button class="zoom-btn" onclick="zoomReset(this)" style="font-size:11px">R</button></div>
+  <pre class="mermaid">
+flowchart TD
+    UNI["Unipile API — LinkedIn Search"] -->|raw prospects| SCORE["ICP Scoring — score 0-100"]
+    SCORE -->|score >= 50| EXCL["Exclusion Check"]
+    SCORE -->|score < 50| DROP["Discarded"]
+    EXCL -->|check supplier_contacts, User, Lead tables| DEDUP["Dedup + Insert to marketing_prospects"]
+    EXCL -->|match found| DROP
+    DEDUP -->|status: queued| QUEUE["Prospect Queue"]
+    QUEUE -->|morning batch + outreach pulse| HR["HeyReach Campaign 340910"]
+    HR -->|alternating| DEV["Devin — Account 167914"]
+    HR -->|alternating| MARK["Mark — Account 168013"]
+    DEV -->|connection request| LI["LinkedIn"]
+    MARK -->|connection request| LI
+    LI -->|reply| REPLY["Reply Classification"]
+    REPLY -->|interested| WARM["Warm Lead — Slack alert to Devin"]
+    REPLY -->|question| RESP["Auto-response via HeyReach"]
+    REPLY -->|decline| DECL["Declined / Excluded"]
+    classDef ext fill:#1a3a5c,stroke:#2d9cdb,color:#dce8f3,stroke-width:1px
+    classDef process fill:#1e2848,stroke:#2d9cdb,color:#dce8f3,stroke-width:1px
+    classDef drop fill:#1e2848,stroke:#e06050,color:#e06050,stroke-width:1px
+    classDef good fill:#1e2848,stroke:#27ae60,color:#27ae60,stroke-width:1px
+    class UNI,HR,LI ext
+    class SCORE,EXCL,DEDUP,QUEUE,REPLY,DEV,MARK,RESP process
+    class DROP,DECL drop
+    class WARM good
+  </pre>
+</div></div>
+
+<!-- Sender Accounts -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+<div class="ve-card"><div class="ve-card__label">Sender Accounts</div>
+<table style="font-size:13px;width:100%">
+  <tr><td style="color:var(--text-dim);width:120px">Devin Sardana</td><td>Account <code>167914</code> — Founder</td></tr>
+  <tr><td style="color:var(--text-dim)">Mark</td><td>Account <code>168013</code> — Head of Sales</td></tr>
+</table>
+<p style="font-size:11px;color:var(--text-dim);margin-top:8px">Leads alternate between accounts to distribute rate limits. Each account has independent warm-up week tracking and daily action counters.</p>
+</div>
+<div class="ve-card"><div class="ve-card__label">External APIs</div>
+<table style="font-size:13px;width:100%">
+  <tr><td style="color:var(--text-dim);width:120px">HeyReach</td><td>Campaign automation — connections, messages, inbox</td></tr>
+  <tr><td style="color:var(--text-dim)">Unipile</td><td>LinkedIn search — prospect discovery (<code>api34.unipile.com:16420</code>)</td></tr>
+  <tr><td style="color:var(--text-dim)">Apify</td><td>Fallback search — after 3 consecutive Unipile failures</td></tr>
+  <tr><td style="color:var(--text-dim)">Supabase</td><td>Prospect queue, rate limits, exclusion checks</td></tr>
+</table></div></div>
+
+<details><summary>File Structure</summary>
+<div class="file-tree"><span class="dir">agents/marketing/workspace/</span>
+├── <span class="key">SOUL.md</span>          <span class="dim">— Identity, marketing strategy</span>
+├── <span class="key">TOOLS.md</span>         <span class="dim">— 17.0 KB — HeyReach/Unipile API, ICP keywords, Supabase queries</span>
+├── <span class="key">HEARTBEAT.md</span>     <span class="dim">— Morning batch, outreach pulse, reply check, weekly report protocols</span>
+├── <span class="key">REFERENCE.md</span>     <span class="dim">— Marketing playbook reference</span>
+├── <span class="key">IDENTITY.md</span>      <span class="dim">— Agent identity card</span>
+├── <span class="key">MEMORY.md</span>
+├── <span class="dir">memory/</span>
+│   └── <span class="key">WORKING.md</span>   <span class="dim">— Live status, circuit breakers, search rotation log</span>
+└── <span class="dir">skills/</span>
+    ├── <span class="dir">prospect-research/</span>     <span class="dim">— ICP scoring models per segment</span>
+    ├── <span class="dir">campaign-creation/</span>     <span class="dim">— Campaign setup workflows</span>
+    └── <span class="dir">performance-analysis/</span>  <span class="dim">— Weekly metrics and reporting</span></div></details>
+
+<div class="ve-card"><div class="ve-card__label">Capabilities</div>
+<ul class="cap-list">
+  <li>Prospect discovery via Unipile LinkedIn search (max 3 API calls/batch)</li>
+  <li>ICP scoring per-segment — score threshold: 50+</li>
+  <li>3-layer exclusion — <code>supplier_contacts</code>, <code>User</code>, <code>Lead</code> tables</li>
+  <li>HeyReach campaign management — add leads, pause/resume</li>
+  <li>Reply classification — interested, question, soft decline, hard decline, OOO</li>
+  <li>Warm lead routing to Devin via Slack interactive decisions</li>
+  <li>Circuit breaker — auto-pauses on 3+ hard declines/day or API failures</li>
+  <li>Weekly performance reports — acceptance rate, reply rate, ICP segment analysis</li>
+</ul></div>
+
+<div class="ve-card ve-card--recessed"><div class="ve-card__label">Cron Jobs (4)</div>
+<div class="tbl-wrap" style="margin:0"><table class="cron-mini">
+  <tr><td>marketing-morning-batch</td><td><code>8:00 daily</code></td><td>Discovery + ICP scoring + outreach push (timeout: 1200s)</td></tr>
+  <tr><td>marketing-outreach-pulse</td><td><code>every 30m 5-23h daily</code></td><td>Campaign health + queue processing (600s)</td></tr>
+  <tr><td>marketing-reply-check</td><td><code>every 15m 5-23h daily</code></td><td>Scan conversations, classify replies, route warm leads (600s)</td></tr>
+  <tr><td>marketing-weekly-report</td><td><code>8:00 Monday</code></td><td>Weekly performance report to <code>#openclaw-marketing</code> (900s)</td></tr>
+</table></div></div>
+<div class="callout"><strong>Dev note:</strong> TOOLS.md is 17.0 KB (limit: 20K). Unipile DSN migrated to <code>api34.unipile.com:16420</code> on Mar 2026 — all workspace files updated. Amazon/FBA terms are INTERNAL search keywords only — external messages must never reference marketplace terminology. All crons operate 5am-11pm ET, 7 days/week.</div>
+
+<!-- S9: MIA -->
+<div id="s9" class="sec-head green">9 — Mia Chen (partnerships)</div>
+<div class="ve-card ve-card--hero"><div class="agent-id">
+  <div class="agent-avatar" style="background:var(--green-dim)">M</div>
+  <div><h3>Mia Chen</h3><div class="title">Partnerships Lead — YouTube Influencer Outreach</div>
+    <div class="agent-meta"><span><span class="badge badge--sonnet">SONNET</span></span><span>ID: <code>partnerships</code></span><span>Email: <code>mia@catalistgroup.co</code></span><span>Slack: <code>#openclaw-partnerships</code></span></div>
+  </div></div>
+</div>
+<p style="font-size:13px;margin:8px 0 16px">Manages the full YouTube influencer partnerships pipeline — creator discovery via YouTube Data API, email enrichment via Hunter.io, personalized cold outreach from <code>mia@catalistgroup.co</code>, reply classification, Cal.com booking, and weekly performance reports. Sends as Mia in first person. 7-layer safety system with warm-up protocol.</p>
+
+<div class="kpi-row">
+  <div class="kpi"><div class="val">4</div><div class="lbl">Cron Jobs</div></div>
+  <div class="kpi"><div class="val">5</div><div class="lbl">Scripts</div></div>
+  <div class="kpi"><div class="val">4</div><div class="lbl">Tiers</div></div>
+  <div class="kpi"><div class="val">7</div><div class="lbl">Safety Layers</div></div>
+</div>
+
+<!-- Tier System -->
+<div class="ve-card ve-card--elevated"><div class="ve-card__label">Creator Tier System</div>
+<p style="font-size:12px;color:var(--text-dim);margin-bottom:12px">Creators are scored 0-100 across 5 dimensions (subscriber count, upload frequency, content relevance, engagement, channel age). Tier determines outreach cadence and commission rate.</p>
+<div class="tbl-wrap" style="margin:0"><table>
+  <thead><tr><th>Tier</th><th>Score</th><th>Subscribers</th><th>Commission</th><th>Sequence</th></tr></thead>
+  <tbody>
+    <tr><td style="color:var(--amber);font-family:var(--font-mono);font-size:12px">A — Whale</td><td style="color:var(--text-bright)">75+</td><td>100K+</td><td>10%</td><td>4-touch (Day 0, 4, 10, 21)</td></tr>
+    <tr><td style="color:var(--amber);font-family:var(--font-mono);font-size:12px">B — Target</td><td style="color:var(--text-bright)">50-74</td><td>25K-100K</td><td>9%</td><td>3-touch (Day 0, 5, 14)</td></tr>
+    <tr><td style="color:var(--amber);font-family:var(--font-mono);font-size:12px">C — Growth</td><td style="color:var(--text-bright)">30-49</td><td>5K-25K</td><td>8%</td><td>2-touch (Day 0, 7)</td></tr>
+    <tr><td style="color:var(--amber);font-family:var(--font-mono);font-size:12px">D — Seed</td><td style="color:var(--text-bright)">20-29</td><td>1K-5K</td><td>8%</td><td>1-touch (Day 0 only)</td></tr>
+  </tbody>
+</table></div></div>
+
+<!-- Daily Search Query Rotation -->
+<div class="ve-card ve-card--elevated"><div class="ve-card__label">Daily YouTube Search Query Rotation</div>
+<p style="font-size:12px;color:var(--text-dim);margin-bottom:12px">Script rotates through 7 queries based on day of month (<code>day % 7</code>). Each query targets a different facet of the Amazon wholesale creator niche.</p>
+<div class="tbl-wrap" style="margin:0"><table>
+  <thead><tr><th>Day</th><th>Search Query</th><th>Target Facet</th></tr></thead>
+  <tbody>
+    <tr><td style="color:var(--amber);font-family:var(--font-mono);font-size:12px">0</td><td><code>amazon wholesale sourcing</code></td><td>Core wholesale creators</td></tr>
+    <tr><td style="color:var(--amber);font-family:var(--font-mono);font-size:12px">1</td><td><code>how to sell wholesale on amazon</code></td><td>Educational / beginner-focused</td></tr>
+    <tr><td style="color:var(--amber);font-family:var(--font-mono);font-size:12px">2</td><td><code>amazon fba wholesale for beginners</code></td><td>FBA onboarding creators</td></tr>
+    <tr><td style="color:var(--amber);font-family:var(--font-mono);font-size:12px">3</td><td><code>best wholesale suppliers amazon fba</code></td><td>Supplier review creators</td></tr>
+    <tr><td style="color:var(--amber);font-family:var(--font-mono);font-size:12px">4</td><td><code>amazon ungating brand approval amazon</code></td><td>Ungating specialists</td></tr>
+    <tr><td style="color:var(--amber);font-family:var(--font-mono);font-size:12px">5</td><td><code>wholesale vs arbitrage amazon</code></td><td>Model comparison creators</td></tr>
+    <tr><td style="color:var(--amber);font-family:var(--font-mono);font-size:12px">6</td><td><code>amazon fba wholesale product research</code></td><td>Product research educators</td></tr>
+  </tbody>
+</table></div></div>
+
+<!-- ICP Profile -->
+<div class="ve-card ve-card--elevated"><div class="ve-card__label">ICP — Ideal Creator Profile</div>
+<p style="font-size:12px;color:var(--text-dim);margin-bottom:12px">Individual YouTube creators (not brands/companies) who teach or discuss Amazon wholesale sourcing. The agent scores prospects 0-100 across 5 dimensions, each worth 20 points.</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+  <div>
+    <strong style="font-size:11px;color:var(--text-dim);font-family:var(--font-mono)">MUST HAVE</strong>
+    <ul style="font-size:12px;margin-top:6px;list-style:none;line-height:2">
+      <li style="padding:2px 0;border-bottom:1px solid var(--border)">Individual creator (not brand/company channel)</li>
+      <li style="padding:2px 0;border-bottom:1px solid var(--border)">1,000+ subscribers</li>
+      <li style="padding:2px 0;border-bottom:1px solid var(--border)">10+ published videos</li>
+      <li style="padding:2px 0;border-bottom:1px solid var(--border)">Active uploads within last 90 days</li>
+      <li style="padding:2px 0">Reachable — business email or website discoverable</li>
+    </ul>
+  </div>
+  <div>
+    <strong style="font-size:11px;color:var(--text-dim);font-family:var(--font-mono)">IDEAL (HIGHER SCORE)</strong>
+    <ul style="font-size:12px;margin-top:6px;list-style:none;line-height:2">
+      <li style="padding:2px 0;border-bottom:1px solid var(--border)">50K+ subscribers (Tier A/B)</li>
+      <li style="padding:2px 0;border-bottom:1px solid var(--border)">75%+ videos about wholesale/sourcing</li>
+      <li style="padding:2px 0;border-bottom:1px solid var(--border)">Weekly or more frequent uploads</li>
+      <li style="padding:2px 0;border-bottom:1px solid var(--border)">5%+ engagement rate (likes+comments / views)</li>
+      <li style="padding:2px 0">Business email in YouTube About section</li>
+    </ul>
+  </div>
+</div></div>
+
+<!-- Scoring Rubric -->
+<div class="ve-card"><div class="ve-card__label">Scoring Rubric (5 Dimensions x 20 Points)</div>
+<div class="tbl-wrap" style="margin:0"><table>
+  <thead><tr><th>Dimension</th><th>0 pts</th><th>5 pts</th><th>10 pts</th><th>15 pts</th><th>20 pts</th></tr></thead>
+  <tbody>
+    <tr><td style="color:var(--text-bright)">Audience Size</td><td>—</td><td>&lt; 10K subs</td><td>10K-50K</td><td>50K-200K</td><td>200K+</td></tr>
+    <tr><td style="color:var(--text-bright)">Content Relevance</td><td>—</td><td>&lt; 25% wholesale</td><td>25-49%</td><td>50-74%</td><td>75%+</td></tr>
+    <tr><td style="color:var(--text-bright)">Engagement Rate</td><td>—</td><td>&lt; 1%</td><td>1-2.9%</td><td>3-4.9%</td><td>5%+</td></tr>
+    <tr><td style="color:var(--text-bright)">Recency</td><td>90+ days</td><td>—</td><td>Monthly</td><td>Weekly</td><td>2+/week</td></tr>
+    <tr><td style="color:var(--text-bright)">Reachability</td><td>None</td><td>—</td><td>Social only</td><td>Website</td><td>Business email</td></tr>
+  </tbody>
+</table></div></div>
+
+<!-- Exclusion Filters -->
+<div class="ve-card ve-card--recessed"><div class="ve-card__label">Auto-Exclusion Filters (Applied Before Scoring)</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:6px;font-size:12px">
+  <div style="padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:6px">No uploads in 90+ days</div>
+  <div style="padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:6px">Fewer than 10 videos</div>
+  <div style="padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:6px">Brand/company channel (regex: <code>official channel</code>, <code>inc.</code>, <code>llc</code>)</div>
+  <div style="padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:6px">Already in <code>affiliates</code> or <code>marketing_prospects</code></div>
+  <div style="padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:6px">No business email AND no website</div>
+  <div style="padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:6px">Content relevance keywords: <code>wholesale|sourcing|supplier|brand direct|ungating</code></div>
+</div></div>
+
+<details><summary>File Structure</summary>
+<div class="file-tree"><span class="dir">agents/partnerships/workspace/</span>
+├── <span class="key">SOUL.md</span>          <span class="dim">— Identity, voice rules, safety guardrails</span>
+├── <span class="key">TOOLS.md</span>         <span class="dim">— 8.7 KB — Script refs, API tools, Supabase queries</span>
+├── <span class="key">HEARTBEAT.md</span>     <span class="dim">— Cron job step-by-step instructions</span>
+├── <span class="key">AGENTS.md</span>        <span class="dim">— Registry of all agents</span>
+├── <span class="key">IDENTITY.md</span>      <span class="dim">— Mia Chen persona details</span>
+├── <span class="key">REFERENCE.md</span>     <span class="dim">— Business context, Catalist overview</span>
+├── <span class="key">MEMORY.md</span>        <span class="dim">— Cross-session memory</span>
+├── <span class="key">USER.md</span>          <span class="dim">— Founder (Devin) context</span>
+├── <span class="dir">references/</span>
+│   ├── <span class="key">email-templates.md</span>   <span class="dim">— 10 templates across 4 tiers</span>
+│   ├── <span class="key">scoring-rubric.md</span>    <span class="dim">— Creator scoring dimensions</span>
+│   ├── <span class="key">youtube-api.md</span>       <span class="dim">— YouTube Data API v3 reference</span>
+│   ├── <span class="key">hunter-io.md</span>         <span class="dim">— Hunter.io enrichment reference</span>
+│   └── <span class="key">cal-com.md</span>           <span class="dim">— Cal.com booking reference</span>
+├── <span class="dir">skills/</span>
+│   ├── <span class="dir">creator-discovery/</span>   <span class="dim">— Discovery + scoring skill</span>
+│   ├── <span class="dir">outreach-sequence/</span>   <span class="dim">— Email sequence skill</span>
+│   └── <span class="dir">reply-classification/</span> <span class="dim">— Reply classification + action skill</span>
+└── <span class="dir">daily/</span>            <span class="dim">— Daily activity logs</span></div></details>
+
+<div class="ve-card"><div class="ve-card__label">Capabilities</div>
+<ul class="cap-list">
+  <li>YouTube creator discovery via <code>partnerships-discover.js</code> (rotates 7 daily queries)</li>
+  <li>Email enrichment via Hunter.io — <code>partnerships-enrich.js</code></li>
+  <li>Personalized cold email outreach via Gmail API from <code>mia@catalistgroup.co</code></li>
+  <li>Reply classification — interested, questions, negotiate, soft/hard no, OOO, spam</li>
+  <li>Cal.com booking link generation for Devin's calendar</li>
+  <li>Escalation to Devin for Tier A replies, budget &gt;2x, legal mentions</li>
+  <li>Warm-up protocol: Week 1 = 3 emails/day, scaling to Week 4+ = 25/day</li>
+  <li>CAN-SPAM compliance — opt-out regex check before LLM, physical address footer</li>
+</ul></div>
+
+<!-- Safety System -->
+<div class="ve-card" style="border-color:var(--red)"><div class="ve-card__label" style="color:var(--red)">7-Layer Safety System</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:6px;font-size:12px">
+  <div style="padding:8px 10px;background:var(--surface2);border-radius:6px"><strong style="color:var(--red)">1.</strong> SOUL rules</div>
+  <div style="padding:8px 10px;background:var(--surface2);border-radius:6px"><strong style="color:var(--red)">2.</strong> DB rate limits</div>
+  <div style="padding:8px 10px;background:var(--surface2);border-radius:6px"><strong style="color:var(--red)">3.</strong> Script validation</div>
+  <div style="padding:8px 10px;background:var(--surface2);border-radius:6px"><strong style="color:var(--red)">4.</strong> Warm-up protocol</div>
+  <div style="padding:8px 10px;background:var(--surface2);border-radius:6px"><strong style="color:var(--red)">5.</strong> Escalation triggers</div>
+  <div style="padding:8px 10px;background:var(--surface2);border-radius:6px"><strong style="color:var(--red)">6.</strong> Kill switch</div>
+  <div style="padding:8px 10px;background:var(--surface2);border-radius:6px"><strong style="color:var(--red)">7.</strong> Sentinel monitoring</div>
+</div></div>
+
+<div class="ve-card ve-card--recessed"><div class="ve-card__label">Cron Jobs (4)</div>
+<div class="tbl-wrap" style="margin:0"><table class="cron-mini">
+  <tr><td>partnerships-discover</td><td><code>6:00 daily (7 days)</code></td><td>YouTube discovery + Hunter.io enrichment</td></tr>
+  <tr><td>partnerships-outreach</td><td><code>9:00 daily (7 days)</code></td><td>Send personalized emails (warm-up limits apply)</td></tr>
+  <tr><td>partnerships-replies</td><td><code>every 30m 6-23h daily (7 days)</code></td><td>Gmail poll, classify replies, take action</td></tr>
+  <tr><td>partnerships-weekly-report</td><td><code>16:00 Friday</code></td><td>Pipeline + revenue + agent health report</td></tr>
+</table></div></div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px">
+  <div class="ve-card"><div class="ve-card__label">VPS Scripts (5)</div>
+    <p style="font-size:12px;font-family:var(--font-mono);line-height:2;color:var(--text)">
+      <code>partnerships-discover.js</code> <span style="color:var(--text-dim)">— 666 lines — YouTube search + scoring</span><br>
+      <code>partnerships-enrich.js</code> <span style="color:var(--text-dim)">— 750 lines — Hunter.io + email enrichment</span><br>
+      <code>partnerships-outreach.js</code> <span style="color:var(--text-dim)">— 952 lines — Email send + safety validation</span><br>
+      <code>partnerships-gmail-poll.js</code> <span style="color:var(--text-dim)">— 397 lines — Gmail reply polling</span><br>
+      <code>partnerships-calcom.js</code> <span style="color:var(--text-dim)">— 433 lines — Cal.com booking checks</span>
+    </p>
+  </div>
+  <div class="ve-card"><div class="ve-card__label">Database Tables (6)</div>
+    <p style="font-size:12px;font-family:var(--font-mono);line-height:2;color:var(--text)">
+      <code>partnership_prospects</code> <span style="color:var(--text-dim)">— Main pipeline table</span><br>
+      <code>partnerships_rate_limits</code> <span style="color:var(--text-dim)">— Daily send counters + kill switch</span><br>
+      <code>outreach_activities</code> <span style="color:var(--text-dim)">— Email send/reply history</span><br>
+      <code>partnership_deals</code> <span style="color:var(--text-dim)">— Active partnership terms</span><br>
+      <code>partner_earnings</code> <span style="color:var(--text-dim)">— Revenue tracking</span><br>
+      <code>affiliates.commission_rate_override</code> <span style="color:var(--text-dim)">— Flat rate for influencers</span>
+    </p>
+  </div>
+</div>
+
+<div class="callout"><strong>Dev note:</strong> TOOLS.md is 8.7 KB (safe margin to 20K limit). Emails send as Mia Chen from <code>mia@catalistgroup.co</code> in first person — NOT from Devin. Cal.com books on Devin's calendar. Commission is flat 8-10% via <code>commission_rate_override</code>, bypassing decay schedule. Marketplace terms (Amazon/FBA/ASIN) are NEVER included in outbound emails.</div>
+
+<!-- S10: MONITOR -->
+<div id="s10" class="sec-head amber">10 — Monitor</div>
+<div class="ve-card ve-card--hero"><div class="agent-id">
+  <div class="agent-avatar" style="background:var(--green-dim)">M</div>
+  <div><h3>Monitor</h3><div class="title">System Monitor <span class="badge badge--off" style="margin-left:8px">DISABLED</span></div>
+    <div class="agent-meta"><span><span class="badge badge--haiku">HAIKU</span></span><span>ID: <code>monitor</code></span></div>
+  </div></div>
+</div>
+<p style="font-size:13px;margin:8px 0 16px">Originally ran system health checks every 2 hours. Now disabled — its functionality has been superseded by the team-coordinator cron (which captures monitor status) and the sentinel agent (which handles infrastructure health). Remains configured but its cron is turned off.</p>
+<details><summary>File Structure</summary>
+<div class="file-tree"><span class="dir">agents/monitor/workspace/</span>
+├── <span class="key">SOUL.md</span>                    <span class="dim">— Identity</span>
+├── <span class="key">TOOLS.md</span>                   <span class="dim">— 4.0 KB — Alert response decisions</span>
+├── <span class="key">HEALTH-CHECK-REFERENCE.md</span>  <span class="dim">— Health check procedures</span>
+└── <span class="dir">skills/catalist-monitor/</span>   <span class="dim">— Monitor skill files</span></div></details>
+<div class="ve-card ve-card--recessed"><div class="ve-card__label">Cron Jobs (1 — DISABLED)</div>
+<div class="tbl-wrap" style="margin:0"><table class="cron-mini">
+  <tr><td style="text-decoration:line-through">catalist-monitor</td><td><code>every 2h</code></td><td>System checks — DISABLED, replaced by coordinator + sentinel</td></tr>
+</table></div></div>
+
+<!-- S11: SENTINEL -->
+<div id="s11" class="sec-head red">11 — Sentinel</div>
+<div class="ve-card ve-card--hero"><div class="agent-id">
+  <div class="agent-avatar" style="background:var(--red-dim)">S</div>
+  <div><h3>Sentinel</h3><div class="title">Autonomous Infrastructure Health Agent</div>
+    <div class="agent-meta"><span><span class="badge badge--sonnet">SONNET</span></span><span>ID: <code>sentinel</code></span></div>
+  </div></div>
+</div>
+<p style="font-size:13px;margin:8px 0 16px">Part of a 3-layer autonomous healing system: bash scanner (free, 5-min cron) detects issues, LLM agents diagnose and fix, bash watchdog monitors the monitors. Posts daily summaries and manages the incident log.</p>
+<details><summary>File Structure</summary>
+<div class="file-tree"><span class="dir">agents/sentinel/workspace/</span>
+├── <span class="key">SOUL.md</span>           <span class="dim">— Identity, healing protocols</span>
+├── <span class="key">TOOLS.md</span>          <span class="dim">— 8.2 KB — Alert response, fix proposals</span>
+├── <span class="key">HEARTBEAT.md</span>      <span class="dim">— Sentinel operational protocol</span>
+├── <span class="key">AGENTS.md</span>         <span class="dim">— Agent registry for context</span>
+├── <span class="key">MEMORY.md</span>         <span class="dim">— Cross-session memory</span>
+├── <span class="key">runbook.md</span>        <span class="dim">— Operational runbook for fixes</span>
+└── <span class="key">incident-log.md</span>   <span class="dim">— Chronological incident records</span></div></details>
+<div class="ve-card"><div class="ve-card__label">Healing Layers</div>
+<ul class="cap-list">
+  <li><strong>Layer 1:</strong> <code>sentinel-scan.sh</code> — bash, runs every 5 min via system cron</li>
+  <li><strong>Layer 2:</strong> Sentinel + Verifier agents — LLM diagnosis on demand</li>
+  <li><strong>Layer 3:</strong> <code>sentinel-watchdog.sh</code> — monitors the monitors</li>
+  <li>Daily summary cron — posts to Slack at 9 AM</li>
+  <li>Incident log — append-only record on VPS</li>
+  <li>Ops commands: <code>sentinel-status</code>, <code>sentinel-issues</code>, <code>sentinel-runbook</code></li>
+</ul></div>
+<div class="ve-card ve-card--recessed"><div class="ve-card__label">Cron Jobs (1)</div>
+<div class="tbl-wrap" style="margin:0"><table class="cron-mini">
+  <tr><td>sentinel-daily-summary</td><td><code>9:00 daily</code></td><td>Daily health summary to Slack</td></tr>
+</table></div></div>
+
+<!-- S12: VERIFIER -->
+<div id="s12" class="sec-head">12 — Verifier</div>
+<div class="ve-card ve-card--hero"><div class="agent-id">
+  <div class="agent-avatar" style="background:var(--accent-dim)">V</div>
+  <div><h3>Verifier</h3><div class="title">Adversarial QA Agent</div>
+    <div class="agent-meta"><span><span class="badge badge--sonnet">SONNET</span></span><span>ID: <code>verifier</code></span><span>No cron jobs</span></div>
+  </div></div>
+</div>
+<p style="font-size:13px;margin:8px 0 16px">On-demand adversarial verification agent. Spawned by the sentinel or debug skill to independently verify diagnoses. Has a minimal TOOLS.md (1.6 KB) with read-only and read-write path lists and system commands.</p>
+<details><summary>File Structure</summary>
+<div class="file-tree"><span class="dir">agents/verifier/workspace/</span>
+├── <span class="key">SOUL.md</span>     <span class="dim">— Identity, adversarial verification rules</span>
+└── <span class="key">TOOLS.md</span>    <span class="dim">— 1.6 KB — Read-only paths, read-write paths, commands</span></div></details>
+<div class="ve-card"><div class="ve-card__label">Capabilities</div>
+<ul class="cap-list">
+  <li>Independent verification of sentinel diagnoses</li>
+  <li>Read-only access to all agent workspaces</li>
+  <li>System commands: <code>ops.sh status</code>, <code>ops.sh logs</code>, etc.</li>
+  <li>Rubric-based evaluation (evidence, completeness, alternatives, fix specificity)</li>
+</ul></div>
+
+<!-- S13: CRON SCHEDULE -->
+<div id="s13" class="sec-head amber">13 — Cron Schedule</div>
+<p style="font-size:13px;margin:8px 0 16px">All 20 cron jobs defined in <code>/home/openclaw/.openclaw/cron/jobs.json</code>. All times in <code>America/New_York</code> (ET). All use <code>sessionTarget: "isolated"</code>.</p>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Job Name</th><th>Schedule (ET)</th><th>Agent</th><th>Status</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>team-coordinator</code></td><td><code>:25,:55 5-23h daily</code></td><td>main</td><td><span class="badge badge--on">ON</span></td><td>Ping agents, write heartbeat log</td></tr>
+    <tr><td><code>morning-briefing</code></td><td><code>9:00 daily</code></td><td>main</td><td><span class="badge badge--on">ON</span></td><td>Daily team summary to Slack</td></tr>
+    <tr><td><code>health-monitor</code></td><td><code>8,12,16,20h daily</code></td><td>main</td><td><span class="badge badge--on">ON</span></td><td>System-wide health check</td></tr>
+    <tr><td><code>correction-monitor</code></td><td><code>every 10m 5-23h daily</code></td><td>main</td><td><span class="badge badge--on">ON</span></td><td>Track data corrections</td></tr>
+    <tr><td><code>schema-cache-refresh</code></td><td><code>5:00 daily</code></td><td>main</td><td><span class="badge badge--on">ON</span></td><td>Refresh Supabase schema</td></tr>
+    <tr><td><code>gmail-poll</code></td><td><code>every 15m 5-23h daily</code></td><td>support</td><td><span class="badge badge--on">ON</span></td><td>Customer email processing</td></tr>
+    <tr><td><code>shadow-daily-report</code></td><td><code>18:00 daily</code></td><td>support</td><td><span class="badge badge--on">ON</span></td><td>End-of-day support summary</td></tr>
+    <tr><td><code>bd-heartbeat</code></td><td><code>:10,:40 5-23h daily</code></td><td>bd</td><td><span class="badge badge--on">ON</span></td><td>Sales pipeline processing</td></tr>
+    <tr><td><code>procurement-heartbeat</code></td><td><code>every 2h 5-23h daily</code></td><td>procurement</td><td><span class="badge badge--on">ON</span></td><td>PO generation, follow-ups</td></tr>
+    <tr><td><code>procurement-gmail-poll</code></td><td><code>:05,:20,:35,:50 5-23h daily</code></td><td>procurement</td><td><span class="badge badge--on">ON</span></td><td>Supplier email processing</td></tr>
+    <tr><td><code>procurement-negotiation-scan</code></td><td><code>10:00 Monday</code></td><td>procurement</td><td><span class="badge badge--on">ON</span></td><td>Discount + net-30 outreach (max 3+3/wk)</td></tr>
+    <tr><td><code>marketing-morning-batch</code></td><td><code>8:00 daily</code></td><td>marketing</td><td><span class="badge badge--on">ON</span></td><td>Daily campaign setup (1200s)</td></tr>
+    <tr><td><code>marketing-outreach-pulse</code></td><td><code>every 30m 5-23h daily</code></td><td>marketing</td><td><span class="badge badge--on">ON</span></td><td>Monitor campaigns (600s)</td></tr>
+    <tr><td><code>marketing-reply-check</code></td><td><code>every 15m 5-23h daily</code></td><td>marketing</td><td><span class="badge badge--on">ON</span></td><td>Track replies (600s)</td></tr>
+    <tr><td><code>marketing-weekly-report</code></td><td><code>8:00 Monday</code></td><td>marketing</td><td><span class="badge badge--on">ON</span></td><td>Weekly performance (900s)</td></tr>
+    <tr><td><code>partnerships-discover</code></td><td><code>6:00 daily</code></td><td>partnerships</td><td><span class="badge badge--on">ON</span></td><td>YouTube discovery + enrichment</td></tr>
+    <tr><td><code>partnerships-outreach</code></td><td><code>9:00 daily</code></td><td>partnerships</td><td><span class="badge badge--on">ON</span></td><td>Email outreach (warm-up limits)</td></tr>
+    <tr><td><code>partnerships-replies</code></td><td><code>every 30m 6-23h daily</code></td><td>partnerships</td><td><span class="badge badge--on">ON</span></td><td>Gmail poll + reply classification</td></tr>
+    <tr><td><code>partnerships-weekly-report</code></td><td><code>16:00 Friday</code></td><td>partnerships</td><td><span class="badge badge--on">ON</span></td><td>Weekly performance report</td></tr>
+    <tr><td><code>sentinel-daily-summary</code></td><td><code>9:00 daily</code></td><td>sentinel</td><td><span class="badge badge--on">ON</span></td><td>Daily health summary</td></tr>
+    <tr><td><code>catalist-monitor</code></td><td><code>every 2h</code></td><td>monitor</td><td><span class="badge badge--off">OFF</span></td><td>Legacy — replaced by coordinator</td></tr>
+  </tbody>
+</table></div>
+<div class="callout"><strong>Scheduling rules:</strong> Stagger jobs targeting the same agent by at least 10 minutes. Gateway serializes turns per agent — concurrent jobs cause lane congestion and timeouts. The coordinator was moved from <code>:08,:38</code> to <code>:25,:55</code> to avoid overlapping with BD heartbeat at <code>:10,:40</code>.</div>
+
+<!-- S14: SHARED SCRIPTS -->
+<div id="s14" class="sec-head">14 — Shared Scripts</div>
+<p style="font-size:13px;margin:8px 0 16px">Located at <code>/home/openclaw/.openclaw/scripts/</code>. These are Node.js and bash scripts called by agents via tool use or cron job prompts.</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+  <div class="ve-card"><div class="ve-card__label">Core Operations</div>
+    <p style="font-size:12px;font-family:var(--font-mono);line-height:2;color:var(--text)">
+      <code>ops.sh</code> <span style="color:var(--text-dim)">— Master CLI: status, restart, logs, cron-status, sessions, health-alerts, version, update</span><br>
+      <code>refresh-token.sh</code> <span style="color:var(--text-dim)">— OAuth token health check + sync</span><br>
+      <code>session-pruner.sh</code> <span style="color:var(--text-dim)">— Prune oversized sessions (v2, runs every 2h via root cron)</span><br>
+      <code>chattr-strip-sessions.sh</code> <span style="color:var(--text-dim)">— Remove +a immutable flags from .jsonl files</span><br>
+      <code>backup.sh</code> <span style="color:var(--text-dim)">— Workspace backup</span>
+    </p>
+  </div>
+  <div class="ve-card"><div class="ve-card__label">Gmail Integration</div>
+    <p style="font-size:12px;font-family:var(--font-mono);line-height:2;color:var(--text)">
+      <code>gmail-fetch.js</code> <span style="color:var(--text-dim)">— Fetch unread (support)</span><br>
+      <code>gmail-fetch-bd.js</code> <span style="color:var(--text-dim)">— Fetch unread (BD)</span><br>
+      <code>procurement-gmail-fetch.js</code> <span style="color:var(--text-dim)">— Fetch (procurement)</span><br>
+      <code>gmail-send.js</code> <span style="color:var(--text-dim)">— Send emails</span><br>
+      <code>gmail-mark-read.js</code> / <code>gmail-mark-read-bd.js</code><br>
+      <code>gmail-search-bd.js</code> <span style="color:var(--text-dim)">— Search BD inbox</span>
+    </p>
+  </div>
+  <div class="ve-card"><div class="ve-card__label">Slack Integration</div>
+    <p style="font-size:12px;font-family:var(--font-mono);line-height:2;color:var(--text)">
+      <code>slack-format-post.js</code> <span style="color:var(--text-dim)">— Format Block Kit messages</span><br>
+      <code>slack-post-blocks.js</code> <span style="color:var(--text-dim)">— Post Block Kit to channel</span><br>
+      <code>slack-read-threads.js</code> <span style="color:var(--text-dim)">— Read thread replies</span><br>
+      <code>slack-reply-thread.js</code> <span style="color:var(--text-dim)">— Reply to threads</span>
+    </p>
+  </div>
+  <div class="ve-card"><div class="ve-card__label">Supermemory</div>
+    <p style="font-size:12px;font-family:var(--font-mono);line-height:2;color:var(--text)">
+      <code>sm-coordinator-facts.sh</code> <span style="color:var(--text-dim)">— Extract facts (:00,:30)</span><br>
+      <code>sm-procurement-facts.sh</code> <span style="color:var(--text-dim)">— Extract facts (:05,:35)</span><br>
+      <code>sm-bd-facts.sh</code> / <code>sm-support-facts.sh</code><br>
+      <code>sm-store-fact.sh</code> <span style="color:var(--text-dim)">— Store single fact</span><br>
+      <code>sm-enrich.js</code> <span style="color:var(--text-dim)">— Enrich stored docs</span><br>
+      <code>sm-ttl-cleanup.sh</code> / <code>sm-verify.sh</code>
+    </p>
+  </div>
+  <div class="ve-card"><div class="ve-card__label">BD &amp; Procurement</div>
+    <p style="font-size:12px;font-family:var(--font-mono);line-height:2;color:var(--text)">
+      <code>bd-ensure-contacts.js</code> <span style="color:var(--text-dim)">— Auto-create records for inbound</span><br>
+      <code>bd-prefetch.js</code> <span style="color:var(--text-dim)">— Prefetch pipeline data</span><br>
+      <code>procurement-prefetch.js</code> <span style="color:var(--text-dim)">— Prefetch procurement data</span><br>
+      <code>form-fill.js</code> <span style="color:var(--text-dim)">— Fill supplier forms</span><br>
+      <code>catalog-save.js</code> <span style="color:var(--text-dim)">— Save catalog data</span>
+    </p>
+  </div>
+  <div class="ve-card"><div class="ve-card__label">Partnerships (Mia)</div>
+    <p style="font-size:12px;font-family:var(--font-mono);line-height:2;color:var(--text)">
+      <code>partnerships-discover.js</code> <span style="color:var(--text-dim)">— YouTube discovery + scoring</span><br>
+      <code>partnerships-enrich.js</code> <span style="color:var(--text-dim)">— Hunter.io email enrichment</span><br>
+      <code>partnerships-outreach.js</code> <span style="color:var(--text-dim)">— Gmail outreach + safety checks</span><br>
+      <code>partnerships-gmail-poll.js</code> <span style="color:var(--text-dim)">— Reply polling + opt-out detection</span><br>
+      <code>partnerships-calcom.js</code> <span style="color:var(--text-dim)">— Cal.com booking verification</span>
+    </p>
+  </div>
+  <div class="ve-card"><div class="ve-card__label">Sentinel &amp; Health</div>
+    <p style="font-size:12px;font-family:var(--font-mono);line-height:2;color:var(--text)">
+      <code>sentinel-scan.sh</code> <span style="color:var(--text-dim)">— Layer 1 health scanner (5-min cron)</span><br>
+      <code>sentinel-watchdog.sh</code> <span style="color:var(--text-dim)">— Layer 3 monitor-of-monitors</span><br>
+      <code>sync-to-supabase.js</code> <span style="color:var(--text-dim)">— Sync data to Supabase</span><br>
+      <code>download-attachment.js</code> / <code>list-attachments.js</code>
+    </p>
+  </div>
+</div>
+
+<!-- S15: HEALTH CHECKS -->
+<div id="s15" class="sec-head red">15 — Health Check System</div>
+<p style="font-size:13px;margin:8px 0 16px">Health checks run in <code>/home/openclaw/.openclaw/health/checks/</code>. The scanner (<code>agent-health-scan.js</code>) runs every 15 minutes, executing each check against each agent. Alerts post to Slack.</p>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Check File</th><th>What It Detects</th><th>Common Causes</th></tr></thead>
+  <tbody>
+    <tr><td><code>stuck-workflows.js</code></td><td>Cron consecutive errors, stale sessions</td><td>Token expiry, cron overlap, session bloat</td></tr>
+    <tr><td><code>output-quality.js</code></td><td>WORKING.md stale, output not updating</td><td>Cron timeout, workspace permissions, SOUL.md corruption</td></tr>
+    <tr><td><code>context-overflow.js</code></td><td>Session files too large, context bloat</td><td>Missing session pruning, chattr locks</td></tr>
+    <tr><td><code>missing-data.js</code></td><td>Required workspace files missing</td><td>Permission issues, failed deployments</td></tr>
+    <tr><td><code>self-check.js</code></td><td>Scanner regex accuracy, false positives</td><td>Gateway log format changes after updates</td></tr>
+  </tbody>
+</table></div>
+<div class="callout"><strong>Dev note:</strong> After gateway updates, check <code>self-check.js</code> — log format changes can make regex patterns stale, causing false positives. Run <code>ops.sh logs 20</code> to see current format and update patterns accordingly.</div>
+
+<!-- S16: OPS PLAYBOOK -->
+<div id="s16" class="sec-head">16 — Operations Playbook</div>
+<p style="font-size:13px;margin:8px 0 16px">Essential <code>ops.sh</code> commands for daily operations. All run via SSH to the VPS.</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+  <div class="ve-card ve-card--elevated"><div class="ve-card__label">Status &amp; Monitoring</div>
+    <p style="font-size:12px;font-family:var(--font-mono);line-height:2.2;color:var(--text)">
+      <code>ops.sh status</code> <span style="color:var(--text-dim)">— Gateway service status</span><br>
+      <code>ops.sh cron-status</code> <span style="color:var(--text-dim)">— All cron jobs + error counts</span><br>
+      <code>ops.sh logs N</code> <span style="color:var(--text-dim)">— Last N gateway log lines</span><br>
+      <code>ops.sh sessions AGENT N</code> <span style="color:var(--text-dim)">— Last N sessions for agent</span><br>
+      <code>ops.sh health-alerts AGENT CHECK</code> <span style="color:var(--text-dim)">— Run specific health check</span><br>
+      <code>ops.sh version</code> <span style="color:var(--text-dim)">— Current OpenClaw version</span>
+    </p>
+  </div>
+  <div class="ve-card ve-card--elevated"><div class="ve-card__label">Maintenance</div>
+    <p style="font-size:12px;font-family:var(--font-mono);line-height:2.2;color:var(--text)">
+      <code>ops.sh restart</code> <span style="color:var(--text-dim)">— Restart gateway (reloads config)</span><br>
+      <code>ops.sh update [VER]</code> <span style="color:var(--text-dim)">— Update OpenClaw</span><br>
+      <code>ops.sh model-registry</code> <span style="color:var(--text-dim)">— List available models</span><br>
+      <code>ops.sh sentinel-status</code> <span style="color:var(--text-dim)">— Sentinel health</span><br>
+      <code>ops.sh sentinel-issues</code> <span style="color:var(--text-dim)">— Open issues</span><br>
+      <code>ops.sh sentinel-incidents</code> <span style="color:var(--text-dim)">— Incident log</span>
+    </p>
+  </div>
+</div>
+<div class="ve-card" style="margin-top:16px"><div class="ve-card__label">Common Fix Patterns</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:12px">
+  <div style="padding:10px;background:var(--surface2);border-radius:6px">
+    <strong style="color:var(--amber)">OAuth Token Expired</strong><br>
+    <span style="color:var(--text-dim)">Evidence: 401 errors, multiple agents failing</span><br>
+    <code>refresh-token.sh</code> → wait 15s → <code>ops.sh restart</code>
+  </div>
+  <div style="padding:10px;background:var(--surface2);border-radius:6px">
+    <strong style="color:var(--amber)">Session Bloat</strong><br>
+    <span style="color:var(--text-dim)">Evidence: .jsonl files &gt; 2MB, slow responses</span><br>
+    <code>session-pruner-v2.sh</code> → <code>ops.sh restart</code>
+  </div>
+  <div style="padding:10px;background:var(--surface2);border-radius:6px">
+    <strong style="color:var(--amber)">chattr +a Lock (EPERM)</strong><br>
+    <span style="color:var(--text-dim)">Evidence: "Operation not permitted" in logs</span><br>
+    <code>chattr-strip-sessions.sh</code>
+  </div>
+  <div style="padding:10px;background:var(--surface2);border-radius:6px">
+    <strong style="color:var(--amber)">Gateway Down</strong><br>
+    <span style="color:var(--text-dim)">Evidence: all agents unresponsive</span><br>
+    <code>ops.sh restart</code>
+  </div>
+  <div style="padding:10px;background:var(--surface2);border-radius:6px">
+    <strong style="color:var(--amber)">Cron Timing Overlap</strong><br>
+    <span style="color:var(--text-dim)">Evidence: agent timeout, queue congestion</span><br>
+    Edit <code>cron/jobs.json</code>, stagger by 10+ min → restart
+  </div>
+  <div style="padding:10px;background:var(--surface2);border-radius:6px">
+    <strong style="color:var(--amber)">Anthropic API Outage</strong><br>
+    <span style="color:var(--text-dim)">Evidence: 5xx/529 errors, all agents failing</span><br>
+    Wait for recovery → reset error counts → restart
+  </div>
+</div></div>
+
+<!-- S17: CLAUDE CODE SKILLS -->
+<div id="s17" class="sec-head purple">17 — Claude Code Skills</div>
+<p style="font-size:13px;margin:8px 0 16px">Two Claude Code skills provide the operational and debugging interface for OpenClaw. These are invoked as slash commands and contain comprehensive reference documentation.</p>
+
+<div class="ve-card ve-card--hero">
+  <div class="ve-card__label" style="color:var(--purple)">/openclaw-ops — Operations Skill</div>
+  <p style="font-size:13px;margin-bottom:12px">Primary interface for all VPS operations. Invoke with <code>/openclaw-ops</code> in Claude Code. Use when: editing workspace files, restarting gateway, managing cron, debugging agents, modifying config, any SSH operation.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div>
+      <strong style="font-size:11px;color:var(--text-dim);font-family:var(--font-mono)">SKILL CONTENTS</strong>
+      <ul style="font-size:12px;margin-top:6px;list-style:none">
+        <li style="padding:3px 0">SSH prefix + quoting rules</li>
+        <li style="padding:3px 0">Full <code>ops.sh</code> command table (20+ commands)</li>
+        <li style="padding:3px 0">Agent registry with emails + Slack channels</li>
+        <li style="padding:3px 0">Workspace paths (main/bd are top-level, others nested)</li>
+        <li style="padding:3px 0">Key workflows: edit file, write large files, debug cron</li>
+        <li style="padding:3px 0">Service restart gotchas (what fails and why)</li>
+        <li style="padding:3px 0">Supermemory CLI, container tags, rollback</li>
+      </ul>
+    </div>
+    <div>
+      <strong style="font-size:11px;color:var(--text-dim);font-family:var(--font-mono)">REFERENCE DOCS (7)</strong>
+      <ul style="font-size:12px;margin-top:6px;list-style:none">
+        <li style="padding:3px 0"><code>file-map.md</code> — Full VPS file tree, credentials, scripts</li>
+        <li style="padding:3px 0"><code>config-editing.md</code> — openclaw.json editing, inter-agent comms, DB</li>
+        <li style="padding:3px 0"><code>diagnostics.md</code> — Decision trees, investigation protocol</li>
+        <li style="padding:3px 0"><code>guardrails.md</code> — SOUL.md safety rules, approval pipelines</li>
+        <li style="padding:3px 0"><code>resilience.md</code> — Circuit breakers, failure recovery</li>
+        <li style="padding:3px 0"><code>observability.md</code> — Structured logging, evidence debugging</li>
+        <li style="padding:3px 0"><code>agent-quality.md</code> — Evaluation rubrics, production monitoring</li>
+      </ul>
+    </div>
+  </div>
+  <p style="font-size:11px;color:var(--text-dim);margin-top:10px">Path: <code>~/.claude/skills/openclaw-ops/</code></p>
+</div>
+
+<div class="ve-card ve-card--hero">
+  <div class="ve-card__label" style="color:var(--red)">/openclaw-debug — Health Alert Debugger</div>
+  <p style="font-size:13px;margin-bottom:12px">Automated investigation skill for health alerts. Invoke with <code>/openclaw-debug</code> + pasted Slack alert text. Dispatches Investigator + Verifier agent pair, applies fixes, verifies resolution.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div>
+      <strong style="font-size:11px;color:var(--text-dim);font-family:var(--font-mono)">9-STEP WORKFLOW</strong>
+      <ol style="font-size:12px;margin-top:6px;padding-left:20px">
+        <li style="padding:2px 0">Parse alerts (severity, agent, check, message)</li>
+        <li style="padding:2px 0">Correlate — group related alerts into clusters</li>
+        <li style="padding:2px 0">Dispatch Investigator (Opus) — discover, hypothesize, execute</li>
+        <li style="padding:2px 0">Dispatch Verifier (Opus) — adversarial rubric evaluation</li>
+        <li style="padding:2px 0">Handle verdict (confirm/challenge, max 2 rounds)</li>
+        <li style="padding:2px 0">Apply fix (auto for non-destructive, confirm for destructive)</li>
+        <li style="padding:2px 0">Verify resolution — re-run health checks</li>
+        <li style="padding:2px 0">Output structured report</li>
+        <li style="padding:2px 0">Record incident to VPS log</li>
+      </ol>
+    </div>
+    <div>
+      <strong style="font-size:11px;color:var(--text-dim);font-family:var(--font-mono)">REFERENCE DOCS (2)</strong>
+      <ul style="font-size:12px;margin-top:6px;list-style:none">
+        <li style="padding:3px 0"><code>known-fixes.md</code> — Fix playbook: 9 root cause patterns with evidence signatures, exact fix commands, verification steps</li>
+        <li style="padding:3px 0"><code>verifier-rubric.md</code> — Scoring rubric: evidence (40%), completeness (25%), alternative exclusion (20%), fix specificity (15%)</li>
+      </ul>
+      <strong style="font-size:11px;color:var(--text-dim);font-family:var(--font-mono);margin-top:12px;display:block">KNOWN FIX PATTERNS (9)</strong>
+      <ul style="font-size:12px;margin-top:6px;list-style:none">
+        <li style="padding:2px 0">1. OAuth token expired/cascade</li>
+        <li style="padding:2px 0">2. Scanner regex stale</li>
+        <li style="padding:2px 0">3. Cron timing overlap</li>
+        <li style="padding:2px 0">4. Session bloat</li>
+        <li style="padding:2px 0">5. chattr +a lock (EPERM)</li>
+        <li style="padding:2px 0">6. Gateway down</li>
+        <li style="padding:2px 0">7. Anthropic API outage</li>
+        <li style="padding:2px 0">8. WORKING.md stale</li>
+        <li style="padding:2px 0">9. Consecutive cron errors</li>
+      </ul>
+    </div>
+  </div>
+  <p style="font-size:11px;color:var(--text-dim);margin-top:10px">Path: <code>~/.claude/skills/openclaw-debug/</code> — Depends on <code>/openclaw-ops</code></p>
+</div>
+
+<div class="callout"><strong>For new developers:</strong> These skills are loaded automatically in Claude Code when you type the slash command. The reference docs inside each skill are loaded on demand — they contain the deep operational knowledge. Start with <code>/openclaw-ops</code> for any VPS work, and <code>/openclaw-debug</code> when Slack health alerts fire.</div>
+
+<div class="callout info" style="margin-top:24px"><strong>Key operational rules:</strong><br>
+1. Gateway is user-level systemd — restart with <code>ops.sh restart</code>, NOT <code>systemctl restart</code><br>
+2. TOOLS.md files truncate at 20K chars — always check <code>wc -c</code> after edits<br>
+3. File ownership must be <code>openclaw:openclaw</code> — always <code>chown</code> after creating files as root<br>
+4. Session pruner runs every 2h via root cron — prunes files &gt; 2MB including main sessions<br>
+5. When SCP'ing scripts from Windows → Linux, run <code>sed -i "s/\r$//"</code> to fix CRLF
+</div>
+
+</div></div>
+
+<script type="module">
+import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+mermaid.initialize({startOnLoad:true,theme:'base',
+  themeVariables:{primaryColor:'#162d4e',primaryTextColor:'#dce8f3',primaryBorderColor:'#2d9cdb',lineColor:'#4a6a88',edgeLabelBackground:'#0f1f38',clusterBkg:'transparent',clusterBorder:'rgba(45,156,219,0.15)',fontSize:'15px',fontFamily:'DM Sans, system-ui, sans-serif'},
+  flowchart:{curve:'basis',padding:15,nodeSpacing:25,rankSpacing:50}
+});
+</script>
+<script>
+(function(){const toc=document.getElementById('toc'),links=toc.querySelectorAll('a'),sections=[];
+links.forEach(l=>{const id=l.getAttribute('href').slice(1),el=document.getElementById(id);if(el)sections.push({id,el,link:l})});
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.remove('active'));const m=sections.find(s=>s.el===e.target);if(m){m.link.classList.add('active');if(window.innerWidth<=1000)m.link.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'})}}})},{rootMargin:'-10% 0px -80% 0px'});
+sections.forEach(s=>obs.observe(s.el));
+links.forEach(l=>l.addEventListener('click',e=>{e.preventDefault();const el=document.getElementById(l.getAttribute('href').slice(1));if(el){el.scrollIntoView({behavior:'smooth',block:'start'});history.replaceState(null,'','#'+l.getAttribute('href').slice(1))}}))})();
+let zoomLevel=1;
+function getEl(b){return b.closest('.mermaid-wrap').querySelector('.mermaid')}
+function applyZoom(el,z){zoomLevel=Math.max(0.5,Math.min(3,z));el.style.transform='scale('+zoomLevel+')';el.style.transformOrigin='center center';el.style.cursor=zoomLevel>1?'grab':'default'}
+function zoomIn(b){applyZoom(getEl(b),zoomLevel+0.2)}
+function zoomOut(b){applyZoom(getEl(b),zoomLevel-0.2)}
+function zoomReset(b){zoomLevel=1;var el=getEl(b);el.style.transform='';el.style.cursor='default'}
+document.querySelectorAll('.mermaid-wrap').forEach(w=>{
+  w.addEventListener('wheel',e=>{if(e.ctrlKey||e.metaKey){e.preventDefault();applyZoom(w.querySelector('.mermaid'),zoomLevel+(e.deltaY<0?0.2:-0.2))}},{passive:false});
+  let d=false,sx,sy,sl,st;
+  w.addEventListener('mousedown',e=>{if(zoomLevel<=1)return;d=true;w.querySelector('.mermaid').classList.add('dragging');sx=e.pageX;sy=e.pageY;sl=w.scrollLeft;st=w.scrollTop});
+  w.addEventListener('mousemove',e=>{if(!d)return;e.preventDefault();w.scrollLeft=sl-(e.pageX-sx);w.scrollTop=st-(e.pageY-sy)});
+  ['mouseup','mouseleave'].forEach(ev=>w.addEventListener(ev,()=>{d=false;var m=w.querySelector('.mermaid');if(m)m.classList.remove('dragging')}))});
+</script>
+</body></html>
