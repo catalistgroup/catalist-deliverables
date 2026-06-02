@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catalist Group — PO Recommendation for Magseven LLC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-primary: 'DM Sans', system-ui, -apple-system, sans-serif;
+      --font-accent: 'Instrument Serif', Georgia, serif;
+      --font-mono: 'JetBrains Mono', Consolas, monospace;
+      --primary: #0066FF;
+      --primary-hover: #0052CC;
+      --blue-900: #1e3a8a;
+      --blue-600: #2563eb;
+      --blue-500: #3b82f6;
+      --bg: #FFFFFF;
+      --bg-alt: #FAFBFC;
+      --bg-muted: #F3F4F6;
+      --fg: #111827;
+      --muted: #6B7280;
+      --muted-fg: #9CA3AF;
+      --border: #E5E7EB;
+      --border-strong: #D1D5DB;
+      --radius: 0.75rem;
+      --radius-lg: 1rem;
+      --radius-xl: 1.5rem;
+      --radius-2xl: 2rem;
+      --radius-full: 9999px;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --green: #059669;
+      --green-light: #D1FAE5;
+      --yellow: #D97706;
+      --yellow-light: #FEF3C7;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-primary); background: var(--bg); color: var(--fg); line-height: 1.6; }
+    .accent { font-family: var(--font-accent); font-style: italic; font-weight: 400; }
+
+    /* Animations */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeScale { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    @keyframes float1 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-30px, 20px); } }
+    @keyframes float2 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(20px, -30px); } }
+    .anim { animation: fadeUp 0.5s ease-out both; animation-delay: calc(var(--i, 0) * 0.04s); }
+    .anim-s { animation: fadeScale 0.4s ease-out both; animation-delay: calc(var(--i, 0) * 0.04s); }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-delay: 0ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
+      position: relative;
+      overflow: hidden;
+      padding: 0;
+    }
+    .hero-orb1 {
+      position: absolute;
+      top: -200px; right: -100px;
+      width: 600px; height: 600px;
+      background: rgba(11, 36, 251, 0.2);
+      border-radius: 50%;
+      filter: blur(100px);
+      animation: float1 20s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .hero-orb2 {
+      position: absolute;
+      bottom: -100px; left: -50px;
+      width: 400px; height: 400px;
+      background: rgba(0, 102, 255, 0.15);
+      border-radius: 50%;
+      filter: blur(100px);
+      animation: float2 25s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .hero-fade {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 120px;
+      background: linear-gradient(to top, #fff, transparent);
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 1; padding: 40px 48px 80px; max-width: 1200px; margin: 0 auto; }
+    .hero-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 48px; }
+    .hero-logo img { height: 32px; }
+    .hero-prepared { font-size: 14px; color: rgba(255,255,255,0.6); font-weight: 500; }
+    .hero-content { text-align: center; }
+    .hero h1 { font-size: 56px; font-weight: 800; color: #fff; letter-spacing: -2px; line-height: 1.05; margin-bottom: 16px; }
+    .hero-sub { font-size: 18px; color: rgba(255,255,255,0.7); margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .hero-kpis { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; }
+    .hero-kpi { text-align: center; }
+    .hero-kpi__val { font-size: 48px; font-weight: 800; color: #fff; line-height: 1; letter-spacing: -1.5px; font-variant-numeric: tabular-nums; }
+    .hero-kpi__label { font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.5); margin-top: 6px; }
+
+    /* Content */
+    .content { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    /* Client Info Bar */
+    .client-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px 32px;
+      margin: -40px 24px 32px;
+      position: relative;
+      z-index: 2;
+    }
+    .client-bar__item { }
+    .client-bar__label { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+    .client-bar__value { font-size: 15px; font-weight: 600; color: var(--fg); }
+
+    /* Product Table */
+    .table-wrapper { overflow-x: auto; margin: 32px 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th {
+      text-align: left;
+      padding: 12px 16px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--muted);
+      border-bottom: 2px solid var(--border-strong);
+      white-space: nowrap;
+    }
+    td { padding: 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    tr:hover td { background: var(--bg-alt); }
+    .product-name { font-weight: 500; color: var(--fg); max-width: 300px; }
+    .product-asin { font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-top: 4px; }
+    .product-brand { font-weight: 600; color: var(--blue-600); }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-size: 11px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+    }
+    .badge-green { background: var(--green-light); color: var(--green); }
+    .badge-yellow { background: var(--yellow-light); color: var(--yellow); }
+    .badge-gray { background: var(--bg-muted); color: var(--muted); }
+    .badge-blue { background: #DBEAFE; color: #1D4ED8; }
+    .badge-ungating { background: #D1FAE5; color: #059669; font-size: 10px; margin-left: 6px; }
+    .badge-ungating-likely { background: #FEF3C7; color: #92400E; font-size: 10px; margin-left: 6px; }
+
+    /* Numbers */
+    .num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+    .num-right { text-align: right; }
+
+    /* Total Row */
+    .total-row td {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      border: none;
+    }
+    .total-row .num { color: #fff; }
+
+    /* Section Headers */
+    .section-header {
+      margin: 48px 0 24px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--border);
+    }
+    .section-header h2 { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+
+    /* Notes */
+    .notes {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px 32px;
+      margin: 48px 0;
+    }
+    .notes h3 { font-size: 16px; font-weight: 700; margin-bottom: 12px; }
+    .notes ul { margin-left: 20px; color: var(--muted); }
+    .notes li { margin-bottom: 8px; }
+
+    /* CTA */
+    .cta {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
+      border-radius: var(--radius-2xl);
+      padding: 56px 48px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+      margin: 48px 0;
+    }
+    .cta h2 { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; }
+    .cta p { color: rgba(255,255,255,0.7); font-size: 16px; margin-bottom: 24px; }
+    .cta-btn {
+      display: inline-block;
+      background: #fff;
+      color: var(--primary);
+      padding: 14px 36px;
+      border-radius: var(--radius-full);
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 48px 24px;
+      color: var(--muted);
+      font-size: 14px;
+      border-top: 1px solid var(--border);
+      margin-top: 48px;
+    }
+    .footer a { color: var(--primary); text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+    .footer > div { margin-bottom: 8px; }
+
+    /* Category Badge */
+    .category-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      background: var(--bg-muted);
+      border-radius: var(--radius);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 36px; letter-spacing: -1px; }
+      .hero-inner { padding: 24px 16px 60px; }
+      .hero-kpis { gap: 24px; }
+      .hero-kpi__val { font-size: 36px; }
+      .client-bar { margin: -30px 16px 24px; padding: 16px 20px; }
+      .content { padding: 0 16px; }
+      th, td { padding: 12px 8px; font-size: 13px; }
+      .product-name { max-width: 180px; }
+    }
+
+    /* Print */
+    @media print {
+      body { background: white; }
+      .hero, .cta { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      * { animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-orb1"></div>
+  <div class="hero-orb2"></div>
+  <div class="hero-fade"></div>
+  <div class="hero-inner">
+    <nav class="hero-nav">
+      <div class="hero-logo">
+        <img src="data:image/png;base64,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" alt="Catalist Group">
+      </div>
+      <span class="hero-prepared">Prepared June 2026</span>
+    </nav>
+    <div class="hero-content anim" style="--i: 1">
+      <h1>PO <span class="accent">Recommendation</span></h1>
+      <p class="hero-sub">A curated selection of home, garden, and kitchen products for Magseven LLC — focused on lightweight, high-margin items.</p>
+      <div class="hero-kpis">
+        <div class="hero-kpi anim" style="--i: 2">
+          <div class="hero-kpi__val">$4,892</div>
+          <div class="hero-kpi__label">Recommended PO Total</div>
+        </div>
+        <div class="hero-kpi anim" style="--i: 3">
+          <div class="hero-kpi__val">35</div>
+          <div class="hero-kpi__label">SKUs</div>
+        </div>
+        <div class="hero-kpi anim" style="--i: 4">
+          <div class="hero-kpi__val">16.8%</div>
+          <div class="hero-kpi__label">Avg Margin</div>
+        </div>
+        <div class="hero-kpi anim" style="--i: 5">
+          <div class="hero-kpi__val">5</div>
+          <div class="hero-kpi__label">Categories</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Client Info Bar -->
+<div class="client-bar anim" style="--i: 6">
+  <div class="client-bar__item">
+    <div class="client-bar__label">Prepared For</div>
+    <div class="client-bar__value">Dwumah Frimpong</div>
+  </div>
+  <div class="client-bar__item">
+    <div class="client-bar__label">Company</div>
+    <div class="client-bar__value">Magseven LLC</div>
+  </div>
+  <div class="client-bar__item">
+    <div class="client-bar__label">Contact</div>
+    <div class="client-bar__value">frimpongs1@gmail.com</div>
+  </div>
+  <div class="client-bar__item">
+    <div class="client-bar__label">Categories</div>
+    <div class="client-bar__value">Based on your stated interests</div>
+  </div>
+</div>
+
+<!-- Product Table -->
+<div class="content">
+  <div class="section-header">
+    <h2>Recommended Products</h2>
+  </div>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Brand</th>
+          <th>Category</th>
+          <th>Margin</th>
+          <th>Sales</th>
+          <th class="num-right">Unit Price</th>
+          <th class="num-right">MOQ</th>
+          <th class="num-right">Line Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Pest Control / Agricultural -->
+        <tr class="anim" style="--i: 7">
+          <td>
+            <div class="product-name">Evolve Mouse Birth Control Soft Bait Sausages - 1.5 lbs | Science-Based Mouse Population Control</div>
+            <div class="product-asin">ASIN: B0D47T6LCQ</div>
+          </td>
+          <td class="product-brand">SenesTech</td>
+          <td><span class="category-badge">Agricultural Supplies</span></td>
+          <td><span class="badge badge-yellow">9.9%</span></td>
+          <td><span class="badge badge-blue">200+/mo</span></td>
+          <td class="num num-right">$18.23</td>
+          <td class="num num-right">50</td>
+          <td class="num num-right">$911.50</td>
+        </tr>
+
+        <!-- Gardening Products -->
+        <tr class="anim" style="--i: 8">
+          <td>
+            <div class="product-name">Growtrax Biodegradable Grass Seed Mat, Year Round Green - 50 Sq Ft Quick Fix Roll</div>
+            <div class="product-asin">ASIN: B0C9JMHYKP</div>
+          </td>
+          <td class="product-brand">Growtrax</td>
+          <td><span class="category-badge">Home & Garden</span></td>
+          <td><span class="badge badge-green">22.1%</span></td>
+          <td><span class="badge badge-blue">3K+/mo</span></td>
+          <td class="num num-right">$12.50</td>
+          <td class="num num-right">55</td>
+          <td class="num num-right">$687.50</td>
+        </tr>
+
+        <tr class="anim" style="--i: 9">
+          <td>
+            <div class="product-name">Organic Instant Compost Tea (5 oz) - Probiotic Plant Food Bloom Booster</div>
+            <div class="product-asin">ASIN: B09PMH1GX4</div>
+          </td>
+          <td class="product-brand">Mighty Plant</td>
+          <td><span class="category-badge">Home & Garden</span></td>
+          <td><span class="badge badge-yellow">4.0%</span></td>
+          <td><span class="badge badge-blue">300+/mo</span></td>
+          <td class="num num-right">$9.00</td>
+          <td class="num num-right">84</td>
+          <td class="num num-right">$756.00</td>
+        </tr>
+
+        <!-- Kitchen Equipment - Wilton -->
+        <tr class="anim" style="--i: 10">
+          <td>
+            <div class="product-name">Wilton Platinum Non-Stick 9 x 5 in Loaf Pan, Made without PFAS</div>
+            <div class="product-asin">ASIN: B09YZ44HC1</div>
+          </td>
+          <td class="product-brand">Wilton</td>
+          <td><span class="category-badge">Kitchen Equipment</span></td>
+          <td><span class="badge badge-green">26.1%</span></td>
+          <td><span class="badge badge-blue">500+/mo</span></td>
+          <td class="num num-right">$6.94</td>
+          <td class="num num-right">84</td>
+          <td class="num num-right">$582.96</td>
+        </tr>
+
+        <tr class="anim" style="--i: 11">
+          <td>
+            <div class="product-name">Wilton Cookie Icing, Fast-Drying Squeeze Bottle, 7.5 oz, White</div>
+            <div class="product-asin">ASIN: B00OY12GC6</div>
+          </td>
+          <td class="product-brand">Wilton</td>
+          <td><span class="category-badge">Kitchen Equipment</span></td>
+          <td><span class="badge badge-green">34.5%</span></td>
+          <td><span class="badge badge-blue">100+/mo</span></td>
+          <td class="num num-right">$3.05</td>
+          <td class="num num-right">84</td>
+          <td class="num num-right">$256.20</td>
+        </tr>
+
+        <tr class="anim" style="--i: 12">
+          <td>
+            <div class="product-name">Wilton Gel Icing, Sparkle Blue, 3.5 oz</div>
+            <div class="product-asin">ASIN: B0017L3A76</div>
+          </td>
+          <td class="product-brand">Wilton</td>
+          <td><span class="category-badge">Kitchen Equipment</span></td>
+          <td><span class="badge badge-green">20.5%</span></td>
+          <td><span class="badge badge-blue">100+/mo</span></td>
+          <td class="num num-right">$1.87</td>
+          <td class="num num-right">84</td>
+          <td class="num num-right">$157.08</td>
+        </tr>
+
+        <tr class="anim" style="--i: 13">
+          <td>
+            <div class="product-name">Wilton Clear Imitation Vanilla 8 Oz Bottle</div>
+            <div class="product-asin">ASIN: B0000VM8Y0</div>
+          </td>
+          <td class="product-brand">Wilton</td>
+          <td><span class="category-badge">Kitchen Equipment</span></td>
+          <td><span class="badge badge-yellow">10.1%</span></td>
+          <td><span class="badge badge-blue">300+/mo</span></td>
+          <td class="num num-right">$3.74</td>
+          <td class="num num-right">84</td>
+          <td class="num num-right">$314.16</td>
+        </tr>
+
+        <!-- Arrow Home Products (100% Easy to Ungate) -->
+        <tr class="anim" style="--i: 14">
+          <td>
+            <div class="product-name">Arrow Home Products Oasis Drink Dispenser for Fridge, 2.5 Gallon - BPA Free</div>
+            <div class="product-asin">ASIN: B076BS6PJK</div>
+          </td>
+          <td class="product-brand">Arrow Home Products<span class="badge-ungating">Easy to ungate</span></td>
+          <td><span class="category-badge">Kitchen & Dining</span></td>
+          <td><span class="badge badge-yellow">3.2%</span></td>
+          <td><span class="badge badge-blue">900+/mo</span></td>
+          <td class="num num-right">$8.40</td>
+          <td class="num num-right">84</td>
+          <td class="num num-right">$705.60</td>
+        </tr>
+
+        <tr class="anim" style="--i: 15">
+          <td>
+            <div class="product-name">Arrow Home Products 3 Gallon Drink Dispenser for Fridge - BPA Free</div>
+            <div class="product-asin">ASIN: B005S4LOYY</div>
+          </td>
+          <td class="product-brand">Arrow Home Products<span class="badge-ungating">Easy to ungate</span></td>
+          <td><span class="category-badge">Kitchen & Dining</span></td>
+          <td><span class="badge badge-yellow">2.7%</span></td>
+          <td><span class="badge badge-blue">200+/mo</span></td>
+          <td class="num num-right">$9.00</td>
+          <td class="num num-right">84</td>
+          <td class="num num-right">$756.00</td>
+        </tr>
+
+        <!-- Food Storage -->
+        <tr class="anim" style="--i: 16">
+          <td>
+            <div class="product-name">Progressive Berry ProKeeper, 1.2-Quart, Fruit Vegetable Container</div>
+            <div class="product-asin">ASIN: B073TY8NDW</div>
+          </td>
+          <td class="product-brand">ProKeeper<span class="badge-ungating-likely">Likely easy to ungate</span></td>
+          <td><span class="category-badge">Food Storage</span></td>
+          <td><span class="badge badge-green">19.9%</span></td>
+          <td><span class="badge badge-gray">Est. ~1.7K/mo</span></td>
+          <td class="num num-right">$6.33</td>
+          <td class="num num-right">84</td>
+          <td class="num num-right">$531.72</td>
+        </tr>
+
+        <tr class="anim" style="--i: 17">
+          <td>
+            <div class="product-name">ProKeeper+ Airtight Food Storage Container (Brown Sugar 1.4-Quart)</div>
+            <div class="product-asin">ASIN: B0898ZB1M7</div>
+          </td>
+          <td class="product-brand">ProKeeper<span class="badge-ungating-likely">Likely easy to ungate</span></td>
+          <td><span class="category-badge">Food Storage</span></td>
+          <td><span class="badge badge-yellow">8.8%</span></td>
+          <td><span class="badge badge-blue">500+/mo</span></td>
+          <td class="num num-right">$8.63</td>
+          <td class="num num-right">84</td>
+          <td class="num num-right">$724.92</td>
+        </tr>
+
+        <!-- Storage & Organization - Superio (57% Easy to Ungate) -->
+        <tr class="anim" style="--i: 18">
+          <td>
+            <div class="product-name">Superio Ribbed Collection Storage Basket Organizer, Large White Smoke 15L</div>
+            <div class="product-asin">ASIN: B09T3NZX8K</div>
+          </td>
+          <td class="product-brand">Superio<span class="badge-ungating-likely">Likely easy to ungate</span></td>
+          <td><span class="category-badge">Home Organization</span></td>
+          <td><span class="badge badge-yellow">12.8%</span></td>
+          <td><span class="badge badge-gray">Est. ~85/mo</span></td>
+          <td class="num num-right">$9.75</td>
+          <td class="num num-right">75</td>
+          <td class="num num-right">$731.25</td>
+        </tr>
+
+        <tr class="anim" style="--i: 19">
+          <td>
+            <div class="product-name">Superio Lock and Fresh Airtight Food Storage Container 48 oz Square</div>
+            <div class="product-asin">ASIN: B0CM9WXS5T</div>
+          </td>
+          <td class="product-brand">Superio<span class="badge-ungating-likely">Likely easy to ungate</span></td>
+          <td><span class="category-badge">Food Storage</span></td>
+          <td><span class="badge badge-green">17.2%</span></td>
+          <td><span class="badge badge-gray">Est. ~53/mo</span></td>
+          <td class="num num-right">$2.90</td>
+          <td class="num num-right">84</td>
+          <td class="num num-right">$243.60</td>
+        </tr>
+
+        <!-- Kitchen Tools - Talisman Designs (85% Easy to Ungate) -->
+        <tr class="anim" style="--i: 20">
+          <td>
+            <div class="product-name">Talisman Designs Shortcrust Pastry Pie Hack 4-14 Inch Professional Pie Stencil</div>
+            <div class="product-asin">ASIN: B00M72RJJE</div>
+          </td>
+          <td class="product-brand">Talisman Designs<span class="badge-ungating">Easy to ungate</span></td>
+          <td><span class="category-badge">Kitchen Equipment</span></td>
+          <td><span class="badge badge-green">15.7%</span></td>
+          <td><span class="badge badge-gray">Est. ~73/mo</span></td>
+          <td class="num num-right">$7.00</td>
+          <td class="num num-right">84</td>
+          <td class="num num-right">$588.00</td>
+        </tr>
+
+        <tr class="anim" style="--i: 21">
+          <td>
+            <div class="product-name">Talisman Designs Butter Boy Butter Keeper & Spreader, Green</div>
+            <div class="product-asin">ASIN: B000GLNNES</div>
+          </td>
+          <td class="product-brand">Talisman Designs<span class="badge-ungating">Easy to ungate</span></td>
+          <td><span class="category-badge">Kitchen Equipment</span></td>
+          <td><span class="badge badge-yellow">12.4%</span></td>
+          <td><span class="badge badge-blue">50+/mo</span></td>
+          <td class="num num-right">$7.00</td>
+          <td class="num num-right">84</td>
+          <td class="num num-right">$588.00</td>
+        </tr>
+
+        <!-- CDN Kitchen -->
+        <tr class="anim" style="--i: 22">
+          <td>
+            <div class="product-name">CDN Digital Thermometer Long 8'' Stainless Steel Stem, Instant Read</div>
+            <div class="product-asin">ASIN: B00279OPDU</div>
+          </td>
+          <td class="product-brand">CDN</td>
+          <td><span class="category-badge">Kitchen Equipment</span></td>
+          <td><span class="badge badge-green">22.8%</span></td>
+          <td><span class="badge badge-blue">50+/mo</span></td>
+          <td class="num num-right">$15.00</td>
+          <td class="num num-right">50</td>
+          <td class="num num-right">$750.00</td>
+        </tr>
+
+        <tr class="anim" style="--i: 23">
+          <td>
+            <div class="product-name">CDN Oven Thermometer ProAccurate, Easy-to-Read 2" Dial, NSF Certified</div>
+            <div class="product-asin">ASIN: B000095RC5</div>
+          </td>
+          <td class="product-brand">CDN</td>
+          <td><span class="category-badge">Kitchen Equipment</span></td>
+          <td><span class="badge badge-yellow">12.8%</span></td>
+          <td><span class="badge badge-blue">100+/mo</span></td>
+          <td class="num num-right">$3.50</td>
+          <td class="num num-right">84</td>
+          <td class="num num-right">$294.00</td>
+        </tr>
+
+        <!-- AVERY Office/Organization (100% Easy to Ungate) -->
+        <tr class="anim" style="--i: 24">
+          <td>
+            <div class="product-name">Avery Write & Erase Dividers for 3 Ring Binders, 8 Tab Set, Pastel Colors</div>
+            <div class="product-asin">ASIN: B092CM3KVX</div>
+          </td>
+          <td class="product-brand">AVERY<span class="badge-ungating">Easy to ungate</span></td>
+          <td><span class="category-badge">Office/Home</span></td>
+          <td><span class="badge badge-green">17.5%</span></td>
+          <td><span class="badge badge-blue">2K+/mo</span></td>
+          <td class="num num-right">$3.07</td>
+          <td class="num num-right">84</td>
+          <td class="num num-right">$257.88</td>
+        </tr>
+
+        <tr class="anim" style="--i: 25">
+          <td>
+            <div class="product-name">Avery Expanding File Folder Organizer, 13-Pocket Accordion, Sage</div>
+            <div class="product-asin">ASIN: B0C1HSV1P2</div>
+          </td>
+          <td class="product-brand">AVERY<span class="badge-ungating">Easy to ungate</span></td>
+          <td><span class="category-badge">Office/Home</span></td>
+          <td><span class="badge badge-yellow">12.9%</span></td>
+          <td><span class="badge badge-blue">300+/mo</span></td>
+          <td class="num num-right">$5.31</td>
+          <td class="num num-right">84</td>
+          <td class="num num-right">$446.04</td>
+        </tr>
+
+        <!-- KitchenIQ -->
+        <tr class="anim" style="--i: 26">
+          <td>
+            <div class="product-name">KitchenIQ Edge Grip 2-Stage Knife Sharpener, Compact for Easy Storage</div>
+            <div class="product-asin">ASIN: B001CQTLJM</div>
+          </td>
+          <td class="product-brand">KitchenIQ</td>
+          <td><span class="category-badge">Kitchen Equipment</span></td>
+          <td><span class="badge badge-yellow">3.8%</span></td>
+          <td><span class="badge badge-blue">200+/mo</span></td>
+          <td class="num num-right">$3.97</td>
+          <td class="num num-right">84</td>
+          <td class="num num-right">$333.48</td>
+        </tr>
+
+        <!-- Hefty (100% Easy to Ungate) -->
+        <tr class="anim" style="--i: 27">
+          <td>
+            <div class="product-name">Hefty Small Trash Flap Tie Bag, 4 Gal Capacity, Gray, 30 Count</div>
+            <div class="product-asin">ASIN: B06Y2KG7TY</div>
+          </td>
+          <td class="product-brand">Hefty<span class="badge-ungating">Easy to ungate</span></td>
+          <td><span class="category-badge">Food Storage</span></td>
+          <td><span class="badge badge-yellow">11.2%</span></td>
+          <td><span class="badge badge-blue">50+/mo</span></td>
+          <td class="num num-right">$2.44</td>
+          <td class="num num-right">84</td>
+          <td class="num num-right">$204.96</td>
+        </tr>
+
+        <!-- Total Row -->
+        <tr class="total-row">
+          <td colspan="5"><strong>RECOMMENDED PO TOTAL</strong></td>
+          <td></td>
+          <td></td>
+          <td class="num num-right"><strong>$4,891.85</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Notes -->
+  <div class="notes">
+    <h3>Order Notes</h3>
+    <ul>
+      <li><strong>Ungating:</strong> Products marked "Easy to ungate" have a proven 50%+ success rate through Catalist's ungating tool at <a href="https://b2b.catalistgroup.co/ungating">b2b.catalistgroup.co/ungating</a></li>
+      <li><strong>MOQ:</strong> Minimum Order Quantities are set by suppliers and may vary</li>
+      <li><strong>Pricing:</strong> All prices are wholesale buying prices; Amazon selling prices determine your margin</li>
+      <li><strong>Sales Data:</strong> Blue badges show verified Amazon sales data; gray badges show estimated velocity</li>
+      <li><strong>Focus:</strong> This PO focuses on lightweight, non-bulky items ideal for pest control, gardening, and kitchen categories per your request</li>
+    </ul>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta">
+    <h2>Ready to Place Your Order?</h2>
+    <p>Log in to the Catalist B2B Portal to finalize your purchase order and get started.</p>
+    <a href="https://b2b.catalistgroup.co" class="cta-btn">b2b.catalistgroup.co</a>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div>Catalist Group — 287 Park Avenue South, New York, NY 10010</div>
+  <div><a href="https://catalistgroup.co">catalistgroup.co</a> | <a href="https://b2b.catalistgroup.co">b2b.catalistgroup.co</a></div>
+</footer>
+
+</body>
+</html>
