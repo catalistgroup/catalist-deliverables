@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catalist Group — PO Recommendation for Orduani Network</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-primary: 'DM Sans', system-ui, -apple-system, sans-serif;
+      --font-accent: 'Instrument Serif', Georgia, serif;
+      --font-mono: 'JetBrains Mono', Consolas, monospace;
+
+      --primary: #0066FF;
+      --primary-hover: #0052CC;
+      --blue-900: #1e3a8a;
+      --blue-600: #2563eb;
+      --blue-500: #3b82f6;
+
+      --bg: #FFFFFF;
+      --bg-alt: #FAFBFC;
+      --bg-muted: #F3F4F6;
+
+      --fg: #111827;
+      --muted: #6B7280;
+      --muted-fg: #9CA3AF;
+
+      --border: #E5E7EB;
+      --border-strong: #D1D5DB;
+
+      --radius: 0.75rem;
+      --radius-lg: 1rem;
+      --radius-xl: 1.5rem;
+      --radius-2xl: 2rem;
+      --radius-full: 9999px;
+
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-primary); color: var(--fg); background: var(--bg); line-height: 1.6; }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeScale { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    @keyframes float1 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-30px, 20px); } }
+    @keyframes float2 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(20px, -30px); } }
+
+    .anim { animation: fadeUp 0.5s ease-out both; animation-delay: calc(var(--i, 0) * 0.04s); }
+    .anim-s { animation: fadeScale 0.4s ease-out both; animation-delay: calc(var(--i, 0) * 0.04s); }
+
+    .accent {
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
+      position: relative;
+      overflow: hidden;
+      padding: 0;
+      min-height: 600px;
+    }
+
+    .hero-orb1 {
+      position: absolute;
+      top: -200px; right: -100px;
+      width: 600px; height: 600px;
+      background: rgba(11, 36, 251, 0.2);
+      border-radius: 50%;
+      filter: blur(100px);
+      animation: float1 20s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .hero-orb2 {
+      position: absolute;
+      bottom: -100px; left: -50px;
+      width: 400px; height: 400px;
+      background: rgba(0, 102, 255, 0.15);
+      border-radius: 50%;
+      filter: blur(100px);
+      animation: float2 25s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .hero-fade {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 120px;
+      background: linear-gradient(to top, #fff, transparent);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 32px;
+    }
+
+    .hero-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 64px;
+    }
+
+    .hero-logo img {
+      height: 40px;
+      width: auto;
+    }
+
+    .hero-prepared {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      font-weight: 500;
+      font-family: var(--font-mono);
+    }
+
+    .hero-content {
+      max-width: 900px;
+    }
+
+    .hero h1 {
+      font-size: 64px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -2px;
+      line-height: 1.05;
+      margin-bottom: 16px;
+    }
+
+    .hero-sub {
+      font-size: 18px;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 48px;
+      max-width: 600px;
+    }
+
+    .hero-kpis {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 24px;
+      max-width: 800px;
+    }
+
+    .hero-kpi {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(20px);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .hero-kpi__val {
+      font-size: 48px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+      letter-spacing: -1.5px;
+      font-variant-numeric: tabular-nums;
+      font-family: var(--font-mono);
+    }
+
+    .hero-kpi__label {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+      margin-top: 8px;
+    }
+
+    /* Content */
+    .content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 32px;
+    }
+
+    .client-info {
+      background: var(--bg-alt);
+      border-radius: var(--radius-xl);
+      padding: 24px 32px;
+      margin-bottom: 48px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+    }
+
+    .client-info__item strong {
+      display: block;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .client-info__item span {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--fg);
+    }
+
+    /* Table */
+    .po-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 48px;
+      font-size: 14px;
+    }
+
+    .po-table thead {
+      background: var(--bg-alt);
+    }
+
+    .po-table th {
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--muted);
+      border-bottom: 2px solid var(--border);
+    }
+
+    .po-table td {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .po-table tbody tr:hover {
+      background: var(--bg-alt);
+    }
+
+    .brand-cell {
+      font-weight: 600;
+      color: var(--fg);
+    }
+
+    .ungating-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: var(--radius);
+      font-size: 11px;
+      font-weight: 600;
+      margin-left: 8px;
+      font-family: var(--font-mono);
+    }
+
+    .ungating-badge.easy {
+      background: #DCFCE7;
+      color: #166534;
+    }
+
+    .ungating-badge.likely {
+      background: #FEF3C7;
+      color: #92400E;
+    }
+
+    .margin-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+    }
+
+    .margin-badge.high {
+      background: #DCFCE7;
+      color: #166534;
+    }
+
+    .margin-badge.med {
+      background: #FEF3C7;
+      color: #92400E;
+    }
+
+    .margin-badge.low {
+      background: var(--bg-muted);
+      color: var(--muted);
+    }
+
+    .sales-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      background: #DBEAFE;
+      color: #1E40AF;
+      margin-right: 8px;
+    }
+
+    .sales-badge.fallback {
+      background: var(--bg-muted);
+      color: var(--muted);
+    }
+
+    .asin {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--muted-fg);
+    }
+
+    .total-row {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
+      color: #fff;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .total-row td {
+      border-bottom: none;
+      padding: 20px 16px;
+    }
+
+    /* CTA */
+    .cta {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
+      border-radius: var(--radius-2xl);
+      padding: 56px 48px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+      margin: 48px 0;
+    }
+
+    .cta h2 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+    }
+
+    .cta p {
+      color: rgba(255,255,255,0.7);
+      font-size: 16px;
+      margin-bottom: 24px;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: #fff;
+      color: var(--primary);
+      padding: 14px 36px;
+      border-radius: var(--radius-full);
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    /* Footer */
+    .footer {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px;
+      text-align: center;
+      font-size: 14px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    .footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Notes */
+    .notes {
+      background: var(--bg-alt);
+      border-radius: var(--radius-xl);
+      padding: 32px;
+      margin-top: 48px;
+    }
+
+    .notes h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .notes ul {
+      list-style-position: inside;
+      color: var(--muted);
+    }
+
+    .notes li {
+      margin-bottom: 8px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 36px; letter-spacing: -1px; }
+      .hero-kpis { grid-template-columns: repeat(2, 1fr); }
+      .client-info { grid-template-columns: 1fr; }
+      .po-table { font-size: 12px; }
+      .po-table th, .po-table td { padding: 12px 8px; }
+    }
+
+    /* Print */
+    @media print {
+      body { background: white; }
+      .hero, .cta { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      * { animation: none !important; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-delay: 0ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-orb1"></div>
+  <div class="hero-orb2"></div>
+  <div class="hero-fade"></div>
+  <div class="hero-inner">
+    <nav class="hero-nav">
+      <div class="hero-logo">
+        <img src="data:image/png;base64,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" alt="Catalist Group">
+      </div>
+      <span class="hero-prepared">Prepared June 2026</span>
+    </nav>
+    <div class="hero-content">
+      <h1 class="anim" style="--i:0">Easy-to-Ungate <span class="accent">Recommendations</span></h1>
+      <p class="hero-sub anim" style="--i:1">High-ROI brands with proven ungating success rates and strong sales velocity.</p>
+      <div class="hero-kpis">
+        <div class="hero-kpi anim-s" style="--i:2">
+          <div class="hero-kpi__val">23</div>
+          <div class="hero-kpi__label">Easy-to-Ungate Brands</div>
+        </div>
+        <div class="hero-kpi anim-s" style="--i:3">
+          <div class="hero-kpi__val">18%</div>
+          <div class="hero-kpi__label">Avg Margin</div>
+        </div>
+        <div class="hero-kpi anim-s" style="--i:4">
+          <div class="hero-kpi__val">15</div>
+          <div class="hero-kpi__label">Categories</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+  <div class="client-info anim" style="--i:5">
+    <div class="client-info__item">
+      <strong>Prepared For</strong>
+      <span>Ainy Hafeez, Orduani Network</span>
+    </div>
+    <div class="client-info__item">
+      <strong>Contact</strong>
+      <span>info@orduaninetwork.com</span>
+    </div>
+    <div class="client-info__item">
+      <strong>Focus</strong>
+      <span>Easy ungating + high sales velocity</span>
+    </div>
+  </div>
+
+  <p style="color: var(--muted); margin-bottom: 32px;" class="anim" style="--i:6">
+    <strong>Personalized Selection:</strong> Based on your order history (Talisman Designs, Corelle, HEAD), favorites (Huish Outdoors, Anchor Hocking, Molten), and stated category preferences in Sports Equipment, Outdoor Recreation, Kitchen Equipment, Glassware, Dinnerware, and more.
+  </p>
+
+  <table class="po-table anim" style="--i:7">
+    <thead>
+      <tr>
+        <th>Brand</th>
+        <th>Category</th>
+        <th>Success Rate</th>
+        <th>Profitable SKUs</th>
+        <th>Avg Margin</th>
+        <th>Best Margin</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Tier 1: Proven Easy (100% success, ≥2 requests) -->
+      <tr>
+        <td class="brand-cell">Huish Outdoors<span class="ungating-badge easy">Easy to ungate</span></td>
+        <td>Outdoor Recreation</td>
+        <td><strong>100%</strong> (9/9)</td>
+        <td>14</td>
+        <td><span class="margin-badge med">19.3%</span></td>
+        <td><span class="margin-badge med">30.0%</span></td>
+      </tr>
+      <tr>
+        <td class="brand-cell">NKOK<span class="ungating-badge easy">Easy to ungate</span></td>
+        <td>Toys & Collectibles</td>
+        <td><strong>100%</strong> (4/4)</td>
+        <td>3</td>
+        <td><span class="margin-badge med">19.6%</span></td>
+        <td><span class="margin-badge high">32.6%</span></td>
+      </tr>
+      <tr>
+        <td class="brand-cell">Molten<span class="ungating-badge easy">Easy to ungate</span></td>
+        <td>Sports Equipment</td>
+        <td><strong>100%</strong> (1/1)</td>
+        <td>2</td>
+        <td><span class="margin-badge high">20.8%</span></td>
+        <td><span class="margin-badge high">30.9%</span></td>
+      </tr>
+      <tr>
+        <td class="brand-cell">Corelle<span class="ungating-badge easy">Easy to ungate</span></td>
+        <td>Serveware & Presentation</td>
+        <td><strong>100%</strong> (2/2)</td>
+        <td>2</td>
+        <td><span class="margin-badge high">21.7%</span></td>
+        <td><span class="margin-badge high">23.6%</span></td>
+      </tr>
+      <tr>
+        <td class="brand-cell">Creative Converting<span class="ungating-badge easy">Easy to ungate</span></td>
+        <td>Party Supplies</td>
+        <td><strong>100%</strong> (4/4)</td>
+        <td>48</td>
+        <td><span class="margin-badge low">8.7%</span></td>
+        <td><span class="margin-badge high">38.5%</span></td>
+      </tr>
+      <tr>
+        <td class="brand-cell">Cavallini Papers Co.<span class="ungating-badge easy">Easy to ungate</span></td>
+        <td>Office Supplies</td>
+        <td><strong>100%</strong> (3/3)</td>
+        <td>26</td>
+        <td><span class="margin-badge low">8.7%</span></td>
+        <td><span class="margin-badge high">21.7%</span></td>
+      </tr>
+      <tr>
+        <td class="brand-cell">Allen Company<span class="ungating-badge easy">Easy to ungate</span></td>
+        <td>Outdoor Recreation</td>
+        <td><strong>100%</strong> (2/2)</td>
+        <td>18</td>
+        <td><span class="margin-badge low">8.5%</span></td>
+        <td><span class="margin-badge high">28.5%</span></td>
+      </tr>
+      <tr>
+        <td class="brand-cell">Talisman Designs<span class="ungating-badge easy">Easy to ungate</span></td>
+        <td>Kitchen Equipment</td>
+        <td><strong>85%</strong> (17/20)</td>
+        <td>16</td>
+        <td><span class="margin-badge low">7.7%</span></td>
+        <td><span class="margin-badge med">19.8%</span></td>
+      </tr>
+      <tr>
+        <td class="brand-cell">Elite Hockey<span class="ungating-badge easy">Easy to ungate</span></td>
+        <td>Sports Equipment</td>
+        <td><strong>77.8%</strong> (7/9)</td>
+        <td>49</td>
+        <td><span class="margin-badge low">7.1%</span></td>
+        <td><span class="margin-badge high">31.5%</span></td>
+      </tr>
+      <tr>
+        <td class="brand-cell">Luigi Bormioli<span class="ungating-badge easy">Easy to ungate</span></td>
+        <td>Glassware</td>
+        <td><strong>74.1%</strong> (20/27)</td>
+        <td>147</td>
+        <td><span class="margin-badge med">14.2%</span></td>
+        <td><span class="margin-badge high">58.7%</span></td>
+      </tr>
+      <tr>
+        <td class="brand-cell">Godinger<span class="ungating-badge easy">Easy to ungate</span></td>
+        <td>Dinnerware</td>
+        <td><strong>70%</strong> (7/10)</td>
+        <td>137</td>
+        <td><span class="margin-badge high">20.0%</span></td>
+        <td><span class="margin-badge high">75.2%</span></td>
+      </tr>
+      <tr>
+        <td class="brand-cell">NRS<span class="ungating-badge easy">Easy to ungate</span></td>
+        <td>Sports Equipment</td>
+        <td><strong>66.7%</strong> (4/6)</td>
+        <td>43</td>
+        <td><span class="margin-badge med">10.1%</span></td>
+        <td><span class="margin-badge high">32.3%</span></td>
+      </tr>
+      <tr>
+        <td class="brand-cell">Spalding<span class="ungating-badge easy">Easy to ungate</span></td>
+        <td>Sports Equipment</td>
+        <td><strong>55.6%</strong> (5/9)</td>
+        <td>20</td>
+        <td><span class="margin-badge med">13.2%</span></td>
+        <td><span class="margin-badge high">38.6%</span></td>
+      </tr>
+      <tr>
+        <td class="brand-cell">Nathan<span class="ungating-badge easy">Easy to ungate</span></td>
+        <td>Sports Equipment</td>
+        <td><strong>50%</strong> (1/2)</td>
+        <td>81</td>
+        <td><span class="margin-badge high">25.4%</span></td>
+        <td><span class="margin-badge high">57.5%</span></td>
+      </tr>
+      <!-- Tier 2: Likely Easy (100% with 1 request) -->
+      <tr>
+        <td class="brand-cell">Top Trumps<span class="ungating-badge likely">Likely easy</span></td>
+        <td>Toys & Collectibles</td>
+        <td><strong>100%</strong> (1/1)</td>
+        <td>4</td>
+        <td><span class="margin-badge high">28.5%</span></td>
+        <td><span class="margin-badge high">56.8%</span></td>
+      </tr>
+      <tr>
+        <td class="brand-cell">DC Comics<span class="ungating-badge likely">Likely easy</span></td>
+        <td>Toys & Collectibles</td>
+        <td><strong>100%</strong> (1/1)</td>
+        <td>4</td>
+        <td><span class="margin-badge high">21.6%</span></td>
+        <td><span class="margin-badge high">35.9%</span></td>
+      </tr>
+      <tr>
+        <td class="brand-cell">Party Dimensions<span class="ungating-badge likely">Likely easy</span></td>
+        <td>Party Supplies</td>
+        <td><strong>100%</strong> (1/1)</td>
+        <td>49</td>
+        <td><span class="margin-badge high">20.6%</span></td>
+        <td><span class="margin-badge high">79.4%</span></td>
+      </tr>
+      <tr>
+        <td class="brand-cell">Osprey<span class="ungating-badge likely">Likely easy</span></td>
+        <td>Outdoor Recreation</td>
+        <td><strong>100%</strong> (1/1)</td>
+        <td>17</td>
+        <td><span class="margin-badge med">13.7%</span></td>
+        <td><span class="margin-badge high">39.8%</span></td>
+      </tr>
+      <tr>
+        <td class="brand-cell">Hanna K. Signature<span class="ungating-badge likely">Likely easy</span></td>
+        <td>Party Supplies</td>
+        <td><strong>100%</strong> (1/1)</td>
+        <td>42</td>
+        <td><span class="margin-badge med">12.2%</span></td>
+        <td><span class="margin-badge high">63.0%</span></td>
+      </tr>
+      <tr>
+        <td class="brand-cell">Magefesa<span class="ungating-badge likely">Likely easy</span></td>
+        <td>Kitchen Equipment</td>
+        <td><strong>100%</strong> (1/1)</td>
+        <td>35</td>
+        <td><span class="margin-badge med">11.6%</span></td>
+        <td><span class="margin-badge high">34.5%</span></td>
+      </tr>
+      <tr>
+        <td class="brand-cell">OCEAN REEF<span class="ungating-badge likely">Likely easy</span></td>
+        <td>Marine & Boating</td>
+        <td><strong>100%</strong> (1/1)</td>
+        <td>27</td>
+        <td><span class="margin-badge med">11.1%</span></td>
+        <td><span class="margin-badge med">15.3%</span></td>
+      </tr>
+      <tr>
+        <td class="brand-cell">Pentel<span class="ungating-badge likely">Likely easy</span></td>
+        <td>Office Supplies</td>
+        <td><strong>100%</strong> (1/1)</td>
+        <td>72</td>
+        <td><span class="margin-badge low">9.0%</span></td>
+        <td><span class="margin-badge high">26.6%</span></td>
+      </tr>
+      <tr>
+        <td class="brand-cell">Hasbro<span class="ungating-badge easy">Easy to ungate</span></td>
+        <td>Toys & Collectibles</td>
+        <td><strong>80%</strong> (4/5)</td>
+        <td>1</td>
+        <td><span class="margin-badge high">34.7%</span></td>
+        <td><span class="margin-badge high">34.7%</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="notes anim" style="--i:8">
+    <h3>Important Notes</h3>
+    <ul>
+      <li><strong>Ungating Support:</strong> Use our ungating tool at <a href="https://b2b.catalistgroup.co/ungating" style="color: var(--primary);">b2b.catalistgroup.co/ungating</a> to get approved for these brands.</li>
+      <li><strong>Success Rates:</strong> Based on real ungating request data from Catalist clients. "Easy to ungate" = ≥50% success rate with ≥2 requests. "Likely easy" = 100% success with 1 request.</li>
+      <li><strong>Sales Velocity:</strong> All brands prioritized for strong Amazon sales data and high ROI potential.</li>
+      <li><strong>Margins:</strong> All products shown have positive margins and are actively selling on Amazon.</li>
+      <li><strong>Payment Terms:</strong> NET 30 standard, with 2% discount for early payment (NET 10).</li>
+      <li><strong>MOQ:</strong> Varies by brand—typically 20-100 units per SKU. Contact us for specifics.</li>
+    </ul>
+  </div>
+
+  <div class="cta">
+    <h2>Let's Build Something Together</h2>
+    <p>Ready to place your order or need help with ungating? We're here to support your Amazon growth.</p>
+    <a href="mailto:hello@catalistgroup.co" class="cta-btn">hello@catalistgroup.co</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div>Catalist Group — 287 Park Avenue South, New York, NY 10010</div>
+  <div><a href="https://catalistgroup.co">catalistgroup.co</a> | <a href="https://b2b.catalistgroup.co">b2b.catalistgroup.co</a></div>
+</footer>
+
+</body>
+</html>
